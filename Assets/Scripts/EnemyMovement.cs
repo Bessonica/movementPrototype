@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
+
 public class EnemyMovement : MonoBehaviour
 {
     public float speed = 1f;
@@ -14,6 +18,10 @@ public class EnemyMovement : MonoBehaviour
 
     private int wavePointIntIndex;
     
+    //   really fucking important
+    // last waypoint should be in same place as first waypoint of NEW way
+    // way length needs to be >= 2
+
     
 
     // in Waypoints.cs changed public Transform[] (8)  taken out "static" part
@@ -51,7 +59,12 @@ public class EnemyMovement : MonoBehaviour
         // UnityEngine.Debug.Log(WayArray);
 
         // engine creates CLONE of wayOne, does it take resources?
-        currentWay = Instantiate(WayOne);
+
+        // it does
+        // when enemy is destroy all clones should also be destroyed
+        // but its still a problem if i will have a lot of enemies
+        
+        currentWay = WayOne;
 
         // UnityEngine.Debug.Log(currentWay.name);
         wavePointIntIndex = 0;
@@ -60,9 +73,9 @@ public class EnemyMovement : MonoBehaviour
 
 
         // randomize movement
-        x = Random.Range(-0.3f, 0.3f);
+        x = Random.Range(-0.4f, 0.4f);
         y = 0;
-        z = Random.Range(-0.3f, 0.3f);
+        z = Random.Range(-0.4f, 0.4f);
         randomVec = new Vector3(x, y, z);
         startTime = Time.time;
     }
@@ -80,43 +93,35 @@ public class EnemyMovement : MonoBehaviour
     
     void Update()
     {
+        // UnityEngine.Debug.Log(gameObject.name); // or  this.name
+        // works
+        // and .this works
+        // if(gameObject.transform.parent.name == "EnemyGroupPreset")
+        // {
+        //     // UnityEngine.Debug.Log("YO");
+        // }
+        // else
+        // {}
 
+        // if(gameObject.IsChildOf())
 
-        UnityEngine.Debug.Log("wavePoint index " + wavePointIntIndex);
+        if(gameObject.transform.parent != null)
+        {
+            // UnityEngine.Debug.Log("YO null");
+        }
+        else
+        {
 
+            
+        // UnityEngine.Debug.Log("wavePoint index " + wavePointIntIndex);
 
+        //if enemy is in enemyGroup1 do nothing
+        // else do all of this down here
 
-
-
-
-    
- // my vector solution
-        // currentWay.points[wavePointIntIndex];
-        // UnityEngine.Debug.Log(randomVec);
-        // Vector3 dir = target.position - transform.position + randomVec;
-
-        // UnityEngine.Debug.Log(x);
-        // transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
-       
-
-// unity lerp solution ( CHECK UNITY LERP DOC )  works, BUT only with manualy choosen points(with wavePointIntIndex it just breaks)    
-
-
-
-        // float distCovered = (Time.time - startTime)*speed;
-
-        // pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position, currentWay.points[wavePointIntIndex+1].position);
-        // // UnityEngine.Debug.Log(Vector3.Distance(transform.position, currentWay.points[wavePointIntIndex+1].position ) );
-        // float fraction = distCovered/pointLength;
-        // // UnityEngine.Debug.Log("fraction " + fraction);
-        // UnityEngine.Debug.Log("index " + wavePointIntIndex);
-
-
-
-        
 
 
         var step =  speed * Time.deltaTime; 
+        
 
         if(currentWay.points[wavePointIntIndex].childCount > 0)
         {
@@ -124,15 +129,20 @@ public class EnemyMovement : MonoBehaviour
             //   .GetChild(0);
 
 
-            UnityEngine.Debug.Log("<color=blue> Object has children </color>" + currentWay.points[wavePointIntIndex].GetChild(0).position  );
-            Vector3 turndir1 = currentWay.points[wavePointIntIndex].GetChild(0).position;
-            Vector3 turndir2 = currentWay.points[wavePointIntIndex+1].position;
+            // UnityEngine.Debug.Log("<color=blue> Object has children </color>" + currentWay.points[wavePointIntIndex].GetChild(0).position  );
+            
+            
+            //wavepointIndex        GetcChild(0)         wavePointInex+1
+            //      a                    b                     c
+            Vector3 turndir1 = currentWay.points[wavePointIntIndex].GetChild(0).position + randomVec;
+            Vector3 turndir2 = currentWay.points[wavePointIntIndex+1].position + randomVec;
 
             float distCovered = (Time.time - startTime)*speed;
-            pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position, turndir2);
+            pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position + randomVec, turndir2);
             float fraction = distCovered/pointLength;
+            // UnityEngine.Debug.Log("  fraction =  " + fraction);
 
-            Vector3 dir1 = Vector3.Lerp(currentWay.points[wavePointIntIndex].position, turndir1, fraction);
+            Vector3 dir1 = Vector3.Lerp(currentWay.points[wavePointIntIndex].position + randomVec, turndir1, fraction);
             Vector3 dir2 = Vector3.Lerp(turndir1, turndir2, fraction);
             Vector3 dir3 = Vector3.Lerp(dir1, dir2, fraction);
 
@@ -142,10 +152,10 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             float distCovered = (Time.time - startTime)*speed;
-            pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position, currentWay.points[wavePointIntIndex+1].position);
+            pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position + randomVec, currentWay.points[wavePointIntIndex+1].position + randomVec);
             float fraction = distCovered/pointLength;
 
-            Vector3 dir = Vector3.Lerp(currentWay.points[wavePointIntIndex].position, currentWay.points[wavePointIntIndex+1].position, fraction);
+            Vector3 dir = Vector3.Lerp(currentWay.points[wavePointIntIndex].position + randomVec, currentWay.points[wavePointIntIndex+1].position + randomVec, fraction);
             transform.position = Vector3.MoveTowards(transform.position, dir, step);
         }
         
@@ -160,11 +170,18 @@ public class EnemyMovement : MonoBehaviour
 
         // }
 
-        if(Vector3.Distance(transform.position, currentWay.points[wavePointIntIndex+1].position ) <= 0.2f)
+        if(Vector3.Distance(transform.position, currentWay.points[wavePointIntIndex+1].position + randomVec ) <= 0.2f)
         {
+            UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way Point ________ </color>   ");
+            
             GetNextWaypoint();
 
         }
+
+
+        }
+
+
         
     }
 
@@ -173,25 +190,23 @@ public class EnemyMovement : MonoBehaviour
     void GetNextWaypoint()
     {
 
+
         // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
+        // UnityEngine.Debug.Log(wavePointIntIndex+1);
+        // //currentWay.points.Length
+        // UnityEngine.Debug.Log(currentWay.points.Length);
         // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        UnityEngine.Debug.Log(wavePointIntIndex+1);
-        //currentWay.points.Length
-        UnityEngine.Debug.Log(currentWay.points.Length);
-        UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        // UnityEngine.Debug.Log("   <color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
+
+
+
+//  dont forget about changing randvector to make it look more natural
+//    plus randomvector for each npc should be different
 
         // randomize movement
-        x = Random.Range(-0.3f, 0.3f);
-        y = 0;
-        z = Random.Range(-0.3f, 0.3f);
-        randomVec = new Vector3(x, y, z);
+        // x = Random.Range(-0.3f, 0.3f);
+        // y = 0;
+        // z = Random.Range(-0.3f, 0.3f);
+        // randomVec = new Vector3(x, y, z);
 
         wavePointIntIndex++;
 
@@ -200,10 +215,11 @@ public class EnemyMovement : MonoBehaviour
 
         //   really fucking important
         // last waypoint should be in same place as first waypoint of NEW way
+        // way length needs to be >= 2
         
         if(wavePointIntIndex >= currentWay.points.Length -1 )
         {
-            UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way ________ </color>   ");
+            // UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way ________ </color>   ");
             GetNextWay();
         }
 
@@ -220,17 +236,18 @@ public class EnemyMovement : MonoBehaviour
     void GetNextWay()
     {
 
-        // x = Random.Range(-0.5f, 0.5f);
-        // y = 0;
-        // z = Random.Range(0f, 0.5f);
-        // randomVec = new Vector3(x, y, z);
+        x = Random.Range(-0.4f, 0.4f);
+        y = 0;
+        z = Random.Range(-0.4f, 0.4f);
+        randomVec = new Vector3(x, y, z);
 
 
         switch(currentWay.name)
         {
-            case "WayA(Clone)":
+            case "WayA":
                  UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: changed way ________ </color>   ");
-                 currentWay = Instantiate(WayTwo);
+                //  Destroy(currentWay);
+                 currentWay = WayTwo;
                  wavePointIntIndex = 0;
                  UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: wavePointIntIndex ________ </color> " + wavePointIntIndex);
 
@@ -247,7 +264,13 @@ public class EnemyMovement : MonoBehaviour
         //destroy if reached end
         if(wavePointIntIndex >= currentWay.points.Length -1)
         {
+            // its not enaugh
+            // you need to also destroy all clones of ways
+            // WayA(Clone) and etc
+            // Destroy(currentWay);
             Destroy(gameObject);
+            // Destroy(WayOne);
+            // Destroy(WayTwo);
             return;
         }
 
