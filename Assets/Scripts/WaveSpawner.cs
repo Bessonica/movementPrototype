@@ -36,8 +36,9 @@ public class WaveSpawner : MonoBehaviour
     public Transform enemyPrefabOne;
     public Transform spawnPointOne;
     public int waveAmountOne; // how many npc in wave
-    public int waveSpqwnTimes; // how many times wave is spawned
+    public int waveSpawnTimesOne; // how many times wave is spawned
     public float timeBetweenOne;
+    int waveOverOne;
 
     [Header("Enemy wave two")]
     public Transform enemyPrefabTwo;
@@ -46,6 +47,9 @@ public class WaveSpawner : MonoBehaviour
 // its variables for different enemy assignment type/method
     // public Waypoints testOne;
     // public Waypoints testTwo;
+
+
+    
 
     
 
@@ -80,6 +84,8 @@ public class WaveSpawner : MonoBehaviour
         z = Random.Range(-0.4f, 0.4f);
         randomVec = new Vector3(x, y, z);
 
+        waveOverOne = waveSpawnTimesOne;
+
     }
 
     // Update is called once per frame
@@ -88,7 +94,7 @@ public class WaveSpawner : MonoBehaviour
         // how to manage spawn in specific time, or after some event?
 
         // wave1
-        if(countdown <= 0f)
+        if(countdown <= 0f && waveOverOne > 0)
         {
             StartCoroutine(SpawnWave(enemyPrefabOne,waveAmountOne));
             countdown = timeBetweenOne;
@@ -113,6 +119,7 @@ public class WaveSpawner : MonoBehaviour
 
         // !!! возможно нам не нужны корутины
         //  просто спавним каждого в полурандомной локации, кучкой
+
         for(int i=0; i<waveAmountToSpawn; i++)
         {
             
@@ -123,6 +130,8 @@ public class WaveSpawner : MonoBehaviour
             
             //WaitForSecondsRealtime
         }
+
+        waveOverOne--;
 
         
         
