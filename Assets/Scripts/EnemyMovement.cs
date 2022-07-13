@@ -105,6 +105,9 @@ public class EnemyMovement : MonoBehaviour
 
         // if(gameObject.IsChildOf())
 
+        
+
+
         if(gameObject.transform.parent != null)
         {
             // UnityEngine.Debug.Log("YO null");
@@ -134,15 +137,19 @@ public class EnemyMovement : MonoBehaviour
             
             //wavepointIndex        GetcChild(0)         wavePointInex+1
             //      a                    b                     c
-            Vector3 turndir1 = currentWay.points[wavePointIntIndex].GetChild(0).position + randomVec;
-            Vector3 turndir2 = currentWay.points[wavePointIntIndex+1].position + randomVec;
+            Vector3 turnWayA = currentWay.points[wavePointIntIndex].position + randomVec;
+            Vector3 turnWayB = currentWay.points[wavePointIntIndex].GetChild(0).position + randomVec;
+            Vector3 turnWayC = currentWay.points[wavePointIntIndex+1].position + randomVec;
+
+            Vector3 turndir1 = turnWayB;
+            Vector3 turndir2 = turnWayC;
 
             float distCovered = (Time.time - startTime)*speed;
-            pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position + randomVec, turndir2);
+            pointLength = Vector3.Distance(turnWayA, turndir2);
             float fraction = distCovered/pointLength;
             // UnityEngine.Debug.Log("  fraction =  " + fraction);
 
-            Vector3 dir1 = Vector3.Lerp(currentWay.points[wavePointIntIndex].position + randomVec, turndir1, fraction);
+            Vector3 dir1 = Vector3.Lerp(turnWayA, turndir1, fraction);
             Vector3 dir2 = Vector3.Lerp(turndir1, turndir2, fraction);
             Vector3 dir3 = Vector3.Lerp(dir1, dir2, fraction);
 
@@ -151,6 +158,8 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
+            //   wavePointIntIndex      wavePointIntIndex+1
+            //          a                       b
             float distCovered = (Time.time - startTime)*speed;
             pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position + randomVec, currentWay.points[wavePointIntIndex+1].position + randomVec);
             float fraction = distCovered/pointLength;
@@ -172,7 +181,8 @@ public class EnemyMovement : MonoBehaviour
 
         if(Vector3.Distance(transform.position, currentWay.points[wavePointIntIndex+1].position + randomVec ) <= 0.2f)
         {
-            UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way Point ________ </color>   ");
+            // UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way Point ________ </color>   ");
+            
             
             GetNextWaypoint();
 
@@ -236,20 +246,20 @@ public class EnemyMovement : MonoBehaviour
     void GetNextWay()
     {
 
-        x = Random.Range(-0.4f, 0.4f);
-        y = 0;
-        z = Random.Range(-0.4f, 0.4f);
-        randomVec = new Vector3(x, y, z);
+        // x = Random.Range(-0.4f, 0.4f);
+        // y = 0;
+        // z = Random.Range(-0.4f, 0.4f);
+        // randomVec = new Vector3(x, y, z);
 
 
         switch(currentWay.name)
         {
             case "WayA":
-                 UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: changed way ________ </color>   ");
+                //  UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: changed way ________ </color>   ");
                 //  Destroy(currentWay);
                  currentWay = WayTwo;
                  wavePointIntIndex = 0;
-                 UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: wavePointIntIndex ________ </color> " + wavePointIntIndex);
+                //  UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: wavePointIntIndex ________ </color> " + wavePointIntIndex);
 
                  
 

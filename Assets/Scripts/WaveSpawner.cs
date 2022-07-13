@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// inputs
+//    prefabs of enemy for each wave(ways, speed etc)
+//    ?amount of iterations for wave? how many times to spawn it
+//    time between spawns
 
-
-
+//достаточно двух волн, тпереь нужно понять как удобно менять их параметры по ходу игры
 public class WaveSpawner : MonoBehaviour
 {
 
-// возможность создавать насколько разных волн с разным маршрутом
-//(?всьтавлять разные префабы врагов enemy1, enemy2 и тд)
-//и у них будут разные маршруты
 
 
 // we have ways as prefabs, and then we put them into
@@ -23,27 +23,49 @@ public class WaveSpawner : MonoBehaviour
 // but this enemies in EnemyGroup1 shouldnt move or get destroid
 // otherwis they will dissapear and code will break
 
+
+    [Header("turret variables")]
+    public float turretPrice;   // how much money turret cost
+    public float moneyInSecond; // how much money player gets in second
+
 // need to have several variables for several different waves
 //  waveOne
 //  wave Two
 //  ...
+    [Header("Enemy wave one")]
     public Transform enemyPrefabOne;
+    public Transform spawnPointOne;
+    public int waveAmountOne; // how many npc in wave
+    public int waveSpqwnTimes; // how many times wave is spawned
+    public float timeBetweenOne;
+
+    [Header("Enemy wave two")]
     public Transform enemyPrefabTwo;
+    public Transform spawnPointTwo;
 
-// its variables for different enemy assignment type
-    public Waypoints testOne;
-    public Waypoints testTwo;
+// its variables for different enemy assignment type/method
+    // public Waypoints testOne;
+    // public Waypoints testTwo;
 
-    public Transform spawnPoint;
+    
 
     public float timeBetweenWaves = 10f;
-    private float countdown = 2f;
 
-    private int waveNumber = 0;
+    private float countdown = 2f; // wait time before first wave
+
+    // private int waveNumber = 3;
+    // private Transform enemy;
 
     Vector3 randomVec;
     float x, y, z;
 
+
+// idea: phases
+//  string variables to separate phases
+//      "intro": spawn one slow enemy
+//     "phase 1": spawn wave 1
+//     "phase 2": spawn wave 1 and 2
+//  and so on...
     
 
 
@@ -63,10 +85,13 @@ public class WaveSpawner : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // how to manage spawn in specific time, or after some event?
+
+        // wave1
         if(countdown <= 0f)
         {
-            StartCoroutine(SpawnWave());
-            countdown = timeBetweenWaves;
+            StartCoroutine(SpawnWave(enemyPrefabOne,waveAmountOne));
+            countdown = timeBetweenOne;
             
             
         }
@@ -76,9 +101,11 @@ public class WaveSpawner : MonoBehaviour
         
     }
 
-    IEnumerator SpawnWave()
+    IEnumerator SpawnWave(Transform enemyPrefabToSpawn, int waveAmountToSpawn)
     {
-        waveNumber++;
+        // waveNumber++;
+        //waveAmountOne
+        
         // UnityEngine.Debug.Log("wave spawned");
 
         //почему то после waveNumber=2 в волнах нпс спавнять через 1 секунду
@@ -86,15 +113,18 @@ public class WaveSpawner : MonoBehaviour
 
         // !!! возможно нам не нужны корутины
         //  просто спавним каждого в полурандомной локации, кучкой
-        for(int i=0; i<waveNumber; i++)
+        for(int i=0; i<waveAmountToSpawn; i++)
         {
             
-            SpawnEnemy();
-            UnityEngine.Debug.Log("spawned enemy waveIndex = " + waveNumber);
+            SpawnEnemy(enemyPrefabToSpawn);
+            UnityEngine.Debug.Log("spawned enemy waveIndex = " + waveAmountToSpawn);
+            
             yield return new WaitForSeconds(0.5f);
             
             //WaitForSecondsRealtime
         }
+
+        
         
 
         //      when npc spawn in groups
@@ -107,7 +137,7 @@ public class WaveSpawner : MonoBehaviour
         
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(Transform enemy)
     {
 
         // prefab: enemyEmptyPrefab
@@ -126,8 +156,37 @@ public class WaveSpawner : MonoBehaviour
 
         // i need solution where i give instance of prefab with assigned ways
         // in editor
-        UnityEngine.Debug.Log("spawned an enemy. time = " + Time.time);
-        Instantiate(enemyPrefabOne, spawnPoint.position, spawnPoint.rotation);
+
+        if(enemyPrefabOne!=null)
+        {
+
+            x = Random.Range(-0.4f, 0.4f);
+            y = 0;
+            z = Random.Range(-0.4f, 0.4f);
+            randomVec = new Vector3(x, y, z);
+            // UnityEngine.Debug.Log("spawned an enemy. time = " + Time.time + "   randomVec =  " + randomVec);
+            Instantiate(enemy, spawnPointOne.position + randomVec, spawnPointOne.rotation);
+        }
+        //     x = Random.Range(-0.4f, 0.4f);
+        //     y = 0;
+        //     z = Random.Range(-0.4f, 0.4f);
+        //     randomVec = new Vector3(x, y, z);
+        // UnityEngine.Debug.Log("spawned an enemy. time = " + Time.time + "   randomVec =  " + randomVec);
+        // Instantiate(enemyPrefabOne, spawnPointOne.position + randomVec, spawnPointOne.rotation);
+
+
+
+        //enemyPrefabTwo
+        if(enemyPrefabTwo!=null)
+        {
+            x = Random.Range(-0.4f, 0.4f);
+            y = 0;
+            z = Random.Range(-0.4f, 0.4f);
+            randomVec = new Vector3(x, y, z);
+           Instantiate(enemyPrefabTwo, spawnPointOne.position + randomVec, spawnPointOne.rotation);
+
+        }
+        // Instantiate(enemyPrefabTwo, spawnPointOne.position + randomVec, spawnPointOne.rotation);
 
         //      when npc spawn in groups
         // for(int i=0; i<waveNumber; i++)
