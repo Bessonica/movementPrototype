@@ -19,11 +19,17 @@ public class BuildManager : MonoBehaviour
     public GameObject standartTurretPrefab;
     private GameObject turretToBuild;
 
-    void Start()
-    {
-        turretToBuild = standartTurretPrefab;
 
-    }
+    //это убрать ? 15 мин
+    //у меня нихуя не работает
+    //без старта shop.cs обращается к buildManager.SetTurretToBuild(buildManager.standartTurretPrefab);
+    // и там null, и я хз почему
+    //
+    // void Start()
+    // {
+    //     turretToBuild = standartTurretPrefab;
+
+    // }
 
 
     
@@ -31,6 +37,20 @@ public class BuildManager : MonoBehaviour
     public GameObject GetTurretToBuild()
     {
         return turretToBuild;
+    }
+
+    public void SetTurretToBuild(GameObject turret)
+    {
+        UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
+        turretToBuild = turret;
+
+    }
+
+    public void SetTurretToBuildToNull()
+    {
+        UnityEngine.Debug.Log("SetTurretToBuildToNull:  turretToBuild is now NULL");
+        turretToBuild = null;
+
     }
 
 }

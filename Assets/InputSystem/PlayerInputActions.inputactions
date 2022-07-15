@@ -1,0 +1,34 @@
+{
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "FirstPersonMovement",
+            "id": "4455d19c-ee5b-4058-b91e-d4d0c6dd2665",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "a28612d9-2aeb-4081-87ce-0bc2fb9f0980",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6e48fb8d-af0c-4019-88a4-3edc3781b9eb",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

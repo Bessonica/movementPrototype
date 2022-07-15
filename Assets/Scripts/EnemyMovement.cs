@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
+// idea for functions
+// fullStop(amountOfSeconds)
+// speedUp(newSpeed)
+// vibrate?
 
 
 public class EnemyMovement : MonoBehaviour

@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// test turrets
+// how fast should they be, how much hp enemy should have
+//           dont forget to hide bullets
+
+
 public class Turret : MonoBehaviour
 {
 
