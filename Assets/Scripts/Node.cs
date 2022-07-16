@@ -12,7 +12,8 @@ public class Node : MonoBehaviour
     private Renderer rend;
     private Color startColor;
 
-    private GameObject turret;
+    [Header("optinal, if you want to start level with turrets already on")]
+    public GameObject turret;
 
     Vector3 vecToFixTurretPosition;
     float x, y, z;
@@ -35,11 +36,16 @@ public class Node : MonoBehaviour
         
     }
 
+    public Vector3 GetBuildPosition()
+    {
+        return transform.position + vecToFixTurretPosition;
+    }
+
 
 // when enter turret, set turret to build to null
     void OnMouseDown()
     {
-        if(buildManager.GetTurretToBuild() == null)
+        if(!buildManager.CanBuild)
         {
             return;
         }
@@ -51,16 +57,20 @@ public class Node : MonoBehaviour
             return;
         }
 
-        GameObject turretToBuild = buildManager.GetTurretToBuild();
-        turret = (GameObject)Instantiate(turretToBuild, transform.position + vecToFixTurretPosition, transform.rotation);
-
+        buildManager.BuildTurretOn(this);
         buildManager.SetTurretToBuildToNull();
+
+
+        // //DestroyTurretOn 
+        // buildManager.DestroyTurretOn(this);
+
+
     
     }
 
     void OnMouseEnter()
     {
-        if(buildManager.GetTurretToBuild() == null)
+        if(!buildManager.CanBuild)
         {
             return;
         }

@@ -6,6 +6,9 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager instance;
 
+    Vector3 vecToFixTurretPosition;
+    float x, y, z;
+
     void Awake()
     {
         if(instance != null)
@@ -14,10 +17,43 @@ public class BuildManager : MonoBehaviour
             return;
         }
         instance = this;
+
+        x = 0.1f;
+        y = 0.2f;
+        z = 0.17f;
+        vecToFixTurretPosition = new Vector3(x, y, z);
     }
 
     public GameObject standartTurretPrefab;
-    private GameObject turretToBuild;
+    private TurretBlueprint turretToBuild;
+
+    public bool CanBuild {get { return turretToBuild != null; } }
+
+    public void BuildTurretOn(Node node)
+    {
+        // money part !!!!!
+        if(PlayerStats.Money < turretToBuild.cost)
+        {
+            UnityEngine.Debug.Log("no money for turret");
+            return;
+        }
+        PlayerStats.Money -= turretToBuild.cost;
+        UnityEngine.Debug.Log("<color=yellow> Money left  </color>" + PlayerStats.Money );
+
+
+        GameObject turret = (GameObject)Instantiate(turretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
+        node.turret = turret;
+
+        
+    }
+
+    public void DestroyTurretOn(Node node)
+    {
+        // we have node and we can set its turret parametr to null
+        
+        // node.turret = null;
+        
+    }
 
 
     //это убрать ? 15 мин
@@ -34,17 +70,17 @@ public class BuildManager : MonoBehaviour
 
     
 
-    public GameObject GetTurretToBuild()
-    {
-        return turretToBuild;
-    }
+    // public GameObject GetTurretToBuild()
+    // {
+    //     return turretToBuild;
+    // }
 
-    public void SetTurretToBuild(GameObject turret)
-    {
-        UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
-        turretToBuild = turret;
+    // public void SetTurretToBuild(GameObject turret)
+    // {
+    //     UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
+    //     turretToBuild = turret;
 
-    }
+    // }
 
     public void SetTurretToBuildToNull()
     {
@@ -53,4 +89,12 @@ public class BuildManager : MonoBehaviour
 
     }
 
+
+
+    public void SetTurretToBuild(TurretBlueprint turret)
+    {
+        UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
+        turretToBuild = turret;
+
+    }
 }
