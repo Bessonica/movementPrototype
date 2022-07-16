@@ -33,4 +33,10 @@ public class Shop : MonoBehaviour
         // or standartTurretPrefabForShop
     }
 
+    public void SelectStandardTurretToDestroy()
+    {
+        UnityEngine.Debug.Log("SelectStandardTurretToDestroy");
+        buildManager.SetTurretToDestroy();
+    }
+
 }

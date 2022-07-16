@@ -77,7 +77,7 @@ public class WaveSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UnityEngine.Debug.Log("started " + Time.time);
+        // UnityEngine.Debug.Log("started " + Time.time);
 
         x = Random.Range(-0.4f, 0.4f);
         y = 0;
@@ -96,6 +96,14 @@ public class WaveSpawner : MonoBehaviour
         // wave1
         if(countdown <= 0f && waveOverOne > 0)
         {
+            //start phase0
+
+            //if phasString == "1"
+            // start phase1
+
+            //if phaseString == "2"
+            // start phase 2
+
             StartCoroutine(SpawnWave(enemyPrefabOne,waveAmountOne));
             countdown = timeBetweenOne;
             
@@ -124,7 +132,7 @@ public class WaveSpawner : MonoBehaviour
         {
             
             SpawnEnemy(enemyPrefabToSpawn);
-            UnityEngine.Debug.Log("spawned enemy waveIndex = " + waveAmountToSpawn);
+            // UnityEngine.Debug.Log("spawned enemy waveIndex = " + waveAmountToSpawn);
             
             yield return new WaitForSeconds(0.5f);
             

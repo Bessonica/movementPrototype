@@ -3849,7 +3849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standartTurret:
     prefab: {fileID: 9205667542985624664}
-    cost: 20
+    cost: 1
 --- !u!1001 &331209534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5717,7 +5717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806425, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: SelectStandardTurretToDestroy
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806425, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -5729,7 +5729,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806426, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_Name
-      value: TurretShopItem (1)
+      value: TurretShopItemDestroy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177646901948806426, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806427, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_Pivot.x
@@ -5749,7 +5753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806427, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806427, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5757,7 +5761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806427, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806427, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5797,11 +5801,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806427, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 172.17061
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806427, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -28.42035
       objectReference: {fileID: 0}
     - target: {fileID: 8177646901948806427, guid: 73039e40bc061f84e8455524b8742f41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12883,6 +12887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a606fe87cf700741925ef3d00752aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needToDestroy: 0
   standartTurretPrefab: {fileID: 9205667542985624664}
 --- !u!114 &1164117003
 MonoBehaviour:

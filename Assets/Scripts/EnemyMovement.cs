@@ -49,6 +49,9 @@ public class EnemyMovement : MonoBehaviour
     private  GameObject[] WayArray;
 
     float startTime;
+
+    // for FullStopFor()  function
+    float stopTime;
  
 
     //TODO: create array WayArray and append all your ways into it 
@@ -286,6 +289,12 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
+
+    }
+
+// npc stops for some amount of time
+    void FullStopFor()
+    {
 
     }
 }

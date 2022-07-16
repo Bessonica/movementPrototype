@@ -9,6 +9,8 @@ public class BuildManager : MonoBehaviour
     Vector3 vecToFixTurretPosition;
     float x, y, z;
 
+    public bool needToDestroy;
+
     void Awake()
     {
         if(instance != null)
@@ -22,6 +24,9 @@ public class BuildManager : MonoBehaviour
         y = 0.2f;
         z = 0.17f;
         vecToFixTurretPosition = new Vector3(x, y, z);
+
+//       destroy turret
+        needToDestroy = false;
     }
 
     public GameObject standartTurretPrefab;
@@ -50,9 +55,32 @@ public class BuildManager : MonoBehaviour
     public void DestroyTurretOn(Node node)
     {
         // we have node and we can set its turret parametr to null
+
+        // for now i dont know how to fix this, turret overlays node, so its impossible to press
+       
         
-        // node.turret = null;
+        node.turret = null;
+        PlayerStats.Money += turretToBuild.cost;
+        UnityEngine.Debug.Log("<color=green> turret deactivated Money left  </color>" + PlayerStats.Money );
         
+        
+    }
+
+    public void SetTurretToDestroy()
+    {
+        UnityEngine.Debug.Log("SetTurretToDestroy:  needToDestroy before " + needToDestroy);
+        needToDestroy = true;
+        UnityEngine.Debug.Log("SetTurretToDestroy:  needToDestroy after  " + needToDestroy);
+        
+
+    }
+
+
+    public void SetTurretToBuild(TurretBlueprint turret)
+    {
+        UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
+        turretToBuild = turret;
+
     }
 
 
@@ -91,10 +119,9 @@ public class BuildManager : MonoBehaviour
 
 
 
-    public void SetTurretToBuild(TurretBlueprint turret)
-    {
-        UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
-        turretToBuild = turret;
 
-    }
+
+
+
+
 }

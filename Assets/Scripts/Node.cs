@@ -45,11 +45,32 @@ public class Node : MonoBehaviour
 // when enter turret, set turret to build to null
     void OnMouseDown()
     {
-        if(!buildManager.CanBuild)
+
+
+        if(!buildManager.CanBuild && !buildManager.needToDestroy)
         {
             return;
+            // if you choose turret to deactivate
+
         }
 
+        if(buildManager.needToDestroy && turret == null)
+        {
+            UnityEngine.Debug.Log(" THERE IS NOTHING TO DESTROY ");
+
+            return;
+
+        }
+
+        
+        if(buildManager.needToDestroy && turret != null)
+        {
+            UnityEngine.Debug.Log("!!!! BUILD MANAGER DESTROY buildManager.needToDestroy");
+            buildManager.DestroyTurretOn(this);
+            buildManager.needToDestroy = false;
+            return;
+
+        }
 
         if(turret != null)
         {
