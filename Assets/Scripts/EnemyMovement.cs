@@ -25,16 +25,6 @@ public class EnemyMovement : MonoBehaviour
     // way length needs to be >= 2
 
     
-
-    // in Waypoints.cs changed public Transform[] (8)  taken out "static" part
-    // when static is in there is only one instance of class
-    //without you can have several instances of this class
-    // and here we add instance in editor
-
-    //now need to find a way to address different ways through cs file.
-    // find them by name for example
-    // change  variable "Way" from WayA to WayB and etc
-    // 
     public Waypoints WayOne;
     public Waypoints WayTwo;
     public Waypoints WayThree;
@@ -54,20 +44,10 @@ public class EnemyMovement : MonoBehaviour
     float stopTime;
  
 
-    //TODO: create array WayArray and append all your ways into it 
+ 
     void Start()
     {
-        // WayArray += WayOne;
-        // WayArray += WayTwo;
-        // WayArray += WayThree;
-        // WayArray += WayFour;
-        // UnityEngine.Debug.Log(WayArray);
 
-        // engine creates CLONE of wayOne, does it take resources?
-
-        // it does
-        // when enemy is destroy all clones should also be destroyed
-        // but its still a problem if i will have a lot of enemies
         
         currentWay = WayOne;
 
@@ -85,33 +65,8 @@ public class EnemyMovement : MonoBehaviour
         startTime = Time.time;
     }
 
-    //movement 
-
-    //     npc == enemy
-    //  ANSWER: it kinda works. BUT all random postions are SAME for all enemies.it should be different for every one
-    //    +optimization, if we have 20+ npc wouldnt it fry pc?
-
-    //  how to make npc make smoother turns
-    //     use quaterions? in relation to next point in line?
-    //  FOUND ANSWER:     [Unity] 2D Curve Editor (E01: introduction and concepts)  (Sebastian Lague)
-    //  
-    
     void Update()
     {
-        // UnityEngine.Debug.Log(gameObject.name); // or  this.name
-        // works
-        // and .this works
-        // if(gameObject.transform.parent.name == "EnemyGroupPreset")
-        // {
-        //     // UnityEngine.Debug.Log("YO");
-        // }
-        // else
-        // {}
-
-        // if(gameObject.IsChildOf())
-
-        
-
 
         if(gameObject.transform.parent != null)
         {
@@ -134,9 +89,6 @@ public class EnemyMovement : MonoBehaviour
         if(currentWay.points[wavePointIntIndex].childCount > 0)
         {
             
-            //   .GetChild(0);
-
-
             // UnityEngine.Debug.Log("<color=blue> Object has children </color>" + currentWay.points[wavePointIntIndex].GetChild(0).position  );
             
             
@@ -174,21 +126,9 @@ public class EnemyMovement : MonoBehaviour
         }
         
 
-
-
-
-// old version with RANDOM VECTOR
-        // if(Vector3.Distance(transform.position, target.position + randomVec) <= 0.2f)
-        // {
-        //     GetNextWaypoint();
-
-        // }
-
         if(Vector3.Distance(transform.position, currentWay.points[wavePointIntIndex+1].position + randomVec ) <= 0.2f)
         {
             // UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way Point ________ </color>   ");
-            
-            
             GetNextWaypoint();
 
         }
@@ -225,12 +165,6 @@ public class EnemyMovement : MonoBehaviour
 
         wavePointIntIndex++;
 
-
-        //     !!!! important  !!!   it was   >= currentWay.points.Length -2
-
-        //   really fucking important
-        // last waypoint should be in same place as first waypoint of NEW way
-        // way length needs to be >= 2
         
         if(wavePointIntIndex >= currentWay.points.Length -1 )
         {
@@ -238,14 +172,9 @@ public class EnemyMovement : MonoBehaviour
             GetNextWay();
         }
 
-        
-
         startTime = Time.time;
 
         target = currentWay.points[wavePointIntIndex];
-       
-        // target = currentWay.points[wavePointIntIndex];
-
     }
 
     void GetNextWay()
@@ -265,9 +194,6 @@ public class EnemyMovement : MonoBehaviour
                  currentWay = WayTwo;
                  wavePointIntIndex = 0;
                 //  UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: wavePointIntIndex ________ </color> " + wavePointIntIndex);
-
-                 
-
                  
                  break;
 
@@ -276,16 +202,9 @@ public class EnemyMovement : MonoBehaviour
         // targetObject = GameObject.Find("WayB");
         // target = targetObject.points[0];
 
-        //destroy if reached end
         if(wavePointIntIndex >= currentWay.points.Length -1)
         {
-            // its not enaugh
-            // you need to also destroy all clones of ways
-            // WayA(Clone) and etc
-            // Destroy(currentWay);
             Destroy(gameObject);
-            // Destroy(WayOne);
-            // Destroy(WayTwo);
             return;
         }
 

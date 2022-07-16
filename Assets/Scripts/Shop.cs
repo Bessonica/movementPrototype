@@ -21,11 +21,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // public void PurchaseStandardTurret()
-    // {
-    //     buildManager.SetTurretToBuild(buildManager.standartTurretPrefab);
-    //     // or standartTurretPrefabForShop
-    // }
 
     public void SelectStandardTurret()
     {

@@ -52,13 +52,33 @@ public class BuildManager : MonoBehaviour
         
     }
 
+
+    public void SetTurretToBuild(TurretBlueprint turret)
+    {
+        UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
+        turretToBuild = turret;
+
+    }
+
+
+    public void SetTurretToBuildToNull()
+    {
+        UnityEngine.Debug.Log("SetTurretToBuildToNull:  turretToBuild is now NULL");
+        turretToBuild = null;
+
+    }
+
+
+
+//  this doesnt work
+
+
+
     public void DestroyTurretOn(Node node)
     {
         // we have node and we can set its turret parametr to null
 
         // for now i dont know how to fix this, turret overlays node, so its impossible to press
-       
-        
         node.turret = null;
         PlayerStats.Money += turretToBuild.cost;
         UnityEngine.Debug.Log("<color=green> turret deactivated Money left  </color>" + PlayerStats.Money );
@@ -74,51 +94,6 @@ public class BuildManager : MonoBehaviour
         
 
     }
-
-
-    public void SetTurretToBuild(TurretBlueprint turret)
-    {
-        UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
-        turretToBuild = turret;
-
-    }
-
-
-    //это убрать ? 15 мин
-    //у меня нихуя не работает
-    //без старта shop.cs обращается к buildManager.SetTurretToBuild(buildManager.standartTurretPrefab);
-    // и там null, и я хз почему
-    //
-    // void Start()
-    // {
-    //     turretToBuild = standartTurretPrefab;
-
-    // }
-
-
-    
-
-    // public GameObject GetTurretToBuild()
-    // {
-    //     return turretToBuild;
-    // }
-
-    // public void SetTurretToBuild(GameObject turret)
-    // {
-    //     UnityEngine.Debug.Log("SetTurretToBuild:  standart turret purchased");
-    //     turretToBuild = turret;
-
-    // }
-
-    public void SetTurretToBuildToNull()
-    {
-        UnityEngine.Debug.Log("SetTurretToBuildToNull:  turretToBuild is now NULL");
-        turretToBuild = null;
-
-    }
-
-
-
 
 
 
