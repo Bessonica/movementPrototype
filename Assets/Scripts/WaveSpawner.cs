@@ -73,6 +73,12 @@ public class WaveSpawner : MonoBehaviour
     {
         // how to manage spawn in specific time, or after some event?
 
+
+//  I FOUND A WAY TO MANAGE PHASE IN BEGINING
+    // when you didnt pull lever phase string is "zero"
+        //if phaseString == zero {return;}
+
+
         // wave1
         if(countdown <= 0f && waveOverOne > 0)
         {

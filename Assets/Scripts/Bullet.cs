@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Transform target;
     public float speed = 70f;
+    public int damage = 60;
 
     // _target почему написано так?
     public void Seek(Transform _target)
@@ -38,9 +39,17 @@ public class Bullet : MonoBehaviour
     void HitTarget()
     {
         UnityEngine.Debug.Log("WE HIT ");
+        EnemyMovement e = target.GetComponent<EnemyMovement>();
+        if(e!=null)
+        {
+            e.TakeDamage(damage);
+        }
+
+
+        
         
         // HERE WE KILL enemies, for now we dont have hp system for them
-        Destroy(target.gameObject);
+        // Destroy(target.gameObject);
         Destroy(gameObject);
     }
 }

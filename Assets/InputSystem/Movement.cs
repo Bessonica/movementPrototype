@@ -32,7 +32,7 @@ public class Movement : MonoBehaviour
     public void ReceiveInput(Vector2 _horizontalInput)
     {
         horizontalInput = _horizontalInput;
-        UnityEngine.Debug.Log("HORIZONTAL INPUT = " + horizontalInput);
+        // UnityEngine.Debug.Log("HORIZONTAL INPUT = " + horizontalInput);
     }
 
 }

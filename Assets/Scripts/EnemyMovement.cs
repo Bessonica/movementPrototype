@@ -24,11 +24,15 @@ public class EnemyMovement : MonoBehaviour
     // last waypoint should be in same place as first waypoint of NEW way
     // way length needs to be >= 2
 
+    public int health = 50;
+
     
     public Waypoints WayOne;
     public Waypoints WayTwo;
     public Waypoints WayThree;
     public Waypoints WayFour;
+
+    
 
     Waypoints currentWay;
     Vector3 randomVec;
@@ -65,6 +69,53 @@ public class EnemyMovement : MonoBehaviour
         startTime = Time.time;
     }
 
+
+// npc stops for some amount of time
+    public void FullStopFor(float amount)
+    {
+        // fStopStartTime = Time.time;
+        UnityEngine.Debug.Log("started stop function TIME = " + Time.time);
+        float fStopStartTime = 0;
+
+        while(fStopStartTime <=amount)
+        {
+            fStopStartTime += UnityEngine.Time.deltaTime;
+            UnityEngine.Debug.Log(" fStopStartTime = " + fStopStartTime);
+            
+        }
+        UnityEngine.Debug.Log("finished stop function fStopStartTime = " + fStopStartTime);
+
+        UnityEngine.Debug.Log("finished stop function TIME = " + Time.time);
+        return;
+
+    }
+
+    // IEnumerator FullStopFor(float amount)
+    // {
+    //    UnityEngine.Debug.Log("FullStopFor   STARTED " + Time.time);
+    //    yield return new WaitForSeconds(4);
+    //    UnityEngine.Debug.Log("FullStopFor   ENDED " + Time.time);
+
+
+    // }
+
+    public void TakeDamage(int amount)
+    {
+        // UnityEngine.Debug.Log("TAKE DAMAGE YOOOOO");
+        health -= amount;
+
+        if(health <=0)
+        {
+            Die();
+        }
+
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+
     void Update()
     {
 
@@ -88,10 +139,6 @@ public class EnemyMovement : MonoBehaviour
 
         if(currentWay.points[wavePointIntIndex].childCount > 0)
         {
-            
-            // UnityEngine.Debug.Log("<color=blue> Object has children </color>" + currentWay.points[wavePointIntIndex].GetChild(0).position  );
-            
-            
             //wavepointIndex        GetcChild(0)         wavePointInex+1
             //      a                    b                     c
             Vector3 turnWayA = currentWay.points[wavePointIntIndex].position + randomVec;
@@ -146,23 +193,6 @@ public class EnemyMovement : MonoBehaviour
     {
 
 
-        // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-        // UnityEngine.Debug.Log(wavePointIntIndex+1);
-        // //currentWay.points.Length
-        // UnityEngine.Debug.Log(currentWay.points.Length);
-        // UnityEngine.Debug.Log("<color=red> __________ CHANGED WAYPOINT INDEX  ________ </color>   ");
-
-
-
-//  dont forget about changing randvector to make it look more natural
-//    plus randomvector for each npc should be different
-
-        // randomize movement
-        // x = Random.Range(-0.3f, 0.3f);
-        // y = 0;
-        // z = Random.Range(-0.3f, 0.3f);
-        // randomVec = new Vector3(x, y, z);
-
         wavePointIntIndex++;
 
         
@@ -179,22 +209,13 @@ public class EnemyMovement : MonoBehaviour
 
     void GetNextWay()
     {
-
-        // x = Random.Range(-0.4f, 0.4f);
-        // y = 0;
-        // z = Random.Range(-0.4f, 0.4f);
-        // randomVec = new Vector3(x, y, z);
-
+        FullStopFor(4f);
 
         switch(currentWay.name)
         {
             case "WayA":
-                //  UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: changed way ________ </color>   ");
-                //  Destroy(currentWay);
                  currentWay = WayTwo;
-                 wavePointIntIndex = 0;
-                //  UnityEngine.Debug.Log("   <color=green> __________ Get Next Way: wavePointIntIndex ________ </color> " + wavePointIntIndex);
-                 
+                 wavePointIntIndex = 0;                 
                  break;
 
 
@@ -211,9 +232,5 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-// npc stops for some amount of time
-    void FullStopFor()
-    {
 
-    }
 }
