@@ -74,9 +74,12 @@ public class WaveSpawner : MonoBehaviour
         // how to manage spawn in specific time, or after some event?
 
 
+
 //  I FOUND A WAY TO MANAGE PHASE IN BEGINING
     // when you didnt pull lever phase string is "zero"
+    // or ttwo variables(pcIsOn, phaseString)
         //if phaseString == zero {return;}
+
 
 
         // wave1
