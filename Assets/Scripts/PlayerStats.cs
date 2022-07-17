@@ -6,9 +6,10 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
-    // variable to check how many turrets player can build
-    // placed turret -1 from var
-    // deactivated turret +1 to var
+    [Header("player object")]
+    public GameObject playerObject;
+    
+    
     [Header("Timer")]
     public TextMeshProUGUI timerText;
     public float currentTime;
@@ -23,9 +24,19 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Money")]
     public TextMeshProUGUI moneyText;
+       // could not change it in interactable
     public static int Money;
     public int startMoney = 1;
     public float timeForMoney = 5f;
+    public bool startTimer = false;
+
+    [Header("Cameras to switch")]
+    public Camera playerCamera;
+    public Camera tdCamera;
+
+    [Header("Canvase for player and towerDef UI")]
+    public GameObject playerCanvas;
+    public GameObject towerDefCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +47,10 @@ public class PlayerStats : MonoBehaviour
 
         Money = startMoney;
         moneyText.text = Money.ToString();
+
+        // turn ui on/off so they wouldnt overlap
+        playerCanvas.SetActive(true);
+        towerDefCanvas.SetActive(false);
     }
 
 
@@ -44,26 +59,34 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-    //  text timer part 
-        moneyText.text = Money.ToString();
 
-        //timer part
-        currentTime = countDown ? currentTime -= Time.deltaTime : currentTime += Time.deltaTime;
-        timerText.text = currentTime.ToString("0");
-        if(currentTime >= timerLimit)
+        if(startTimer)
         {
-            Money ++;
-            UnityEngine.Debug.Log("added more money " + Money);
-            currentTime = 0;
-            
+
+            //  text timer part 
+                moneyText.text = Money.ToString();
+
+                //timer part
+                currentTime = countDown ? currentTime -= Time.deltaTime : currentTime += Time.deltaTime;
+                timerText.text = currentTime.ToString("0");
+                if(currentTime >= timerLimit)
+                {
+                    Money ++;
+                    UnityEngine.Debug.Log("added more money " + Money);
+                    currentTime = 0;
+                    
+
+
+                }
+            // text timer part  end
+
+            // gui timer
+
+            timerSlider.value = currentTime;
 
 
         }
-    // text timer part  end
 
-    // gui timer
-
-    timerSlider.value = currentTime;
 
 
     }

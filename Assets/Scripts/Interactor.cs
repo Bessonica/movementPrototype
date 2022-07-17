@@ -64,7 +64,7 @@ public class Interactor : MonoBehaviour
                     interactImage.rectTransform.sizeDelta = interactable.iconSize;
                 }
                 
-                // hold text
+                // "HOLD" text
                 if(interactable.isLever)
                 {
                     Transform test =  interactImage.transform.GetChild(0);

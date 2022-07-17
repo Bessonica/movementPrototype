@@ -36,7 +36,7 @@ public class WaveSpawner : MonoBehaviour
     
     public float timeBetweenWaves = 10f;
 
-    public string phaseString;
+    public string phaseString, phaseStringZero, phaseStringFirst;
 
     private float countdown = 2f; // wait time before first wave
 
@@ -67,8 +67,12 @@ public class WaveSpawner : MonoBehaviour
         randomVec = new Vector3(x, y, z);
 
         waveOverOne = waveSpawnTimesOne;
+    
+    // variables for phases
+        phaseString = "game has not began yet";
 
-        phaseString = "phaseString is here";
+        phaseStringZero = "0";
+        phaseStringFirst = "1";
 
     }
 
@@ -84,7 +88,10 @@ public class WaveSpawner : MonoBehaviour
     // or ttwo variables(pcIsOn, phaseString)
         //if phaseString == zero {return;}
 
-
+        //  phase changing
+        //     probably use    case:
+        if(phaseString == "0")
+        {
 
         // wave1
         if(countdown <= 0f && waveOverOne > 0)
@@ -105,6 +112,16 @@ public class WaveSpawner : MonoBehaviour
 
         countdown -= UnityEngine.Time.deltaTime;
         // UnityEngine.Debug.Log("countdown = " + countdown);
+
+        }
+        else if (phaseString == phaseStringFirst)
+        {
+            // and we keep changing all of it
+        }
+
+
+
+
         
     }
 
