@@ -74,18 +74,18 @@ public class EnemyMovement : MonoBehaviour
     public void FullStopFor(float amount)
     {
         // fStopStartTime = Time.time;
-        UnityEngine.Debug.Log("started stop function TIME = " + Time.time);
+        // UnityEngine.Debug.Log("started stop function TIME = " + Time.time);
         float fStopStartTime = 0;
 
         while(fStopStartTime <=amount)
         {
             fStopStartTime += UnityEngine.Time.deltaTime;
-            UnityEngine.Debug.Log(" fStopStartTime = " + fStopStartTime);
+            // UnityEngine.Debug.Log(" fStopStartTime = " + fStopStartTime);
             
         }
-        UnityEngine.Debug.Log("finished stop function fStopStartTime = " + fStopStartTime);
+        // UnityEngine.Debug.Log("finished stop function fStopStartTime = " + fStopStartTime);
 
-        UnityEngine.Debug.Log("finished stop function TIME = " + Time.time);
+        // UnityEngine.Debug.Log("finished stop function TIME = " + Time.time);
         return;
 
     }

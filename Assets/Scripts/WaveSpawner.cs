@@ -36,6 +36,8 @@ public class WaveSpawner : MonoBehaviour
     
     public float timeBetweenWaves = 10f;
 
+    public string phaseString;
+
     private float countdown = 2f; // wait time before first wave
 
 
@@ -65,6 +67,8 @@ public class WaveSpawner : MonoBehaviour
         randomVec = new Vector3(x, y, z);
 
         waveOverOne = waveSpawnTimesOne;
+
+        phaseString = "phaseString is here";
 
     }
 
