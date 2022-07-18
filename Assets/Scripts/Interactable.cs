@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
     public UnityEvent onInteract;
     public Sprite interactIcon;
     public int ID;
-    public bool isLever;
+
 
     [Header("size of Icons")]
     public Vector2 iconSize;
@@ -23,11 +23,25 @@ public class Interactable : MonoBehaviour
     GameObject playerObjectInteract;
     MouseLook mouseLook;
     InputManager inputManager;
+    Interactable interactablePC;
+
+    [Header("isThisLever")]
+    public bool isLever;
+
+//  track is pc should be accessible
+    [Header("isThisPC")]
+    public bool isPC = true; 
+    public bool isPCon;
+    
+    [Header("DO NOT TOUCH")]
+    public float phaseStartTime;
+
   
     // Start is called before the first frame update
     void Start()
     {
         ID = Random.Range(0, 99999);
+        isPCon = false;
 
     }
 
@@ -42,23 +56,39 @@ public class Interactable : MonoBehaviour
     //       several public variables in GameMaster(TimeWaveFirst, TimeWaveSecond and etc)
     public void StartWave(GameObject gameMaster)
     {
-
-
         // UnityEngine.Debug.Log("WAVE is SPAWNED" + gameMaster);
         waveSpawner = gameMaster.GetComponent<WaveSpawner>();
-        waveSpawner.phaseString = waveSpawner.phaseStringZero;
-
         playerStats = gameMaster.GetComponent<PlayerStats>();
-        playerStats.startTimer = true;
+
+        phaseStartTime = Time.time;
+        // UnityEngine.Debug.Log("WaveStarted at = " + phaseStartTime);
+
+
+    // if its first time we pulled lever
+        if(waveSpawner.phaseString == waveSpawner.phaseStringStart)
+        {
+            // start phaseZero
+            waveSpawner.phaseString = waveSpawner.phaseStringZero;   
+
         
-        // Money is static variable, so you can access it from everywhere?
-        // read about public static
-        PlayerStats.Money = 0;
+            playerStats.startTimer = true;
+            
+            // Money is static variable, so you can access it from everywhere?
+            // read about public static
+            PlayerStats.Money = 0; 
+        }
+
+
+
         
     }
 
     public void ChangeCamera()
     {
+
+        if(isPCon)
+        {
+
         playerStats = gameMaster.GetComponent<PlayerStats>();
         
         //take movement away from player
@@ -76,9 +106,29 @@ public class Interactable : MonoBehaviour
         
         playerStats.towerDefCanvas.SetActive(true);
         playerStats.tdCamera.enabled = true;
+
+        }
+
         
 
     }
+
+    public void turnOnPC()
+    {
+        UnityEngine.Debug.Log("TEST = " + this.transform);
+        interactablePC = this.GetComponent<Interactable>();
+        // UnityEngine.Debug.Log("TEST = " + interactablePC.ID);
+        interactablePC.isPCon = true;
+    }
+
+    public void turnOffPC()
+    {
+        interactablePC = this.GetComponent<Interactable>();
+        // UnityEngine.Debug.Log("TEST = " + interactablePC.ID);
+        interactablePC.isPCon = false;
+    }
+
+
     // Update is called once per frame
     void Update()
     {

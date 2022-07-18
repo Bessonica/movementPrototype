@@ -54,28 +54,44 @@ public class Interactor : MonoBehaviour
             // choose icon in center of screen
             if(interactable.interactIcon != null)
             {
-                interactImage.sprite = interactable.interactIcon;
-                if(interactable.iconSize == Vector2.zero)
+                // if pc is onn show interact icon
+                   // also can start SOUND component
+                if(interactable.isPCon)
                 {
-                    interactImage.rectTransform.sizeDelta = defaultInteractIconSize;
+
+                    interactImage.sprite = interactable.interactIcon;
+                    if(interactable.iconSize == Vector2.zero)
+                    {
+                        interactImage.rectTransform.sizeDelta = defaultInteractIconSize;
+                    }
+                    else
+                    {
+                        interactImage.rectTransform.sizeDelta = interactable.iconSize;
+                    }
+
                 }
-                else
-                {
-                    interactImage.rectTransform.sizeDelta = interactable.iconSize;
-                }
+
+
                 
                 // "HOLD" text
                 if(interactable.isLever)
                 {
+                    UnityEngine.Debug.Log("WaveStarted at = " + interactable.phaseStartTime);
+                    interactImage.sprite = interactable.interactIcon;
+                    if(interactable.iconSize == Vector2.zero)
+                    {
+                        interactImage.rectTransform.sizeDelta = defaultInteractIconSize;
+                    }
+                    else
+                    {
+                        interactImage.rectTransform.sizeDelta = interactable.iconSize;
+                    }
+
                     Transform test =  interactImage.transform.GetChild(0);
                     Text test1 = test.GetComponent<Text>();
                     test1.gameObject.SetActive(true);
                 }
 
-            // how to get ui text bellow( like hold, or E)
-                // Transform test =  interactImage.transform.GetChild(0);
-                // Text test1 = test.GetComponent<Text>();
-                // UnityEngine.Debug.Log("HOLD TEXT = " + test1.text);
             }
             else
             {

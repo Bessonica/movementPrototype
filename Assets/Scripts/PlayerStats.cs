@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour
     public TextMeshProUGUI moneyText;
        // could not change it in interactable
     public static int Money;
-    public int startMoney = 1;
+    public int startMoney = 0;
     public float timeForMoney = 5f;
     public bool startTimer = false;
 
