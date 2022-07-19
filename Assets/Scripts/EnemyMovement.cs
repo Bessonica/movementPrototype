@@ -99,22 +99,7 @@ public class EnemyMovement : MonoBehaviour
 
     // }
 
-    public void TakeDamage(int amount)
-    {
-        // UnityEngine.Debug.Log("TAKE DAMAGE YOOOOO");
-        health -= amount;
 
-        if(health <=0)
-        {
-            Die();
-        }
-
-    }
-
-    void Die()
-    {
-        Destroy(gameObject);
-    }
 
     void Update()
     {
@@ -230,6 +215,24 @@ public class EnemyMovement : MonoBehaviour
         }
 
 
+    }
+
+
+    public void TakeDamage(int amount)
+    {
+        // UnityEngine.Debug.Log("TAKE DAMAGE YOOOOO");
+        health -= amount;
+
+        if(health <=0)
+        {
+            Die();
+        }
+
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
     }
 
 

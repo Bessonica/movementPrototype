@@ -56,7 +56,7 @@ public class Interactor : MonoBehaviour
             {
                 // if pc is onn show interact icon
                    // also can start SOUND component
-                if(interactable.isPCon)
+                if(interactable.isPC && interactable.isPCon)
                 {
 
                     interactImage.sprite = interactable.interactIcon;
@@ -74,9 +74,10 @@ public class Interactor : MonoBehaviour
 
                 
                 // "HOLD" text
-                if(interactable.isLever)
+                if(interactable.isLever && interactable.isLeverOn)
                 {
-                    UnityEngine.Debug.Log("WaveStarted at = " + interactable.phaseStartTime);
+                    // UnityEngine.Debug.Log("WaveStarted at = " + interactable.phaseStartTime);
+                    
                     interactImage.sprite = interactable.interactIcon;
                     if(interactable.iconSize == Vector2.zero)
                     {

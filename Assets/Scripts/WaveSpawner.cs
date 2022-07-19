@@ -21,6 +21,7 @@ public class WaveSpawner : MonoBehaviour
 //  wave Two
 //  ...
     [Header("Duration of phases")]
+    public float phaseZeroDuration;
     public float phaseOneDuration;
     public float phaseTwoDuration;
     public float phaseThreeDuration;
@@ -32,6 +33,7 @@ public class WaveSpawner : MonoBehaviour
     public int waveAmountZero; // how many npc in wave
     public int waveSpawnTimesZero; // how many times wave is spawned
     public float timeBetweenZero;
+    public float countdownZero;  // how long wait before starting spawning waves
     int waveOverZero;
 
 
@@ -41,6 +43,7 @@ public class WaveSpawner : MonoBehaviour
     public int waveAmountOne; // how many npc in wave
     public int waveSpawnTimesOne; // how many times wave is spawned
     public float timeBetweenOne;
+    public float countdownOne;
     int waveOverOne;
 
     [Header("Enemy wave two")]
@@ -56,6 +59,7 @@ public class WaveSpawner : MonoBehaviour
     public string phaseString,phaseStringStart, phaseStringZero, phaseStringFirst, phaseStringSecond;
 
     private float countdown = 2f; // wait time before first wave
+    // private float countdownOne = 2f;
 
     int waveOverIndex;
 
@@ -63,6 +67,22 @@ public class WaveSpawner : MonoBehaviour
 
     Vector3 randomVec;
     float x, y, z;
+
+    PlayerStats playerStats;
+    BuildManager buildManager;
+
+    public bool phaseIsOn;
+
+    [Header("Lever and PC interactable objects")]
+    public GameObject PC;
+    public GameObject Lever;
+
+    Interactable pcInteractable, leverInteractable;
+     
+
+    float phaseStartTime = 0;
+    float phaseTime = 0;
+    float phaseDeadLine = 1;
 
 
 // idea: phases
@@ -99,29 +119,96 @@ public class WaveSpawner : MonoBehaviour
         phaseStringFirst = "1";
         phaseStringSecond = "2";
 
+        
+        phaseIsOn = false;
+        playerStats = this.GetComponent<PlayerStats>();
+        buildManager = this.GetComponent<BuildManager>();
+
+        pcInteractable = PC.GetComponent<Interactable>();
+        leverInteractable = Lever.GetComponent<Interactable>();
+
+
+    }
+
+    public void StartPhase()
+    {
+        phaseIsOn = true;
+        // playerStats = this.GetComponent<PlayerStats>();
+        phaseStartTime = Time.time;
+
+        playerStats.startTimer = true;
+        PlayerStats.Money = 0; 
+        // Money is static variable, so you can access it from everywhere?
+        // read about public static
+
+        
+        // if its first time we pulled lever
+            if(phaseString == phaseStringStart)
+            {
+                // start phaseZero
+                phaseString = phaseStringZero;   
+
+                phaseDeadLine = phaseZeroDuration;
+            }
+            else if(phaseString == phaseStringZero)
+            {
+                phaseString = phaseStringFirst;
+                phaseDeadLine = phaseOneDuration;
+
+            }
+    //when we started phase player cant use lever
+        leverInteractable.isLeverOn = false;
+
+
+    }
+
+//     turn off all turrets
+    public void StopPhase()
+    {
+        phaseIsOn = false;
+        playerStats.startTimer = false;
+        PlayerStats.Money = 0; 
+
+        pcInteractable.turnOffPC();
+        buildManager.DestroyAllTurrets();
+
+    // when phase is stoped player can use lever to turn it on again
+        leverInteractable.isLeverOn = true;
 
     }
 
     // Update is called once per frame
     private void Update()
     {
-//  I FOUND A WAY TO MANAGE PHASE IN BEGINING
-    // when you didnt pull lever phase string is "zero"
-    // or ttwo variables(pcIsOn, phaseString)
-        //if phaseString == zero {return;}
 
-        //  phase changing
-        //     probably use    case:
+
+        if(!phaseIsOn)
+        {
+            return;
+        }
+
+
+  //  check if phase time has ended
+        phaseTime = Time.time;
+        if((phaseTime - phaseStartTime) >= phaseDeadLine)
+        {
+            UnityEngine.Debug.Log("phaseTime - phaseStartTime = " + (phaseTime - phaseStartTime ));
+            UnityEngine.Debug.Log("phase has ended phasezeroDuration = " + phaseDeadLine );
+            StopPhase();
+        }
+
+
+
         if(phaseString == phaseStringZero)
         {
 
-            if(countdown <= 0f && waveOverZero > 0)
+            if(countdownZero <= 0f && waveOverZero > 0)
             {
                 StartCoroutine(SpawnWave(enemyPrefabZero,waveAmountZero, 1));
-                countdown = timeBetweenOne;
+                countdownZero = timeBetweenOne;
             }
 
-            countdown -= UnityEngine.Time.deltaTime;
+            countdownZero -= UnityEngine.Time.deltaTime;
             // UnityEngine.Debug.Log("countdown = " + countdown);
 
 
@@ -129,22 +216,16 @@ public class WaveSpawner : MonoBehaviour
         }
         else if (phaseString == phaseStringFirst)
         {
-            // and we keep changing all of it
-
             // wave1
-            if(countdown <= 0f && waveOverOne > 0)
+            if(countdownOne <= 0f && waveOverOne > 0)
             {
                 StartCoroutine(SpawnWave(enemyPrefabOne,waveAmountOne, 1));
-                countdown = timeBetweenOne;
+                countdownOne = timeBetweenOne;
             }
 
-            countdown -= UnityEngine.Time.deltaTime;
+            countdownOne -= UnityEngine.Time.deltaTime;
             // UnityEngine.Debug.Log("countdown = " + countdown);
         }
-
-
-
-
         
     }
 

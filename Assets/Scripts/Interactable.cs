@@ -27,10 +27,11 @@ public class Interactable : MonoBehaviour
 
     [Header("isThisLever")]
     public bool isLever;
+    public bool isLeverOn = true;
 
 //  track is pc should be accessible
     [Header("isThisPC")]
-    public bool isPC = true; 
+    public bool isPC; 
     public bool isPCon;
     
     [Header("DO NOT TOUCH")]
@@ -45,42 +46,15 @@ public class Interactable : MonoBehaviour
 
     }
 
-// UnityEngine.Debug.Log("WAVE is SPAWNED" + waveSpawner.phaseString);
 
-// start wave and reload money and turret variables!!! 
-    // figure out cooldown for it
-    // after starting wave need to put timer
-
-    //    courutine that waits for some time
-    //    and then stops the wave
-    //       several public variables in GameMaster(TimeWaveFirst, TimeWaveSecond and etc)
     public void StartWave(GameObject gameMaster)
     {
-        // UnityEngine.Debug.Log("WAVE is SPAWNED" + gameMaster);
-        waveSpawner = gameMaster.GetComponent<WaveSpawner>();
-        playerStats = gameMaster.GetComponent<PlayerStats>();
-
-        phaseStartTime = Time.time;
-        // UnityEngine.Debug.Log("WaveStarted at = " + phaseStartTime);
-
-
-    // if its first time we pulled lever
-        if(waveSpawner.phaseString == waveSpawner.phaseStringStart)
+        if(isLeverOn)
         {
-            // start phaseZero
-            waveSpawner.phaseString = waveSpawner.phaseStringZero;   
-
-        
-            playerStats.startTimer = true;
-            
-            // Money is static variable, so you can access it from everywhere?
-            // read about public static
-            PlayerStats.Money = 0; 
+            waveSpawner = gameMaster.GetComponent<WaveSpawner>();
+            waveSpawner.StartPhase();
         }
 
-
-
-        
     }
 
     public void ChangeCamera()
@@ -113,9 +87,34 @@ public class Interactable : MonoBehaviour
 
     }
 
+    public void ChangeCameraToFirstPerson()
+    {
+        if(isPCon)
+        {
+            playerStats = gameMaster.GetComponent<PlayerStats>();
+            playerObjectInteract = playerStats.playerObject;
+            
+            mouseLook = playerObjectInteract.GetComponent<MouseLook>();
+            inputManager = playerObjectInteract.GetComponent<InputManager>();
+
+            // take away pc camera and ui 
+            playerStats.towerDefCanvas.SetActive(false);
+            playerStats.tdCamera.enabled = false;
+
+            playerStats.playerCamera.enabled = true;
+            playerStats.playerCanvas.SetActive(true);
+
+            //give movement to player
+            mouseLook.enabled = true;
+            inputManager.enabled = true;
+
+            
+        }
+
+    }
+
     public void turnOnPC()
     {
-        UnityEngine.Debug.Log("TEST = " + this.transform);
         interactablePC = this.GetComponent<Interactable>();
         // UnityEngine.Debug.Log("TEST = " + interactablePC.ID);
         interactablePC.isPCon = true;
@@ -125,6 +124,12 @@ public class Interactable : MonoBehaviour
     {
         interactablePC = this.GetComponent<Interactable>();
         // UnityEngine.Debug.Log("TEST = " + interactablePC.ID);
+
+        if(playerStats.tdCamera.enabled)
+        {
+            interactablePC.ChangeCameraToFirstPerson();
+        }
+
         interactablePC.isPCon = false;
     }
 

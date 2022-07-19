@@ -10,6 +10,7 @@ public class BuildManager : MonoBehaviour
     float x, y, z;
 
     public bool needToDestroy;
+    public GameObject NodeArray;
 
     void Awake()
     {
@@ -69,6 +70,19 @@ public class BuildManager : MonoBehaviour
     }
 
 
+    public void DestroyAllTurrets()
+    {    
+        foreach(Transform Child in NodeArray.transform)
+        {
+            Node childNode = Child.GetComponent<Node>();
+            Destroy(childNode.turret);
+        }
+
+            // Transform Child = NodeArray.transform.GetChild(1);
+            // Node childNode = Child.GetComponent<Node>();
+            // Destroy(childNode.turret);
+
+    }
 
 //  this doesnt work
 

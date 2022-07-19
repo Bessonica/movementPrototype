@@ -38,6 +38,7 @@ public class PlayerStats : MonoBehaviour
     public GameObject playerCanvas;
     public GameObject towerDefCanvas;
 
+
     // Start is called before the first frame update
     void Start()
     {
