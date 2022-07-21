@@ -55,8 +55,8 @@ public class DoorBehaiviour : MonoBehaviour
   {
 
     // parametrs, can use them as parametrs that are put in function
-       //countdownDoor
-       //powerOfShake
+       //countdownDoor  0.065f;
+       //powerOfShake   0.1f;
        //randomTime
 
 

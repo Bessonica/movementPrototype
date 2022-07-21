@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.6f, groundMask);
         // UnityEngine.Debug.Log("IS GROUNDED =  " + isGrounded);
 
         if(isGrounded)
@@ -32,8 +32,11 @@ public class Movement : MonoBehaviour
         
         Vector3 horizontalVelocity = (transform.right * horizontalInput.x + transform.forward * horizontalInput.y ) * speed;
         Vector3 vectorToCompare = new Vector3 (0, 0, 0);
+        // UnityEngine.Debug.Log("TIMER =  " + timer);
+
         if(horizontalVelocity != vectorToCompare && isGrounded)
         {
+            UnityEngine.Debug.Log("<color=green> TIMER IS NOT ZERO    </color>  " + timer);
             timer += Time.deltaTime * walkingBobbingSpeed;
 
             controller.Move(horizontalVelocity * Time.deltaTime);
@@ -44,6 +47,8 @@ public class Movement : MonoBehaviour
         }else
         {
             timer = 0;
+            UnityEngine.Debug.Log("<color=red> TIMER IS ZERO    </color>  " + timer);
+            verticalVelocity.y += gravity * Time.deltaTime;
         }
 
         if(!isGrounded)
