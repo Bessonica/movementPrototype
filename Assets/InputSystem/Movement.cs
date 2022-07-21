@@ -13,9 +13,17 @@ public class Movement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     bool isGrounded;
 
+    float timer = 0;
+    public float walkingBobbingSpeed;
+    public float bobbingAmount;
+
+    public Transform groundCheck;
+
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
+        // UnityEngine.Debug.Log("IS GROUNDED =  " + isGrounded);
+
         if(isGrounded)
         {
             verticalVelocity.y = 0;
@@ -23,9 +31,26 @@ public class Movement : MonoBehaviour
 
         
         Vector3 horizontalVelocity = (transform.right * horizontalInput.x + transform.forward * horizontalInput.y ) * speed;
-        controller.Move(horizontalVelocity * Time.deltaTime);
+        Vector3 vectorToCompare = new Vector3 (0, 0, 0);
+        if(horizontalVelocity != vectorToCompare && isGrounded)
+        {
+            timer += Time.deltaTime * walkingBobbingSpeed;
 
-        verticalVelocity.y += gravity * Time.deltaTime;
+            controller.Move(horizontalVelocity * Time.deltaTime);
+            
+            verticalVelocity.y += Mathf.Sin(timer) * bobbingAmount;
+            // controller.Move(verticalVelocity * Time.deltaTime);
+
+        }else
+        {
+            timer = 0;
+        }
+
+        if(!isGrounded)
+        {
+            verticalVelocity.y += gravity * Time.deltaTime;
+        }
+
         controller.Move(verticalVelocity * Time.deltaTime);
     }
 
