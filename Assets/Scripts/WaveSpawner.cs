@@ -56,9 +56,9 @@ public class WaveSpawner : MonoBehaviour
 
 // this strings are responsible for choosing what phase is right now
     // in (interactable.cs) we reassign phaseString and it changes here
-    public string phaseString,phaseStringStart, phaseStringZero, phaseStringFirst, phaseStringSecond;
+    public string phaseString,phaseStringStart, phaseStringZero, phaseStringFirst, phaseStringSecond, phaseStringThird;
 
-    private float countdown = 2f; // wait time before first wave
+    // private float countdown = 2f; // wait time before first wave
     // private float countdownOne = 2f;
 
     int waveOverIndex;
@@ -76,6 +76,10 @@ public class WaveSpawner : MonoBehaviour
     [Header("Lever and PC interactable objects")]
     public GameObject PC;
     public GameObject Lever;
+    
+    [Header("Door")]
+    public GameObject DoorObject;
+    DoorBehaiviour door;
 
     Interactable pcInteractable, leverInteractable;
      
@@ -118,6 +122,7 @@ public class WaveSpawner : MonoBehaviour
         phaseStringZero = "0";
         phaseStringFirst = "1";
         phaseStringSecond = "2";
+        phaseStringThird = "3";
 
         
         phaseIsOn = false;
@@ -127,11 +132,17 @@ public class WaveSpawner : MonoBehaviour
         pcInteractable = PC.GetComponent<Interactable>();
         leverInteractable = Lever.GetComponent<Interactable>();
 
+        door = DoorObject.GetComponent<DoorBehaiviour>();
+
 
     }
 
     public void StartPhase()
     {
+        // StopCourutine(door.BashOnDoor());
+
+
+        door.keepBashing = false;
         phaseIsOn = true;
         // playerStats = this.GetComponent<PlayerStats>();
         phaseStartTime = Time.time;
@@ -155,7 +166,22 @@ public class WaveSpawner : MonoBehaviour
                 phaseString = phaseStringFirst;
                 phaseDeadLine = phaseOneDuration;
 
+            }else if(phaseString == phaseStringFirst)
+            {
+                // жди пару секунд, что бы запустить звук удара по двери,когда игрок рядом
+            }else if(phaseString == phaseStringSecond)
+            {
+
+            }else if(phaseString == phaseStringThird)
+            {
+    //во время фазы/волны к двери слышно вссе больше и больше ударов
+    // то есть запускаем корутину и в завивисмости от длинны волны(phaseThreeDuration)
+    // и через определенное время меняем звуковой еффект на новый
             }
+
+
+
+            
     //when we started phase player cant use lever
         leverInteractable.isLeverOn = false;
 
@@ -172,9 +198,33 @@ public class WaveSpawner : MonoBehaviour
         pcInteractable.turnOffPC();
         buildManager.DestroyAllTurrets();
 
+
+//create object monsterSound behind door and activate it here
+// решаем какие звуки ставить, когда выключается свет
+        if(phaseString == phaseStringFirst)
+        {
+    //слышно шум задверью, но ее никто не трогает
+            
+
+        }else if(phaseString == phaseStringSecond)
+        {
+    //шум за дверью громче и агрессивнее
+
+        }else if(phaseString == phaseStringThird)
+        {
+    //
+        }
+        
+        if(phaseString == phaseStringZero)
+        {
+           StartCoroutine(door.BashOnDoor(DoorObject));
+
+        }
+
+        
+
     // when phase is stoped player can use lever to turn it on again
         leverInteractable.isLeverOn = true;
-
     }
 
     // Update is called once per frame

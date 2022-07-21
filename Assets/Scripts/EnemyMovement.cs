@@ -194,7 +194,7 @@ public class EnemyMovement : MonoBehaviour
 
     void GetNextWay()
     {
-        FullStopFor(4f);
+        
 
         switch(currentWay.name)
         {
