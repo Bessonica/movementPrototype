@@ -56,7 +56,7 @@ public class WaveSpawner : MonoBehaviour
 
 // this strings are responsible for choosing what phase is right now
     // in (interactable.cs) we reassign phaseString and it changes here
-    public string phaseString,phaseStringStart, phaseStringZero, phaseStringFirst, phaseStringSecond, phaseStringThird;
+    public string phaseString,phaseStringStart, phaseStringZero, phaseStringFirst, phaseStringSecond, phaseStringThird, phaseStringFourth, phaseStringFinal;
 
     // private float countdown = 2f; // wait time before first wave
     // private float countdownOne = 2f;
@@ -123,6 +123,8 @@ public class WaveSpawner : MonoBehaviour
         phaseStringFirst = "1";
         phaseStringSecond = "2";
         phaseStringThird = "3";
+        phaseStringFourth = "4";
+        phaseStringFinal = "final";
 
         
         phaseIsOn = false;
@@ -137,6 +139,8 @@ public class WaveSpawner : MonoBehaviour
 
     }
 
+
+// what we do when player pull the lever
     public void StartPhase()
     {
         // StopCourutine(door.BashOnDoor());
@@ -158,25 +162,47 @@ public class WaveSpawner : MonoBehaviour
             {
                 // start phaseZero
                 phaseString = phaseStringZero;   
-
                 phaseDeadLine = phaseZeroDuration;
+                UnityEngine.Debug.Log("STARTED ZERO PHASE ");
             }
             else if(phaseString == phaseStringZero)
             {
                 phaseString = phaseStringFirst;
                 phaseDeadLine = phaseOneDuration;
+                UnityEngine.Debug.Log("STARTED FIRST PHASE ");
 
             }else if(phaseString == phaseStringFirst)
             {
-                // жди пару секунд, что бы запустить звук удара по двери,когда игрок рядом
+                phaseString = phaseStringSecond;
+                phaseDeadLine = phaseTwoDuration;
+                UnityEngine.Debug.Log("STARTED SECOND PHASE ");
+
             }else if(phaseString == phaseStringSecond)
             {
+                phaseString = phaseStringThird;
+                phaseDeadLine = phaseThreeDuration;
+                UnityEngine.Debug.Log("STARTED THIRD PHASE ");
+
+                // StartCoroutine(door.BashOnDoor(DoorObject));
 
             }else if(phaseString == phaseStringThird)
             {
     //во время фазы/волны к двери слышно вссе больше и больше ударов
     // то есть запускаем корутину и в завивисмости от длинны волны(phaseThreeDuration)
     // и через определенное время меняем звуковой еффект на новый
+                phaseString = phaseStringFourth;
+                phaseDeadLine = phaseFourDuration;
+                UnityEngine.Debug.Log("STARTED FOURTH PHASE ");
+
+
+
+            }else if(phaseString == phaseStringFourth)
+            {
+                phaseString = phaseStringFinal;
+                phaseDeadLine = phaseFourDuration;
+                UnityEngine.Debug.Log("STARTED FINAL PHASE ");
+
+
             }
 
 
@@ -188,7 +214,7 @@ public class WaveSpawner : MonoBehaviour
 
     }
 
-//     turn off all turrets
+// what we do when phase time ends
     public void StopPhase()
     {
         phaseIsOn = false;
@@ -201,25 +227,46 @@ public class WaveSpawner : MonoBehaviour
 
 //create object monsterSound behind door and activate it here
 // решаем какие звуки ставить, когда выключается свет
-        if(phaseString == phaseStringFirst)
+        if(phaseString == phaseStringZero)
+        {
+           UnityEngine.Debug.Log("PHASE ZERO ENDED ");
+
+        
+        }else if(phaseString == phaseStringFirst)
         {
     //слышно шум задверью, но ее никто не трогает
+            UnityEngine.Debug.Log("PHASE ONE ENDED ");
             
 
         }else if(phaseString == phaseStringSecond)
-        {
+        {           
     //шум за дверью громче и агрессивнее
+            UnityEngine.Debug.Log("PHASE TWO ENDED ");
+
 
         }else if(phaseString == phaseStringThird)
         {
-    //
-        }
-        
-        if(phaseString == phaseStringZero)
+
+            UnityEngine.Debug.Log("PHASE THREE ENDED ");
+    
+
+
+        }else if(phaseString == phaseStringFourth)
         {
-           StartCoroutine(door.BashOnDoor(DoorObject));
+            UnityEngine.Debug.Log("PHASE FOUR ENDED ");
+
+
+
+        }else if(phaseString == phaseStringFinal)
+        {
+            // unfinished
+            UnityEngine.Debug.Log("PHASE FINAL ENDED ");
+
+
 
         }
+        
+
 
         
 
@@ -240,10 +287,10 @@ public class WaveSpawner : MonoBehaviour
 
   //  check if phase time has ended
         phaseTime = Time.time;
-        if((phaseTime - phaseStartTime) >= phaseDeadLine)
+        if((phaseTime - phaseStartTime) >= phaseDeadLine && phaseString != phaseStringFinal)
         {
-            UnityEngine.Debug.Log("phaseTime - phaseStartTime = " + (phaseTime - phaseStartTime ));
-            UnityEngine.Debug.Log("phase has ended phasezeroDuration = " + phaseDeadLine );
+            // UnityEngine.Debug.Log("phaseTime - phaseStartTime = " + (phaseTime - phaseStartTime ));
+            // UnityEngine.Debug.Log("phase has ended phasezeroDuration = " + phaseDeadLine );
             StopPhase();
         }
 
@@ -275,8 +322,32 @@ public class WaveSpawner : MonoBehaviour
 
             countdownOne -= UnityEngine.Time.deltaTime;
             // UnityEngine.Debug.Log("countdown = " + countdown);
+
+        }else if (phaseString == phaseStringSecond)
+        {
+
+
+
+        }else if (phaseString == phaseStringThird)
+        {
+
+
+
+        }else if (phaseString == phaseStringFourth)
+        {
+
+
+
+        }else if (phaseString == phaseStringFinal)
+        {
+
+
+
         }
         
+
+
+
     }
 
 

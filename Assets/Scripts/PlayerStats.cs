@@ -73,7 +73,7 @@ public class PlayerStats : MonoBehaviour
                 if(currentTime >= timerLimit)
                 {
                     Money ++;
-                    UnityEngine.Debug.Log("added more money " + Money);
+                    // UnityEngine.Debug.Log("added more money " + Money);
                     currentTime = 0;
                     
 

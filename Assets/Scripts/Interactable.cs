@@ -126,7 +126,7 @@ public class Interactable : MonoBehaviour
 
 
         interactablePC = this.GetComponent<Interactable>();
-        UnityEngine.Debug.Log("tdCamera.enabled = " + playerStats.tdCamera.enabled);
+        // UnityEngine.Debug.Log("tdCamera.enabled = " + playerStats.tdCamera.enabled);
 
         if(playerStats.tdCamera.enabled)
         {
