@@ -11,6 +11,7 @@ public class Dialogue : MonoBehaviour
     public float textSpeed;
     public Sprite[] images;
     public Image insertImage;
+    public GameObject CanvasPlayer;
     // public Image imageOne;
     // public Image imageTwo;
     // public Image imageThree;
@@ -31,6 +32,8 @@ public class Dialogue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CanvasPlayer.SetActive(false);
+
         // this.transform.parent.gameObject.GetComponent<Image>().sprite = images[0];
         // set image
         // insertImage.GetComponent<Image>().sprite = images[0].CrossFadeAlpha(1, 2.0f, false);
@@ -106,33 +109,68 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-//IEnumerator FadeToNextImage(float startTime, int index)
+    IEnumerator FadeToNextImage(float startTime, int index)
+    {
+
+        textComponent.text = string.Empty;
+        StartCoroutine(TypeLine());
+
+        // fade out old image
+            for (float i = 1; i >= 0; i -= Time.deltaTime)
+            {
+                // set color with i as alpha
+                insertImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, i);
+                yield return null;
+            }
+
+            insertImage.GetComponent<Image>().sprite = images[index];
+
+
+            for (float i = 0; i <= 1; i += Time.deltaTime)
+            {
+                // set color with i as alpha
+                insertImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, i);
+                yield return null;
+            }
+
+        
+        
+    }
 // it should not be courutine (give control ONLY when image fade out completely)
     IEnumerator FadeToFinale(float startTime)
     {
-        float duration = 3f;
-        
 
-        float minimum = 0.0f;
-        float maximum = 1f;
+        //fade out dialog box
+        // for (float i = 1; i >= 0; i -= Time.deltaTime)
+        // {
+        //     // set color with i as alpha
+        //     this.GetComponent<Image>().color = new Color(1f, 1f, 1f, i);
+        //     yield return null;
+        // }
 
 
+        //this.transform.parent.gameObject
 
-        for (int i = 0; i < 30; i++) 
+        for (float i = 1; i >= 0; i -= Time.deltaTime)
         {
-            yield return new WaitForSeconds(0.25f);
-            float t = (Time.time - startTime) / duration;
-            UnityEngine.Debug.Log("time = " + t);
-
-            insertImage.GetComponent<Image>().color = new Color( 1f,1f,1f,Mathf.SmoothStep(minimum, maximum, t) );
+            // set color with i as alpha
+            insertImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, i);
+            yield return null;
         }
 
 
-
-
+        for (float i = 1; i >= 0; i -= Time.deltaTime)
+        {
+            // set color with i as alpha
+            this.transform.parent.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, i);
+            yield return null;
+        }
 
         gameObject.SetActive(false);
         this.transform.parent.gameObject.SetActive(false);
+
+        CanvasPlayer.SetActive(true);
+        GiveControls();
 
 
         yield return null;
@@ -165,24 +203,31 @@ public class Dialogue : MonoBehaviour
             
             index++;
             // change image
-            insertImage.GetComponent<Image>().sprite = images[index];
+            // insertImage.GetComponent<Image>().sprite = images[index];
             // coroutine to change image
 
-            textComponent.text = string.Empty;
-            StartCoroutine(TypeLine());
+
+      //  this function is now inside FadeIntoNextImage
+            // textComponent.text = string.Empty;
+            // StartCoroutine(TypeLine());
+
+
+
+            float endTime = Time.time;
+            StartCoroutine(FadeToNextImage(endTime, index));
 
             // float endTime = Time.time;
             // StartCoroutine(FadeToFinale(endTime));
         }else
         {
         // unfinished fade images function
-            // float endTime = Time.time;
-            // StartCoroutine(FadeToFinale(endTime));
+            float endTime = Time.time;
+            StartCoroutine(FadeToFinale(endTime));
             
 
-            gameObject.SetActive(false);
-            this.transform.parent.gameObject.SetActive(false);
-            GiveControls();
+            // gameObject.SetActive(false);
+            // this.transform.parent.gameObject.SetActive(false);
+            // GiveControls();
         }
     }
 }
