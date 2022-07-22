@@ -36,7 +36,7 @@ public class Movement : MonoBehaviour
 
         if(horizontalVelocity != vectorToCompare && isGrounded)
         {
-            UnityEngine.Debug.Log("<color=green> TIMER IS NOT ZERO    </color>  " + timer);
+            // UnityEngine.Debug.Log("<color=green> TIMER IS NOT ZERO    </color>  " + timer);
             timer += Time.deltaTime * walkingBobbingSpeed;
 
             controller.Move(horizontalVelocity * Time.deltaTime);
@@ -47,7 +47,7 @@ public class Movement : MonoBehaviour
         }else
         {
             timer = 0;
-            UnityEngine.Debug.Log("<color=red> TIMER IS ZERO    </color>  " + timer);
+            // UnityEngine.Debug.Log("<color=red> TIMER IS ZERO    </color>  " + timer);
             verticalVelocity.y += gravity * Time.deltaTime;
         }
 

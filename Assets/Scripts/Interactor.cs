@@ -22,6 +22,10 @@ public class Interactor : MonoBehaviour
     [Header("gameMaster Test")]
     public GameObject gameMaster;
     WaveSpawner waveSpawner;
+ 
+    [Header("how long whoeld player hold lever")]
+    public float HoldTimerDeadLine;
+    float holdTimer = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -102,14 +106,29 @@ public class Interactor : MonoBehaviour
             }
 
             // if we press "E" then activate this function
-            if(Input.GetKeyDown(KeyCode.E))
+               // Input.GetKeyDown(KeyCode.E))
+            if(Input.GetKey(KeyCode.E))
             {
-                interactable.onInteract.Invoke();
+                holdTimer +=Time.deltaTime;
+                UnityEngine.Debug.Log(" HoldTimer = " + holdTimer);
+
+                if(holdTimer > HoldTimerDeadLine)
+                {
+                   interactable.onInteract.Invoke();
+                   return;
+                }
+
+                // interactable.onInteract.Invoke();
 
         // !!! this shit here works but not in interactable for some reason
                 // waveSpawner = gameMaster.GetComponent<WaveSpawner>();
                 // UnityEngine.Debug.Log("TEST = " + waveSpawner.phaseString);
 
+            }else
+            {
+                
+                holdTimer = 0;
+                // UnityEngine.Debug.Log(" <color=red>HoldTimer IS zero </color> " + holdTimer);
             }
         }
     }

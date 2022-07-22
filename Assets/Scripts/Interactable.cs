@@ -34,6 +34,7 @@ public class Interactable : MonoBehaviour
     public bool isPC; 
     public bool isPCon;
     
+    
     [Header("DO NOT TOUCH")]
     public float phaseStartTime;
 
