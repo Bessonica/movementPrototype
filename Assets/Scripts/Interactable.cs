@@ -64,23 +64,23 @@ public class Interactable : MonoBehaviour
         if(isPCon)
         {
 
-        playerStats = gameMaster.GetComponent<PlayerStats>();
-        
-        //take movement away from player
-        playerObjectInteract = playerStats.playerObject;
-        mouseLook = playerObjectInteract.GetComponent<MouseLook>();
-        inputManager = playerObjectInteract.GetComponent<InputManager>();
-        mouseLook.enabled = false;
-        inputManager.enabled = false;
+            playerStats = gameMaster.GetComponent<PlayerStats>();
+            
+            //take movement away from player
+            playerObjectInteract = playerStats.playerObject;
+            mouseLook = playerObjectInteract.GetComponent<MouseLook>();
+            inputManager = playerObjectInteract.GetComponent<InputManager>();
+            mouseLook.enabled = false;
+            inputManager.enabled = false;
 
 
-        //changing camera and ui
-        playerStats.playerCamera.enabled = false;
-        playerStats.playerCanvas.SetActive(false);
-        
-        
-        playerStats.towerDefCanvas.SetActive(true);
-        playerStats.tdCamera.enabled = true;
+            //changing camera and ui
+            playerStats.playerCamera.enabled = false;
+            playerStats.playerCanvas.SetActive(false);
+            
+            
+            playerStats.towerDefCanvas.SetActive(true);
+            playerStats.tdCamera.enabled = true;
 
         }
 
