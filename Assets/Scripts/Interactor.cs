@@ -109,14 +109,28 @@ public class Interactor : MonoBehaviour
                // Input.GetKeyDown(KeyCode.E))
             if(Input.GetKey(KeyCode.E))
             {
+                // if its pc enter immediatly
+                if(interactable.isPC)
+                {
+                    interactable.onInteract.Invoke();
+                }
+                else
+                {
+                    // if its lever then start timer
+
                 holdTimer +=Time.deltaTime;
-                UnityEngine.Debug.Log(" HoldTimer = " + holdTimer);
+                // UnityEngine.Debug.Log(" HoldTimer = " + holdTimer);
 
                 if(holdTimer > HoldTimerDeadLine)
                 {
                    interactable.onInteract.Invoke();
                    return;
                 }
+
+                }
+
+
+
 
                 // interactable.onInteract.Invoke();
 

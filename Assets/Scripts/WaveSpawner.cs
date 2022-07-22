@@ -144,17 +144,19 @@ public class WaveSpawner : MonoBehaviour
     public void StartPhase()
     {
         // StopCourutine(door.BashOnDoor());
-
+        phaseStartTime = Time.time;
+        playerStats.startTimer = true;
+        phaseIsOn = true;
 
         door.keepBashing = false;
-        phaseIsOn = true;
+        
         // playerStats = this.GetComponent<PlayerStats>();
-        phaseStartTime = Time.time;
 
-        playerStats.startTimer = true;
         PlayerStats.Money = 0; 
         // Money is static variable, so you can access it from everywhere?
         // read about public static
+
+   
 
         
         // if its first time we pulled lever
@@ -208,8 +210,11 @@ public class WaveSpawner : MonoBehaviour
 
 
             
-    //when we started phase player cant use lever
-        leverInteractable.isLeverOn = false;
+            //when we started phase player cant use lever
+
+            leverInteractable.isLeverOn = false;
+           
+                
 
 
     }
@@ -217,6 +222,10 @@ public class WaveSpawner : MonoBehaviour
 // what we do when phase time ends
     public void StopPhase()
     {
+
+        if(phaseString != phaseStringZero)
+        {
+
         phaseIsOn = false;
         playerStats.startTimer = false;
         PlayerStats.Money = 0; 
@@ -225,11 +234,16 @@ public class WaveSpawner : MonoBehaviour
         buildManager.DestroyAllTurrets();
 
 
+        }
+
+
+
 //create object monsterSound behind door and activate it here
 // решаем какие звуки ставить, когда выключается свет
         if(phaseString == phaseStringZero)
         {
            UnityEngine.Debug.Log("PHASE ZERO ENDED ");
+           StartPhase();
 
         
         }else if(phaseString == phaseStringFirst)
@@ -271,7 +285,12 @@ public class WaveSpawner : MonoBehaviour
         
 
     // when phase is stoped player can use lever to turn it on again
-        leverInteractable.isLeverOn = true;
+        if(phaseString != phaseStringZero)
+        {
+            leverInteractable.isLeverOn = true;
+            
+        }
+        
     }
 
     // Update is called once per frame

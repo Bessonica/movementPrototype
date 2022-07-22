@@ -106,13 +106,35 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    IEnumerator FadeToFinale(float startTime, int index)
+//IEnumerator FadeToNextImage(float startTime, int index)
+// it should not be courutine (give control ONLY when image fade out completely)
+    IEnumerator FadeToFinale(float startTime)
     {
         float duration = 3f;
         
 
         float minimum = 0.0f;
         float maximum = 1f;
+
+
+
+        for (int i = 0; i < 30; i++) 
+        {
+            yield return new WaitForSeconds(0.25f);
+            float t = (Time.time - startTime) / duration;
+            UnityEngine.Debug.Log("time = " + t);
+
+            insertImage.GetComponent<Image>().color = new Color( 1f,1f,1f,Mathf.SmoothStep(minimum, maximum, t) );
+        }
+
+
+
+
+
+        gameObject.SetActive(false);
+        this.transform.parent.gameObject.SetActive(false);
+
+
         yield return null;
 
         // while(true)
@@ -148,12 +170,13 @@ public class Dialogue : MonoBehaviour
 
             textComponent.text = string.Empty;
             StartCoroutine(TypeLine());
+
+            // float endTime = Time.time;
+            // StartCoroutine(FadeToFinale(endTime));
         }else
         {
-            // what to do when we finished all lines
-               // fade out, give player his controls
-
-            float endTime = Time.time;
+        // unfinished fade images function
+            // float endTime = Time.time;
             // StartCoroutine(FadeToFinale(endTime));
             
 

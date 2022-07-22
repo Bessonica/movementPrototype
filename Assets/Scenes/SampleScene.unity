@@ -14002,9 +14002,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1216f7558f255a44abdf6eea88c91a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phaseZeroDuration: 2
-  phaseOneDuration: 2
-  phaseTwoDuration: 2
+  phaseZeroDuration: 15
+  phaseOneDuration: 5
+  phaseTwoDuration: 5
   phaseThreeDuration: 2
   phaseFourDuration: 2
   enemyPrefabZero: {fileID: 2046431570}
@@ -16028,7 +16028,7 @@ MonoBehaviour:
   gameMaster: {fileID: 1164116999}
   isLever: 1
   isLeverOn: 1
-  isPC: 1
+  isPC: 0
   isPCon: 0
   phaseStartTime: 0
 --- !u!65 &1354050476
