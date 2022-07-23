@@ -87,7 +87,8 @@ public class DoorBehaiviour : MonoBehaviour
         doorToShake.transform.position = startingPos;
       }
       
-      doorSound.Play();
+      // doorSound.Play();
+      AudioManager.instance.BashOnDoorSFX();
       yield return new WaitForSeconds(randomTime);
       
 

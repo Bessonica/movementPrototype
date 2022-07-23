@@ -52,11 +52,7 @@ public class Movement : MonoBehaviour
 
 
         // sound part
-            // if mathf.sin(timer) == amountX (when player on lowest point) play sound
-
-            
-
-            
+            // if mathf.sin(timer) == amountX (when player on lowest point) play sound       
          // i dont even understand how i made this 
             // now its fixed
             if(Mathf.Sin(timer) > lowestSin)
@@ -66,7 +62,6 @@ public class Movement : MonoBehaviour
 
             if(Mathf.Sin(timer) < lowestSin && Mathf.Cos(timer) > 0)
             {
-                UnityEngine.Debug.Log("STEP  Mathf.Sin(timer)     " + Mathf.Sin(timer) + "  lowestSin = " + lowestSin);
                 AudioManager.instance.StepOnFloorSFX();
                 lowestSin = -5f;
             }

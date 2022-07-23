@@ -166,6 +166,8 @@ public class WaveSpawner : MonoBehaviour
                 phaseString = phaseStringZero;   
                 phaseDeadLine = phaseZeroDuration;
                 UnityEngine.Debug.Log("STARTED ZERO PHASE ");
+                
+                StartCoroutine(door.BashOnDoor(DoorObject));
             }
             else if(phaseString == phaseStringZero)
             {

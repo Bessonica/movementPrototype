@@ -116,6 +116,16 @@ public class Interactor : MonoBehaviour
                 }
                 else
                 {
+
+                    if(holdTimer <= 0)
+                    {
+
+                        // SOUND start sound
+                            AudioManager.instance.LeverSFX();
+
+                    }
+
+
                     // if its lever then start timer
 
                 holdTimer +=Time.deltaTime;
@@ -124,14 +134,12 @@ public class Interactor : MonoBehaviour
                 if(holdTimer > HoldTimerDeadLine)
                 {
                    interactable.onInteract.Invoke();
+                   AudioManager.instance.LeverStopSFX();
+            // SOUND stop sound
                    return;
                 }
 
                 }
-
-
-
-
                 // interactable.onInteract.Invoke();
 
         // !!! this shit here works but not in interactable for some reason
@@ -140,7 +148,10 @@ public class Interactor : MonoBehaviour
 
             }else
             {
-                
+
+            // SOUND stop sound
+                AudioManager.instance.LeverStopSFX();
+
                 holdTimer = 0;
                 // UnityEngine.Debug.Log(" <color=red>HoldTimer IS zero </color> " + holdTimer);
             }

@@ -8,6 +8,12 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     public AudioSource playerSource;
+    public AudioSource doorSource;
+    public AudioSource behindTheDoorSource;
+    public AudioSource generatorOffSource;
+    public AudioSource PCSource;
+    public AudioSource GeneratorSource;
+    public AudioSource LeverSource;
 
     void Awake()
     {
@@ -25,6 +31,24 @@ public class AudioManager : MonoBehaviour
     public void StepOnFloorSFX()
     {
         playerSource.Play();
+    }
+
+    public void BashOnDoorSFX()
+    {
+        doorSource.Play();
+
+    }
+
+    public void LeverSFX()
+    {
+        LeverSource.Play();
+
+    }
+
+    public void LeverStopSFX()
+    {
+        LeverSource.Stop();
+
     }
     // Start is called before the first frame update
     void Start()
