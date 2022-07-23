@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     bool isGrounded;
 
 
-    float lowestSin = 5;
+    float lowestSin = -5f;
     float sinOne = 5;
     float sinTwo;
 
@@ -58,22 +58,23 @@ public class Movement : MonoBehaviour
 
             
          // i dont even understand how i made this 
-            // THIS FUNCTION FINDS FUCKING EXTREMUM AND NOT MINIMUM WHAT THE FUCK
-            if(Mathf.Sin(timer) < lowestSin)
+            // now its fixed
+            if(Mathf.Sin(timer) > lowestSin)
             {
                 lowestSin = Mathf.Sin(timer);
             }
 
-            if(Mathf.Sin(timer) > lowestSin && Mathf.Cos(timer) < 0)
+            if(Mathf.Sin(timer) < lowestSin && Mathf.Cos(timer) > 0)
             {
                 UnityEngine.Debug.Log("STEP  Mathf.Sin(timer)     " + Mathf.Sin(timer) + "  lowestSin = " + lowestSin);
                 AudioManager.instance.StepOnFloorSFX();
-                lowestSin = 5;
+                lowestSin = -5f;
             }
 
         }else
         {
             timer = 0;
+            lowestSin = -5f;
             // UnityEngine.Debug.Log("<color=red> TIMER IS ZERO    </color>  " + timer);
             verticalVelocity.y += gravity * Time.deltaTime;
         }
