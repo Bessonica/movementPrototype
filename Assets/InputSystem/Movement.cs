@@ -13,6 +13,11 @@ public class Movement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     bool isGrounded;
 
+
+    float lowestSin = 5;
+    float sinOne = 5;
+    float sinTwo;
+
     float timer = 0;
     public float walkingBobbingSpeed;
     public float bobbingAmount;
@@ -43,6 +48,28 @@ public class Movement : MonoBehaviour
             
             verticalVelocity.y += Mathf.Sin(timer) * bobbingAmount;
             // controller.Move(verticalVelocity * Time.deltaTime);
+            // UnityEngine.Debug.Log(" Cos =" + Mathf.Cos(timer) + " sin = " + Mathf.Sin(timer));
+
+
+        // sound part
+            // if mathf.sin(timer) == amountX (when player on lowest point) play sound
+
+            
+
+            
+         // i dont even understand how i made this 
+            // THIS FUNCTION FINDS FUCKING EXTREMUM AND NOT MINIMUM WHAT THE FUCK
+            if(Mathf.Sin(timer) < lowestSin)
+            {
+                lowestSin = Mathf.Sin(timer);
+            }
+
+            if(Mathf.Sin(timer) > lowestSin && Mathf.Cos(timer) < 0)
+            {
+                UnityEngine.Debug.Log("STEP  Mathf.Sin(timer)     " + Mathf.Sin(timer) + "  lowestSin = " + lowestSin);
+                AudioManager.instance.StepOnFloorSFX();
+                lowestSin = 5;
+            }
 
         }else
         {
