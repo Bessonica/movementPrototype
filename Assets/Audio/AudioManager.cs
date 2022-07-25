@@ -11,7 +11,12 @@ public class AudioManager : MonoBehaviour
     public AudioSource doorSource;
     public AudioSource behindTheDoorSource;
     public AudioSource generatorOffSource;
+
+    [Header("PC sounds")]
     public AudioSource PCSource;
+    public AudioSource PCWaveDetectedSource;
+
+    [Header("'corridor' sounds")]
     public AudioSource GeneratorSource;
     public AudioSource LeverSource;
 
@@ -39,6 +44,67 @@ public class AudioManager : MonoBehaviour
 
     }
 
+// pc sounds
+    public void StartWaveDetectedSFX(float countdown)
+    {
+        
+        StartCoroutine(StartWaveDetectedSFXwithTimer(countdown));
+
+
+    }
+
+    IEnumerator StartWaveDetectedSFXwithTimer(float countdown)
+    {
+        yield return new WaitForSeconds(countdown);
+        PCWaveDetectedSource.Play();
+        
+
+    }
+
+    public void StopWaveDetectedSFX()
+    {
+        PCWaveDetectedSource.Stop();
+
+
+    }
+
+
+//  generator sounds
+    public void StartGeneratorSFX()
+    {
+        GeneratorSource.Play();
+
+
+    }
+
+    public void StopGeneratorSFX()
+    {
+        GeneratorSource.Stop();
+
+    }
+
+    public void GeneratorOffSFX()
+    {
+        generatorOffSource.Play();
+    }
+
+//  behind the door sound
+    public void SoundBehindTheDoorOneSFX()
+    {
+
+    }
+
+    public void SoundBehindTheDoorTwoSFX()
+    {
+
+    }
+
+    public void SoundBehindTheDoorThreeSFX()
+    {
+
+    }
+
+//  lever sounds
     public void LeverSFX()
     {
         LeverSource.Play();

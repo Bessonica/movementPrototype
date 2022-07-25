@@ -46,12 +46,19 @@ public class EnemyMovement : MonoBehaviour
 
     // for FullStopFor()  function
     float stopTime;
+
+    [Header("if it is final enemy")]
+    public bool IsFinalEnemy;
+
+    [Header("Should we stop when reach end of way")]
+    public bool NeedToStop;
+    public bool stopNow;
  
 
  
     void Start()
     {
-
+        stopNow = false;
         
         currentWay = WayOne;
 
@@ -62,111 +69,125 @@ public class EnemyMovement : MonoBehaviour
 
 
         // randomize movement
-        x = Random.Range(-0.4f, 0.4f);
-        y = 0;
-        z = Random.Range(-0.4f, 0.4f);
-        randomVec = new Vector3(x, y, z);
+        if(IsFinalEnemy)
+        {
+            x = 0;
+            y = 0;
+            z = 0;
+            randomVec = new Vector3(x, y, z);
+
+        }
+        else
+        {
+
+            x = Random.Range(-0.4f, 0.4f);
+            y = 0;
+            z = Random.Range(-0.4f, 0.4f);
+            randomVec = new Vector3(x, y, z);
+
+
+        }
+
+
+
         startTime = Time.time;
     }
 
 
 // npc stops for some amount of time
-    public void FullStopFor(float amount)
+//  FOUND SOLUTION
+    // check stopNow bool variable
+
+
+// FullStopFor function SHOULD NOT be courutine. it should stop ALL proccesses
+    IEnumerator FullStopFor(float amount)
     {
-        // fStopStartTime = Time.time;
-        // UnityEngine.Debug.Log("started stop function TIME = " + Time.time);
-        float fStopStartTime = 0;
-
-        while(fStopStartTime <=amount)
-        {
-            fStopStartTime += UnityEngine.Time.deltaTime;
-            // UnityEngine.Debug.Log(" fStopStartTime = " + fStopStartTime);
-            
-        }
-        // UnityEngine.Debug.Log("finished stop function fStopStartTime = " + fStopStartTime);
-
-        // UnityEngine.Debug.Log("finished stop function TIME = " + Time.time);
-        return;
-
+        stopNow = true;
+        yield return new WaitForSeconds(amount);
+        stopNow = false;
     }
-
-    // IEnumerator FullStopFor(float amount)
-    // {
-    //    UnityEngine.Debug.Log("FullStopFor   STARTED " + Time.time);
-    //    yield return new WaitForSeconds(4);
-    //    UnityEngine.Debug.Log("FullStopFor   ENDED " + Time.time);
-
-
-    // }
 
 
 
     void Update()
     {
 
-        if(gameObject.transform.parent != null)
-        {
-            // UnityEngine.Debug.Log("YO null");
-        }
-        else
+        if(!stopNow)
         {
 
+
+
+
+
+            if(gameObject.transform.parent != null)
+            {
+                // UnityEngine.Debug.Log("YO null");
+            }
+            else
+            {
+
+                
+            // UnityEngine.Debug.Log("wavePoint index " + wavePointIntIndex);
+
+            //if enemy is in enemyGroup1 do nothing
+            // else do all of this down here
+
+
+
+            var step =  speed * Time.deltaTime; 
             
-        // UnityEngine.Debug.Log("wavePoint index " + wavePointIntIndex);
 
-        //if enemy is in enemyGroup1 do nothing
-        // else do all of this down here
+            if(currentWay.points[wavePointIntIndex].childCount > 0)
+            {
+                //wavepointIndex        GetcChild(0)         wavePointInex+1
+                //      a                    b                     c
+                Vector3 turnWayA = currentWay.points[wavePointIntIndex].position + randomVec;
+                Vector3 turnWayB = currentWay.points[wavePointIntIndex].GetChild(0).position + randomVec;
+                Vector3 turnWayC = currentWay.points[wavePointIntIndex+1].position + randomVec;
 
+                Vector3 turndir1 = turnWayB;
+                Vector3 turndir2 = turnWayC;
 
+                float distCovered = (Time.time - startTime)*speed;
+                pointLength = Vector3.Distance(turnWayA, turndir2);
+                float fraction = distCovered/pointLength;
+                // UnityEngine.Debug.Log("  fraction =  " + fraction);
 
-        var step =  speed * Time.deltaTime; 
-        
+                Vector3 dir1 = Vector3.Lerp(turnWayA, turndir1, fraction);
+                Vector3 dir2 = Vector3.Lerp(turndir1, turndir2, fraction);
+                Vector3 dir3 = Vector3.Lerp(dir1, dir2, fraction);
 
-        if(currentWay.points[wavePointIntIndex].childCount > 0)
-        {
-            //wavepointIndex        GetcChild(0)         wavePointInex+1
-            //      a                    b                     c
-            Vector3 turnWayA = currentWay.points[wavePointIntIndex].position + randomVec;
-            Vector3 turnWayB = currentWay.points[wavePointIntIndex].GetChild(0).position + randomVec;
-            Vector3 turnWayC = currentWay.points[wavePointIntIndex+1].position + randomVec;
+                
+                transform.position = Vector3.MoveTowards(transform.position, dir3, step);
+            }
+            else
+            {
+                //   wavePointIntIndex      wavePointIntIndex+1
+                //          a                       b
+                float distCovered = (Time.time - startTime)*speed;
+                pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position + randomVec, currentWay.points[wavePointIntIndex+1].position + randomVec);
+                float fraction = distCovered/pointLength;
 
-            Vector3 turndir1 = turnWayB;
-            Vector3 turndir2 = turnWayC;
-
-            float distCovered = (Time.time - startTime)*speed;
-            pointLength = Vector3.Distance(turnWayA, turndir2);
-            float fraction = distCovered/pointLength;
-            // UnityEngine.Debug.Log("  fraction =  " + fraction);
-
-            Vector3 dir1 = Vector3.Lerp(turnWayA, turndir1, fraction);
-            Vector3 dir2 = Vector3.Lerp(turndir1, turndir2, fraction);
-            Vector3 dir3 = Vector3.Lerp(dir1, dir2, fraction);
-
+                Vector3 dir = Vector3.Lerp(currentWay.points[wavePointIntIndex].position + randomVec, currentWay.points[wavePointIntIndex+1].position + randomVec, fraction);
+                transform.position = Vector3.MoveTowards(transform.position, dir, step);
+            }
             
-            transform.position = Vector3.MoveTowards(transform.position, dir3, step);
-        }
-        else
-        {
-            //   wavePointIntIndex      wavePointIntIndex+1
-            //          a                       b
-            float distCovered = (Time.time - startTime)*speed;
-            pointLength = Vector3.Distance(currentWay.points[wavePointIntIndex].position + randomVec, currentWay.points[wavePointIntIndex+1].position + randomVec);
-            float fraction = distCovered/pointLength;
 
-            Vector3 dir = Vector3.Lerp(currentWay.points[wavePointIntIndex].position + randomVec, currentWay.points[wavePointIntIndex+1].position + randomVec, fraction);
-            transform.position = Vector3.MoveTowards(transform.position, dir, step);
-        }
-        
+            if(Vector3.Distance(transform.position, currentWay.points[wavePointIntIndex+1].position + randomVec ) <= 0.2f)
+            {
+                // UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way Point ________ </color>   ");
+                GetNextWaypoint();
 
-        if(Vector3.Distance(transform.position, currentWay.points[wavePointIntIndex+1].position + randomVec ) <= 0.2f)
-        {
-            // UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way Point ________ </color>   ");
-            GetNextWaypoint();
+            }
 
-        }
+
+            }
+
+
 
 
         }
+
 
 
         
@@ -184,6 +205,10 @@ public class EnemyMovement : MonoBehaviour
         if(wavePointIntIndex >= currentWay.points.Length -1 )
         {
             // UnityEngine.Debug.Log("   <color=yellow> __________ Get Next Way ________ </color>   ");
+            
+        //  if it is zero wave we should stop enemy
+            // StartCoroutine(FullStopFor(3f));
+            
             GetNextWay();
         }
 
@@ -194,14 +219,19 @@ public class EnemyMovement : MonoBehaviour
 
     void GetNextWay()
     {
-        
 
+        
+        // its stupid. it needs to change it no matter tha name of way
         switch(currentWay.name)
         {
             case "WayA":
                  currentWay = WayTwo;
                  wavePointIntIndex = 0;                 
                  break;
+            case "WayZeroOne":
+                 currentWay = WayTwo;
+                 wavePointIntIndex = 0;
+                 break;    
 
 
         }
@@ -210,8 +240,25 @@ public class EnemyMovement : MonoBehaviour
 
         if(wavePointIntIndex >= currentWay.points.Length -1)
         {
-            Destroy(gameObject);
-            return;
+            if(IsFinalEnemy)
+            {
+                // if its final enemy when there is now 
+                stopNow = true;
+                UnityEngine.Debug.Log("stopNow is now true = " + stopNow);
+                // блять че за ошибка сука, stopNow теперь тру,а эта хуйня продолжает искать точки
+                // нахуя блять? тебе делать нечего????????
+
+        // ITS IMPORTANT 
+                // after final enemy reaches destination
+                // we play his sound wait and spawn even more enemies
+                return;
+
+            }else
+            {
+                Destroy(gameObject);
+                return;
+            }
+
         }
 
 

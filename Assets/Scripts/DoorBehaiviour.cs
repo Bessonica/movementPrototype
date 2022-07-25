@@ -95,23 +95,14 @@ public class DoorBehaiviour : MonoBehaviour
 
       
     }
-
-    
-    
-
-      // yield return new WaitForSeconds(2f);
-      
-      // doorSound.Play();
-
-      // yield return new WaitForSeconds(3f);
-
-      // doorSound.Play();
-
-      // yield return new WaitForSeconds(1f);
-  
-
-
    
+  }
+
+
+public IEnumerator BashOnDoorHard(GameObject doorToShake)
+  {
+
+    yield return null;
   }
     // public void BashOnTheDoor()
     // {
