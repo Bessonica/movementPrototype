@@ -385,9 +385,12 @@ public class WaveSpawner : MonoBehaviour
     // и через определенное время меняем звуковой еффект на новый
 
         // start phase
-                phaseString = phaseStringFourth;
-                phaseDeadLine = phaseFourDuration;
-                UnityEngine.Debug.Log("STARTED FOURTH PHASE ");
+                // phaseString = phaseStringFourth;
+                // phaseDeadLine = phaseFourDuration;
+                // UnityEngine.Debug.Log("STARTED FOURTH PHASE ");
+                phaseString = phaseStringFinal;
+                phaseDeadLine = phaseFinalDuration;
+                UnityEngine.Debug.Log("STARTED FINAL PHASE ");
 
 
         //   sound
@@ -395,9 +398,9 @@ public class WaveSpawner : MonoBehaviour
             }else if(phaseString == phaseStringFourth)
             {
         // start phase
-                phaseString = phaseStringFinal;
-                phaseDeadLine = phaseFinalDuration;
-                UnityEngine.Debug.Log("STARTED FINAL PHASE ");
+                // phaseString = phaseStringFinal;
+                // phaseDeadLine = phaseFinalDuration;
+                // UnityEngine.Debug.Log("STARTED FINAL PHASE ");
 
         //   sound
 
