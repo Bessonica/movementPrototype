@@ -53,11 +53,20 @@ public class EnemyMovement : MonoBehaviour
     [Header("Should we stop when reach end of way")]
     public bool NeedToStop;
     public bool stopNow;
+
+
+    float amountToStopFor = 5f;
+
+    public GameObject gameMaster; 
+    WaveSpawner waveSpawnerObject;
  
 
  
     void Start()
     {
+        waveSpawnerObject = gameMaster.GetComponent<WaveSpawner>();
+
+
         stopNow = false;
         
         currentWay = WayOne;
@@ -100,12 +109,24 @@ public class EnemyMovement : MonoBehaviour
 
 
 // FullStopFor function SHOULD NOT be courutine. it should stop ALL proccesses
+// probably thats why there is mistake
     IEnumerator FullStopFor(float amount)
     {
         stopNow = true;
         yield return new WaitForSeconds(amount);
         stopNow = false;
     }
+
+    // public void FullStopFor(float amount)
+    // {
+    //     stopNow = true;
+    //     amountToStopFor -= UnityEngine.Time.deltaTime;
+    //     if(amountToStopFor >= 0)
+    //     {
+    //         return;
+    //     }
+    //     stopNow = false;
+    // }
 
 
 
@@ -209,6 +230,7 @@ public class EnemyMovement : MonoBehaviour
         //  if it is zero wave we should stop enemy
             // StartCoroutine(FullStopFor(3f));
             
+            
             GetNextWay();
         }
 
@@ -238,15 +260,17 @@ public class EnemyMovement : MonoBehaviour
         // targetObject = GameObject.Find("WayB");
         // target = targetObject.points[0];
 
+// UnityEngine.Debug.Log("");
         if(wavePointIntIndex >= currentWay.points.Length -1)
         {
+
+            // when final enemy reaches end of its road
             if(IsFinalEnemy)
             {
-                // if its final enemy when there is now 
                 stopNow = true;
-                UnityEngine.Debug.Log("stopNow is now true = " + stopNow);
-                // блять че за ошибка сука, stopNow теперь тру,а эта хуйня продолжает искать точки
-                // нахуя блять? тебе делать нечего????????
+
+                StartCoroutine(RoarAndSpawnStrongEnemies(5f, 5f));
+
 
         // ITS IMPORTANT 
                 // after final enemy reaches destination
@@ -264,6 +288,33 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
+
+
+    IEnumerator RoarAndSpawnStrongEnemies(float waitBeforeRoar, float waitAfterRoar)
+    {
+        yield return new WaitForSeconds(waitBeforeRoar);
+
+    // play roar sound effect
+        // AudioManager.instance.SoundFinalRoarSFX();
+
+        yield return new WaitForSeconds(1.5f);
+
+    // stop all npc on screen
+        waveSpawnerObject.StopAllEnemies();
+
+    // wait waitAfterRoar
+        yield return new WaitForSeconds(waitAfterRoar);
+
+    // resume movement
+        waveSpawnerObject.StartAllEnemies();
+
+    // start spawning strongFinalEnemies
+        waveSpawnerObject.StartSpawnStrongEnemies();
+
+    // change DoorBash and change sound behind door, and maybe add/change ost
+
+        
+    }
 
     public void TakeDamage(int amount)
     {

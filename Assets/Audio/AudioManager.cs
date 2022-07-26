@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource doorSource;
     public AudioSource behindTheDoorSource;
     public AudioSource generatorOffSource;
+    public AudioSource FinalRoarSource;
 
     [Header("PC sounds")]
     public AudioSource PCSource;
@@ -32,6 +33,9 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject); 
         }
     }
+
+// here we can create functions to change volume in mixer
+// and then activate when we need it
 
     public void StepOnFloorSFX()
     {
@@ -87,6 +91,16 @@ public class AudioManager : MonoBehaviour
     {
         generatorOffSource.Play();
     }
+
+
+
+    public void SoundFinalRoarSFX()
+    {
+        FinalRoarSource.Play();
+
+    }
+
+
 
 //  behind the door sound
     public void SoundBehindTheDoorOneSFX()

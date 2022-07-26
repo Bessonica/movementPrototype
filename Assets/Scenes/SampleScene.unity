@@ -15673,7 +15673,7 @@ MonoBehaviour:
   spawnPointFinalSimpleOne: {fileID: 1749351916}
   waveAmountFinalSimpleOne: 5
   waveSpawnTimesFinalSimpleOne: 2
-  timeBetweenFinalSimpleOne: 2
+  timeBetweenFinalSimpleOne: 6
   countdownFinalSimpleOne: 5
   enemyPrefabFinalSimpleTwo: {fileID: 1604580040}
   spawnPointFinalSimpleTwo: {fileID: 1749351916}
@@ -15683,7 +15683,7 @@ MonoBehaviour:
   countdownFinalSimpleTwo: 0
   enemyPrefabFinal: {fileID: 1150954668}
   spawnPointFinal: {fileID: 1749351916}
-  waveAmountFinal: 1
+  waveAmountFinal: 2
   waveSpawnTimesFinal: 1
   timeBetweenFinal: 1
   countdownFinal: 2.73
