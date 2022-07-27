@@ -48,62 +48,61 @@ public class DoorBehaiviour : MonoBehaviour
 
     }
 
-// half random activation?
-  // courutine?
-
-  public IEnumerator BashOnDoor(GameObject doorToShake)
-  {
-
-    // parametrs, can use them as parametrs that are put in function
-       //countdownDoor  0.065f;
-       //powerOfShake   0.1f;
-       //randomTime
-
-
-   // UnityEngine.Debug.Log("Door Bash time before = " + Time.time + " countdownDoor = " + countdownDoor);
-    
-   // i can repeat this one time to make it scripted(WaitForSeconds(3f);) and etc
-      // or make another function for first wave
-
-    while(true)
+    public IEnumerator BashOnDoorHard(GameObject doorToShake)
     {
 
-      randomTime = UnityEngine.Random.Range(1f, 2.5f);
-
-            
-
-    //   animation of door 
-      countdownDoorNow = countdownDoor;
-      startingPos = doorToShake.transform.position;
-      while(countdownDoorNow >= 0)
-      {
-        countdownDoorNow -= Time.deltaTime;
-
-        newX = doorToShake.transform.position.x + UnityEngine.Random.Range(-0.5f, 0.5f) * powerOfShake;
-        newZ = doorToShake.transform.position.z + UnityEngine.Random.Range(-0.7f, 0.7f) * powerOfShake;
-
-        doorToShake.transform.position = new Vector3(newX, startingPos.y, newZ);
-        yield return null; 
-        doorToShake.transform.position = startingPos;
-      }
-      
-      // doorSound.Play();
-      AudioManager.instance.BashOnDoorSFX();
-      yield return new WaitForSeconds(randomTime);
-      
-
-
-      
+      yield return null;
     }
-   
-  }
+
+    public IEnumerator BashOnDoor(GameObject doorToShake)
+    {
+
+      // parametrs, can use them as parametrs that are put in function
+        //countdownDoor  0.065f;
+        //powerOfShake   0.1f;
+        //randomTime
 
 
-public IEnumerator BashOnDoorHard(GameObject doorToShake)
-  {
+    // UnityEngine.Debug.Log("Door Bash time before = " + Time.time + " countdownDoor = " + countdownDoor);
+      
+    // i can repeat this one time to make it scripted(WaitForSeconds(3f);) and etc
+        // or make another function for first wave
 
-    yield return null;
-  }
+      while(true)
+      {
+
+        randomTime = UnityEngine.Random.Range(1f, 2.5f);
+
+              
+
+      //   animation of door 
+        countdownDoorNow = countdownDoor;
+        startingPos = doorToShake.transform.position;
+        while(countdownDoorNow >= 0)
+        {
+          countdownDoorNow -= Time.deltaTime;
+
+          newX = doorToShake.transform.position.x + UnityEngine.Random.Range(-0.5f, 0.5f) * powerOfShake;
+          newZ = doorToShake.transform.position.z + UnityEngine.Random.Range(-0.7f, 0.7f) * powerOfShake;
+
+          doorToShake.transform.position = new Vector3(newX, startingPos.y, newZ);
+          yield return null; 
+          doorToShake.transform.position = startingPos;
+        }
+        
+        // doorSound.Play();
+        AudioManager.instance.BashOnDoorSFX();
+        yield return new WaitForSeconds(randomTime);
+        
+
+
+        
+      }
+    
+    }
+
+
+
     // public void BashOnTheDoor()
     // {
     //     // проигрываем анимацию удара

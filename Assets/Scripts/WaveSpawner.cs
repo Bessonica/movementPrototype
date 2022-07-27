@@ -202,6 +202,8 @@ public class WaveSpawner : MonoBehaviour
     [Header("Door")]
     public GameObject DoorObject;
     DoorBehaiviour door;
+    public GameObject boxCollider;
+    BoxCollide boxCollideObject;
 
     Interactable pcInteractable, leverInteractable;
      
@@ -244,7 +246,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "3";
+        phaseString = "1";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
@@ -262,6 +264,7 @@ public class WaveSpawner : MonoBehaviour
         leverInteractable = Lever.GetComponent<Interactable>();
 
         door = DoorObject.GetComponent<DoorBehaiviour>();
+        boxCollideObject = boxCollider.GetComponent<BoxCollide>();
 
         TimeToSpawnStrongEnemies = false;
 
@@ -338,12 +341,14 @@ public class WaveSpawner : MonoBehaviour
                 phaseDeadLine = phaseZeroDuration;
                 UnityEngine.Debug.Log("STARTED ZERO PHASE ");
                 
-                StartCoroutine(door.BashOnDoor(DoorObject));
+                // StartCoroutine(door.BashOnDoor(DoorObject));
 
         //   sound
         //    dont forget about sound that pc beeps when wave is spawned
                 AudioManager.instance.StartGeneratorSFX();
                 AudioManager.instance.StartWaveDetectedSFX(10f);
+
+                LampManager.instance.ChangeColorRedAllLamps();
             }
             else if(phaseString == phaseStringZero)
             {
@@ -362,9 +367,10 @@ public class WaveSpawner : MonoBehaviour
                 phaseDeadLine = phaseTwoDuration;
                 UnityEngine.Debug.Log("STARTED SECOND PHASE ");
 
-            // need a function/courutine  that checks if player near the door
-               // and then starts bashonDoor function
 
+            // start checking  to start bashOnDoor when player near
+                boxCollideObject.StartChecking = true;
+                LampManager.instance.StopAllLamps();
         //   sound
 
             }else if(phaseString == phaseStringSecond)
@@ -375,6 +381,7 @@ public class WaveSpawner : MonoBehaviour
                 UnityEngine.Debug.Log("STARTED THIRD PHASE ");
 
                 // StartCoroutine(door.BashOnDoor(DoorObject));
+
 
         //   sound
 

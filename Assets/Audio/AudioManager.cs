@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource playerSource;
     public AudioSource doorSource;
     public AudioSource behindTheDoorSource;
+    public AudioSource behindTheDoorSourceStronger;
     public AudioSource generatorOffSource;
     public AudioSource FinalRoarSource;
 
