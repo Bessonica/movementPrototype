@@ -178,7 +178,7 @@ public class WaveSpawner : MonoBehaviour
 // this strings are responsible for choosing what phase is right now
     // in (interactable.cs) we reassign phaseString and it changes here
     [Header("phase strings")]
-    public string phaseString,phaseStringStart, phaseStringZero, phaseStringFirst, phaseStringSecond, phaseStringThird, phaseStringFourth, phaseStringFinal;
+    public string phaseString,phaseStringStart, phaseStringZero, phaseStringFirst, phaseStringSecond, phaseStringThird, phaseStringFourth, phaseStringFinal, phaseStringFinalEnd;
 
     // private float countdown = 2f; // wait time before first wave
     // private float countdownOne = 2f;
@@ -254,6 +254,9 @@ public class WaveSpawner : MonoBehaviour
         phaseStringThird = "3";
         phaseStringFourth = "4";
         phaseStringFinal = "final";
+
+        // start scripted scene
+        phaseStringFinalEnd = "end";
 
         
         phaseIsOn = false;
@@ -441,7 +444,7 @@ public class WaveSpawner : MonoBehaviour
         pcInteractable.turnOffPC();
         buildManager.DestroyAllTurrets();
 
-        LampManager.instance.StopAllLamps();
+        LampManager.instance.ChangeColorRedAllLamps();
 
 
         }

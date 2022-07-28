@@ -89,7 +89,27 @@ public class LampManager : MonoBehaviour
 
     }
 
+    public void ChangeColorNormalAllLamps()
+    {
 
+    
+
+        foreach(GameObject lampToStart in GameObject.FindGameObjectsWithTag("lamp"))
+        {
+           Light lightToStart =  lampToStart.GetComponent<Light>();
+           Lamp lampComponent = lampToStart.GetComponent<Lamp>();
+
+           // invoke flicker function
+        //    StartCoroutine(lampComponent.FlickerLight());
+            
+
+
+           // change color
+        //    lightToStart.color = Color.red;
+
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()

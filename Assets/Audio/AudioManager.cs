@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource behindTheDoorSourceStronger;
     public AudioSource generatorOffSource;
     public AudioSource FinalRoarSource;
+    public AudioSource FinalLampPopSource;
 
     [Header("PC sounds")]
     public AudioSource PCSource;
@@ -49,6 +50,49 @@ public class AudioManager : MonoBehaviour
 
     }
 
+
+    public void FinalLampPopSFX()
+    {
+        FinalLampPopSource.Play();
+
+    }
+
+
+// behind the door 
+    public void StartBehindTheDoorSFX()
+    {
+        
+        behindTheDoorSource.Play();
+
+
+    }
+
+    public void StopBehindTheDoorSFX()
+    {
+        
+        behindTheDoorSource.Stop();
+
+
+    }
+
+    public void StartBehindTheDoorStrongerSFX()
+    {
+        
+        behindTheDoorSourceStronger.Play();
+
+
+    }
+
+    public void StopBehindTheDoorStrongerSFX()
+    {
+        
+        behindTheDoorSourceStronger.Stop();
+
+
+    }
+
+
+
 // pc sounds
     public void StartWaveDetectedSFX(float countdown)
     {
@@ -72,6 +116,8 @@ public class AudioManager : MonoBehaviour
 
 
     }
+
+
 
 
 //  generator sounds
@@ -103,21 +149,8 @@ public class AudioManager : MonoBehaviour
 
 
 
-//  behind the door sound
-    public void SoundBehindTheDoorOneSFX()
-    {
 
-    }
 
-    public void SoundBehindTheDoorTwoSFX()
-    {
-
-    }
-
-    public void SoundBehindTheDoorThreeSFX()
-    {
-
-    }
 
 //  lever sounds
     public void LeverSFX()
