@@ -348,7 +348,7 @@ public class WaveSpawner : MonoBehaviour
                 AudioManager.instance.StartGeneratorSFX();
                 AudioManager.instance.StartWaveDetectedSFX(10f);
 
-                LampManager.instance.ChangeColorRedAllLamps();
+                // LampManager.instance.ChangeColorRedAllLamps();
             }
             else if(phaseString == phaseStringZero)
             {
@@ -370,7 +370,7 @@ public class WaveSpawner : MonoBehaviour
 
             // start checking  to start bashOnDoor when player near
                 boxCollideObject.StartChecking = true;
-                LampManager.instance.StopAllLamps();
+                
         //   sound
 
             }else if(phaseString == phaseStringSecond)
@@ -419,6 +419,8 @@ public class WaveSpawner : MonoBehaviour
             //when we started phase player cant use lever
 
             leverInteractable.isLeverOn = false;
+
+            LampManager.instance.StartAllLamps();
            
                 
 
@@ -438,6 +440,8 @@ public class WaveSpawner : MonoBehaviour
 
         pcInteractable.turnOffPC();
         buildManager.DestroyAllTurrets();
+
+        LampManager.instance.StopAllLamps();
 
 
         }

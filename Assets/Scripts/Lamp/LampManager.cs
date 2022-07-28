@@ -34,7 +34,10 @@ public class LampManager : MonoBehaviour
         foreach(GameObject lampToStart in GameObject.FindGameObjectsWithTag("lamp"))
         {
            Light lightToStart =  lampToStart.GetComponent<Light>();
+           Lamp lampComponent = lampToStart.GetComponent<Lamp>();
+           
            lightToStart.enabled = true;
+           lampComponent.powerOff = false;
 
         }
 
@@ -49,9 +52,13 @@ public class LampManager : MonoBehaviour
            Light lightToStart =  lampToStart.GetComponent<Light>();
            Lamp lampComponent = lampToStart.GetComponent<Lamp>();
 
-        //    lampComponent.isFlickering = false;
-        //    StopCoroutine(lampComponent.FlickerLight());
-        //    lampComponent.isFlickering = false;
+           
+
+           lampComponent.powerOff = true;
+
+           lampComponent.isFlickering = false;
+           StopCoroutine(lampComponent.FlickerLight());
+           lampComponent.isFlickering = false;
         
            lightToStart.enabled = false;
 

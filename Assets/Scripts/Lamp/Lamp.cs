@@ -7,6 +7,7 @@ public class Lamp : MonoBehaviour
 
     public bool isFlickering = false;
     public float timeDelay;
+    public bool powerOff;
 
     Light lightToStart;
 
@@ -14,6 +15,7 @@ public class Lamp : MonoBehaviour
     void Start()
     {
         lightToStart =  this.GetComponent<Light>();
+        powerOff = false;
         
     }
 
@@ -22,6 +24,10 @@ public class Lamp : MonoBehaviour
     {
         if(isFlickering == true && lightToStart.enabled == true)
         {
+            // UnityEngine.Debug.Log("Started flickering");
+            // UnityEngine.Debug.Log("isFlickering = " + isFlickering);
+            // UnityEngine.Debug.Log("lightToStart.enabled = " + lightToStart.enabled);
+
             StartCoroutine(FlickerLight());
         }
         
@@ -31,6 +37,12 @@ public class Lamp : MonoBehaviour
 
    public IEnumerator FlickerLight()
     {
+        // while(!powerOff)
+        // {}
+
+        // UnityEngine.Debug.Log("powerOff = " + powerOff);
+
+
         if(lightToStart.enabled == true)
         {
             isFlickering = false;
@@ -40,28 +52,67 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(5f, 10f);
             yield return new WaitForSeconds(timeDelay);
 
-            this.gameObject.GetComponent<Light>().enabled = false;
-            // play short sound effect
-            timeDelay = Random.Range(0.01f, 0.2f);
-            yield return new WaitForSeconds(timeDelay);
-
-            this.gameObject.GetComponent<Light>().enabled = true;
-            timeDelay = Random.Range(0.01f, 0.2f);
-            yield return new WaitForSeconds(timeDelay);
+            if(powerOff)
+            { 
+                yield break;
+                isFlickering = false;
+            }
 
             this.gameObject.GetComponent<Light>().enabled = false;
             // play short sound effect
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
+            if(powerOff)
+            { 
+                yield break;
+                isFlickering = false;
+            }
+
+
             this.gameObject.GetComponent<Light>().enabled = true;
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
+
+            if(powerOff)
+            { 
+                yield break;
+                isFlickering = false;
+            }
+
+
+            this.gameObject.GetComponent<Light>().enabled = false;
+            // play short sound effect
+            timeDelay = Random.Range(0.01f, 0.2f);
+            yield return new WaitForSeconds(timeDelay);
+
+            if(powerOff)
+            { 
+                yield break;
+                isFlickering = false;
+            }
+
+
+            this.gameObject.GetComponent<Light>().enabled = true;
+            timeDelay = Random.Range(0.01f, 0.2f);
+            yield return new WaitForSeconds(timeDelay);
+
+            if(powerOff)
+            { 
+                yield break;
+                isFlickering = false;
+            }
+
 
             isFlickering = true;
 
 
         }
+
+        
+
+
+
 
     }
 }
