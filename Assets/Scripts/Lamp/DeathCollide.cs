@@ -9,6 +9,8 @@ public class DeathCollide : MonoBehaviour
 
     Lamp lampComponent;
     Light lightToStart;
+
+    public bool StartChecking = false;
     
 
     // Start is called before the first frame update
@@ -28,8 +30,10 @@ public class DeathCollide : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-
-        StartCoroutine(lampComponent.PopFinalLight());
+        if(StartChecking)
+        {
+            StartCoroutine(lampComponent.PopFinalLight());            
+        }
 
 
 

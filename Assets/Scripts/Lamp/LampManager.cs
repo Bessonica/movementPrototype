@@ -105,7 +105,7 @@ public class LampManager : MonoBehaviour
 
 
            // change color
-        //    lightToStart.color = Color.red;
+           lightToStart.color = Color.white;
 
         }
 

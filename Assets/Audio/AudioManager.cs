@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource generatorOffSource;
     public AudioSource FinalRoarSource;
     public AudioSource FinalLampPopSource;
+    public AudioSource PlayerIsKilledSource;
 
     [Header("PC sounds")]
     public AudioSource PCSource;
@@ -50,6 +51,12 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    public void BashOnDoorHardSFX()
+    {
+        doorSource.Play();
+
+    }
+
 
     public void FinalLampPopSFX()
     {
@@ -57,6 +64,18 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    public void StartThePlayerIsKilledSFX()
+    {
+        // ? Activate it from PopFinalLight ?
+        
+        // player hears hundreds of steps around him running at him
+        // and maybe above
+        //sound of claws, tearing meat, breaking bones etc
+
+        PlayerIsKilledSource.Play();
+
+
+    }
 
 // behind the door 
     public void StartBehindTheDoorSFX()
@@ -106,6 +125,7 @@ public class AudioManager : MonoBehaviour
     {
         yield return new WaitForSeconds(countdown);
         PCWaveDetectedSource.Play();
+        yield break;
         
 
     }

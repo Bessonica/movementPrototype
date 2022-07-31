@@ -29,6 +29,7 @@ public class WaveSpawner : MonoBehaviour
     // we need it to know when to stop all npc and sounds and start ripping out door
     // turn of light etc
     public float phaseFinalDuration;
+    public float phaseEndDuration;
 
     [Header("Enemy wave zero")]
     public Transform enemyPrefabZero;
@@ -175,6 +176,9 @@ public class WaveSpawner : MonoBehaviour
     [Header("time between waves(is not used)")]
     public float timeBetweenWaves = 10f;
 
+
+    Coroutine bashOnDoorHard;
+
 // this strings are responsible for choosing what phase is right now
     // in (interactable.cs) we reassign phaseString and it changes here
     [Header("phase strings")]
@@ -204,6 +208,13 @@ public class WaveSpawner : MonoBehaviour
     DoorBehaiviour door;
     public GameObject boxCollider;
     BoxCollide boxCollideObject;
+
+    [Header("Box Coliders for final phase")]
+    public GameObject FlickerCollider;
+    FlickerCollide FlickerCollideObject;
+    public GameObject DeathCollider;
+    DeathCollide DeathCollideObject;
+
 
     Interactable pcInteractable, leverInteractable;
      
@@ -246,7 +257,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "1";
+        phaseString = "game has not began yet";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
@@ -268,6 +279,10 @@ public class WaveSpawner : MonoBehaviour
 
         door = DoorObject.GetComponent<DoorBehaiviour>();
         boxCollideObject = boxCollider.GetComponent<BoxCollide>();
+
+
+        FlickerCollideObject = FlickerCollider.GetComponent<FlickerCollide>();
+        DeathCollideObject = DeathCollider.GetComponent<DeathCollide>();
 
         TimeToSpawnStrongEnemies = false;
 
@@ -349,7 +364,8 @@ public class WaveSpawner : MonoBehaviour
         //   sound
         //    dont forget about sound that pc beeps when wave is spawned
                 AudioManager.instance.StartGeneratorSFX();
-                AudioManager.instance.StartWaveDetectedSFX(10f);
+                AudioManager.instance.StartWaveDetectedSFX(5f);
+
 
                 // LampManager.instance.ChangeColorRedAllLamps();
             }
@@ -370,6 +386,9 @@ public class WaveSpawner : MonoBehaviour
                 phaseDeadLine = phaseTwoDuration;
                 UnityEngine.Debug.Log("STARTED SECOND PHASE ");
 
+                AudioManager.instance.StartWaveDetectedSFX(2f);
+                AudioManager.instance.StartGeneratorSFX();
+
 
             // start checking  to start bashOnDoor when player near
                 boxCollideObject.StartChecking = true;
@@ -383,10 +402,15 @@ public class WaveSpawner : MonoBehaviour
                 phaseDeadLine = phaseThreeDuration;
                 UnityEngine.Debug.Log("STARTED THIRD PHASE ");
 
+                
+
                 // StartCoroutine(door.BashOnDoor(DoorObject));
+                
 
 
         //   sound
+                AudioManager.instance.StartWaveDetectedSFX(1f);
+                AudioManager.instance.StartGeneratorSFX();
 
             }else if(phaseString == phaseStringThird)
             {
@@ -404,6 +428,8 @@ public class WaveSpawner : MonoBehaviour
 
 
         //   sound
+                AudioManager.instance.StartWaveDetectedSFX(1f);
+                AudioManager.instance.StartGeneratorSFX();
 
             }else if(phaseString == phaseStringFourth)
             {
@@ -414,7 +440,28 @@ public class WaveSpawner : MonoBehaviour
 
         //   sound
 
+            }else if(phaseString == phaseStringFinal)
+            {
+                // for flickering lamp and lamp pop
+                FlickerCollideObject.StartChecking = true;
+                DeathCollideObject.StartChecking = true;
+
+                phaseString = phaseStringFinalEnd;
+
+                phaseDeadLine = phaseEndDuration;
+
+                // play some beeping sounds, with delay?
+                AudioManager.instance.StartWaveDetectedSFX(4f);
+                AudioManager.instance.StartGeneratorSFX();
+                
+
+
+               
+
             }
+
+
+
 
 
 
@@ -423,6 +470,7 @@ public class WaveSpawner : MonoBehaviour
 
             leverInteractable.isLeverOn = false;
 
+             LampManager.instance.ChangeColorNormalAllLamps();
             LampManager.instance.StartAllLamps();
            
                 
@@ -441,10 +489,12 @@ public class WaveSpawner : MonoBehaviour
         playerStats.startTimer = false;
         PlayerStats.Money = 0; 
 
+        AudioManager.instance.GeneratorOffSFX();
         pcInteractable.turnOffPC();
         buildManager.DestroyAllTurrets();
 
         LampManager.instance.ChangeColorRedAllLamps();
+        
 
 
         }
@@ -466,6 +516,7 @@ public class WaveSpawner : MonoBehaviour
 
         //   sound
             AudioManager.instance.StopGeneratorSFX();
+            AudioManager.instance.StartBehindTheDoorSFX();
             // AudioManager.instance.GeneratorOffSFX();
             
 
@@ -473,26 +524,44 @@ public class WaveSpawner : MonoBehaviour
         {           
     //шум за дверью громче и агрессивнее
             UnityEngine.Debug.Log("PHASE TWO ENDED ");
+            // AudioManager.instance.StartBehindTheDoorStrongerSFX();
+
+            
+            StopCoroutine(boxCollideObject.doorBashroutine);
+           
+            bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
+            AudioManager.instance.StopGeneratorSFX();
 
 
         }else if(phaseString == phaseStringThird)
         {
 
             UnityEngine.Debug.Log("PHASE THREE ENDED ");
+            AudioManager.instance.StopGeneratorSFX();
     
 
 
         }else if(phaseString == phaseStringFourth)
         {
             UnityEngine.Debug.Log("PHASE FOUR ENDED ");
+            AudioManager.instance.StopGeneratorSFX();
 
 
 
         }else if(phaseString == phaseStringFinal)
         {
-            // unfinished
+            
             UnityEngine.Debug.Log("PHASE FINAL ENDED ");
 
+            // turn off light 
+            // play sound of tiring metal
+
+            // turn off all light
+            // destroy door
+
+            // start and stop sounds 
+            // set up box collider triggers
+               // for killing player, when enter door
 
 
         }
@@ -523,7 +592,8 @@ public class WaveSpawner : MonoBehaviour
 
   //  check if phase time has ended
         phaseTime = Time.time;
-        if((phaseTime - phaseStartTime) >= phaseDeadLine && phaseString != phaseStringFinal)
+        // && phaseString != phaseStringFinal
+        if((phaseTime - phaseStartTime) >= phaseDeadLine && phaseString != phaseStringFinalEnd)
         {
             // UnityEngine.Debug.Log("phaseTime - phaseStartTime = " + (phaseTime - phaseStartTime ));
             // UnityEngine.Debug.Log("phase has ended phasezeroDuration = " + phaseDeadLine );

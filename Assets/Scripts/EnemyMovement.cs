@@ -251,6 +251,7 @@ public class EnemyMovement : MonoBehaviour
                  wavePointIntIndex = 0;                 
                  break;
             case "WayZeroOne":
+                 StartCoroutine(FullStopFor(4f));
                  currentWay = WayTwo;
                  wavePointIntIndex = 0;
                  break;    
@@ -304,6 +305,11 @@ public class EnemyMovement : MonoBehaviour
 
     // wait waitAfterRoar
         yield return new WaitForSeconds(waitAfterRoar);
+
+        AudioManager.instance.StartWaveDetectedSFX(1f);
+        AudioManager.instance.StartWaveDetectedSFX(3f);
+        AudioManager.instance.StartWaveDetectedSFX(4f);
+        AudioManager.instance.StartWaveDetectedSFX(6f);
 
     // resume movement
         waveSpawnerObject.StartAllEnemies();

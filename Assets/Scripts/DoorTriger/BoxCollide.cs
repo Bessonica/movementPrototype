@@ -9,6 +9,8 @@ public class BoxCollide : MonoBehaviour
     public GameObject DoorObject;
     DoorBehaiviour door;
 
+    public Coroutine doorBashroutine;
+
     public bool StartChecking = false;
 
 
@@ -30,7 +32,7 @@ public class BoxCollide : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if(StartChecking)
         {
-            StartCoroutine(door.BashOnDoor(DoorObject));
+            doorBashroutine = StartCoroutine(door.BashOnDoor(DoorObject));
             UnityEngine.Debug.Log("Collider entered");
             StartChecking = false;
         }

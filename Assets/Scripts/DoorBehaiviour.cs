@@ -24,6 +24,8 @@ public class DoorBehaiviour : MonoBehaviour
 
     float newX, newY, newZ;
 
+    public bool stopBash;
+
     
 
     
@@ -38,7 +40,7 @@ public class DoorBehaiviour : MonoBehaviour
     void Start()
     {
         waveSpawner = gameMaster.GetComponent<WaveSpawner>();
-        
+        stopBash = true;
     }
 
    
@@ -51,7 +53,37 @@ public class DoorBehaiviour : MonoBehaviour
     public IEnumerator BashOnDoorHard(GameObject doorToShake)
     {
 
-      yield return null;
+      while(true)
+      {
+
+        randomTime = UnityEngine.Random.Range(2f, 5f);
+
+              
+
+      //   animation of door 
+        countdownDoorNow = countdownDoor;
+        startingPos = doorToShake.transform.position;
+        while(countdownDoorNow >= 0)
+        {
+          countdownDoorNow -= Time.deltaTime;
+
+          newX = doorToShake.transform.position.x + UnityEngine.Random.Range(-0.9f, 0.9f) * powerOfShake;
+          newZ = doorToShake.transform.position.z + UnityEngine.Random.Range(-0.9f, 0.9f) * powerOfShake;
+
+          doorToShake.transform.position = new Vector3(newX, startingPos.y, newZ);
+          yield return null; 
+          doorToShake.transform.position = startingPos;
+        }
+        
+        // doorSound.Play();
+        AudioManager.instance.BashOnDoorSFX();
+        yield return new WaitForSeconds(randomTime);
+        
+
+
+        
+      }
+
     }
 
     public IEnumerator BashOnDoor(GameObject doorToShake)
@@ -71,7 +103,11 @@ public class DoorBehaiviour : MonoBehaviour
       while(true)
       {
 
-        randomTime = UnityEngine.Random.Range(1f, 2.5f);
+        while(stopBash)
+        {
+
+
+        randomTime = UnityEngine.Random.Range(4f, 7f);
 
               
 
@@ -93,8 +129,11 @@ public class DoorBehaiviour : MonoBehaviour
         // doorSound.Play();
         AudioManager.instance.BashOnDoorSFX();
         yield return new WaitForSeconds(randomTime);
-        
 
+        }
+
+
+      
 
         
       }
@@ -110,3 +149,6 @@ public class DoorBehaiviour : MonoBehaviour
     //     UnityEngine.Debug.Log("BASHING ON DOOR");
     // }
 }
+
+
+

@@ -11,6 +11,8 @@ public class FlickerCollide : MonoBehaviour
 
     Lamp lampComponent;
     Light lightToStart;
+
+    public bool StartChecking = false;
     
 
     // Start is called before the first frame update
@@ -30,8 +32,11 @@ public class FlickerCollide : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
+        if(StartChecking)
+        {
+            StartCoroutine(lampComponent.FlickerFinalLight());
 
-        StartCoroutine(lampComponent.FlickerFinalLight());
+        }
 
 
 
