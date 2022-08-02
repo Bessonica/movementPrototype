@@ -77,6 +77,26 @@ public class AudioManager : MonoBehaviour
 
     }
 
+
+//pc
+
+    public void StartPCWorkingSFX()
+    {
+        
+        PCSource.Play();
+
+
+    }
+
+    public void StopPCWorkingSFX()
+    {
+        
+        PCSource.Stop();
+
+
+    }
+
+
 // behind the door 
     public void StartBehindTheDoorSFX()
     {

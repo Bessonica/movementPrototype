@@ -310,6 +310,7 @@ public class EnemyMovement : MonoBehaviour
         AudioManager.instance.StartWaveDetectedSFX(3f);
         AudioManager.instance.StartWaveDetectedSFX(4f);
         AudioManager.instance.StartWaveDetectedSFX(6f);
+        AudioManager.instance.StartWaveDetectedSFX(8f);
 
     // resume movement
         waveSpawnerObject.StartAllEnemies();
