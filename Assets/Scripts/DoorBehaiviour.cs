@@ -76,7 +76,7 @@ public class DoorBehaiviour : MonoBehaviour
         }
         
         // doorSound.Play();
-        AudioManager.instance.BashOnDoorSFX();
+        AudioManager.instance.BashOnDoorHardSFX();
         yield return new WaitForSeconds(randomTime);
         
 

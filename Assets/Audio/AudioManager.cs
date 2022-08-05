@@ -8,10 +8,19 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     public AudioSource playerSource;
+    [Header("Door sounds")]
     public AudioSource doorSource;
+    public AudioSource doorSourceHard;
+    public AudioSource DoorTearSource;
+
+    [Header("Behind the door sounds")]
     public AudioSource behindTheDoorSource;
     public AudioSource behindTheDoorSourceStronger;
+
+
     public AudioSource generatorOffSource;
+
+    [Header("sounds after final phase")]
     public AudioSource FinalRoarSource;
     public AudioSource FinalLampPopSource;
     public AudioSource PlayerIsKilledSource;
@@ -45,6 +54,14 @@ public class AudioManager : MonoBehaviour
         playerSource.Play();
     }
 
+// door sounds
+
+    public void DoorTearSFX()
+    {
+        DoorTearSource.Play();
+
+    }
+
     public void BashOnDoorSFX()
     {
         doorSource.Play();
@@ -53,9 +70,18 @@ public class AudioManager : MonoBehaviour
 
     public void BashOnDoorHardSFX()
     {
-        doorSource.Play();
+        doorSourceHard.Play();
 
     }
+
+
+    public void StopBashOnDoorHardSFX()
+    {
+        doorSourceHard.Stop();
+
+    }
+
+
 
 
     public void FinalLampPopSFX()

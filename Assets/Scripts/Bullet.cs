@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour
 
     void HitTarget()
     {
-        UnityEngine.Debug.Log("WE HIT ");
+        // UnityEngine.Debug.Log("WE HIT ");
         EnemyMovement e = target.GetComponent<EnemyMovement>();
         if(e!=null)
         {

@@ -565,6 +565,7 @@ public class WaveSpawner : MonoBehaviour
 
             // turn off light 
             // play sound of tiring metal
+            AudioManager.instance.DoorTearSFX();
 
             // turn off all light
             // "destroy" door
