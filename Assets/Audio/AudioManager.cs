@@ -16,8 +16,11 @@ public class AudioManager : MonoBehaviour
     [Header("Behind the door sounds")]
     public AudioSource behindTheDoorSource;
     public AudioSource behindTheDoorSourceStronger;
+    
+    [Header("Turret sounds")]
+    public AudioSource TurretSource;
 
-
+    [Header("generatorOff sounds")]
     public AudioSource generatorOffSource;
 
     [Header("sounds after final phase")]
@@ -52,6 +55,21 @@ public class AudioManager : MonoBehaviour
     public void StepOnFloorSFX()
     {
         playerSource.Play();
+    }
+
+
+//turret sounds
+
+    public void TurretShootSFX()
+    {
+        TurretSource.Play();
+
+    }
+
+    public void StopTurretShootSFX()
+    {
+        TurretSource.Stop();
+
     }
 
 // door sounds

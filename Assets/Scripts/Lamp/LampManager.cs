@@ -10,6 +10,7 @@ public class LampManager : MonoBehaviour
 
 
     public static LampManager instance;
+    public GameObject playerLight;
 
 
     void Awake()
@@ -29,6 +30,7 @@ public class LampManager : MonoBehaviour
 // stop all light
     public void StartAllLamps()
     {
+        playerLight.SetActive(false);
 
 
         foreach(GameObject lampToStart in GameObject.FindGameObjectsWithTag("lamp"))
@@ -40,6 +42,7 @@ public class LampManager : MonoBehaviour
            lampComponent.powerOff = false;
 
         }
+        
 
     }
 
@@ -64,12 +67,23 @@ public class LampManager : MonoBehaviour
 
         }
 
+        // playerLight.SetActive(true);
+        StartCoroutine(startPlayerLight(5f));
+
+    }
+
+    public IEnumerator startPlayerLight(float time)
+    {
+        yield return new WaitForSeconds(time);
+        playerLight.SetActive(true);
+        yield break;
+
     }
 
     public void ChangeColorRedAllLamps()
     {
 
-        
+        playerLight.SetActive(false);
 
 
         foreach(GameObject lampToStart in GameObject.FindGameObjectsWithTag("lamp"))
@@ -91,6 +105,7 @@ public class LampManager : MonoBehaviour
 
     public void ChangeColorNormalAllLamps()
     {
+        playerLight.SetActive(false);
 
     
 

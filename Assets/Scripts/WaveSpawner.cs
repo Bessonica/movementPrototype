@@ -499,7 +499,15 @@ public class WaveSpawner : MonoBehaviour
         pcInteractable.turnOffPC();
         buildManager.DestroyAllTurrets();
 
-        LampManager.instance.ChangeColorRedAllLamps();
+        
+        if(phaseString != phaseStringFinal)
+        {
+            LampManager.instance.ChangeColorRedAllLamps();
+        }
+        else
+        {
+            LampManager.instance.StopAllLamps();
+        }
         
         
 

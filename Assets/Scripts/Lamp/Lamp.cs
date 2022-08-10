@@ -14,11 +14,27 @@ public class Lamp : MonoBehaviour
 
     Light lightToStart;
 
+    [Header("gameMaster")]
+    public GameObject gameMaster;
+
+    PlayerStats playerStats;
+    GameObject playerObjectInteract;
+    MouseLook mouseLook;
+    InputManager inputManager;
+
     // Start is called before the first frame update
     void Start()
     {
         lightToStart =  this.GetComponent<Light>();
         powerOff = false;
+
+
+        playerStats = gameMaster.GetComponent<PlayerStats>();
+        playerObjectInteract = playerStats.playerObject;
+        
+        mouseLook = playerObjectInteract.GetComponent<MouseLook>();
+        inputManager = playerObjectInteract.GetComponent<InputManager>();
+
         
     }
 
@@ -79,12 +95,6 @@ public class Lamp : MonoBehaviour
                 isFlickering = false;
             }
 
-
-
-
-
-
-
             isFlickering = true;
 
 
@@ -97,6 +107,8 @@ public class Lamp : MonoBehaviour
     // play sound of monsters running at player
 
     // take away player movement
+        mouseLook.enabled = false;
+        inputManager.enabled = false;
 
     // play sound of player getting eaten 
     
