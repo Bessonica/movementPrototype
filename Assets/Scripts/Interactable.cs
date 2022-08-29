@@ -34,6 +34,10 @@ public class Interactable : MonoBehaviour
     public bool isPC; 
     public bool isPCon;
     
+    [Header("isThisLetter")]
+    public bool isLetter; 
+    public GameObject LetterCanvasObject;
+    
     
     [Header("DO NOT TOUCH")]
     public float phaseStartTime;
@@ -57,6 +61,38 @@ public class Interactable : MonoBehaviour
         }
 
     }
+    
+    
+    public void ShowLetter()
+    {
+        LetterCanvasObject.SetActive(true);
+        UnityEngine.Debug.Log(" isLetter = ");
+
+        //take movement away from player
+        playerStats = gameMaster.GetComponent<PlayerStats>();
+        playerObjectInteract = playerStats.playerObject;
+        mouseLook = playerObjectInteract.GetComponent<MouseLook>();
+        inputManager = playerObjectInteract.GetComponent<InputManager>();
+        mouseLook.enabled = false;
+        inputManager.enabled = false;
+    }
+
+
+    public void HideLetter()
+    {
+        LetterCanvasObject.SetActive(false);
+        UnityEngine.Debug.Log(" isLetter = ");
+
+        //give movement to player
+        playerStats = gameMaster.GetComponent<PlayerStats>();
+        playerObjectInteract = playerStats.playerObject;
+        mouseLook = playerObjectInteract.GetComponent<MouseLook>();
+        inputManager = playerObjectInteract.GetComponent<InputManager>();
+        mouseLook.enabled = true;
+        inputManager.enabled = true;
+    }
+
+
 
     public void ChangeCamera()
     {

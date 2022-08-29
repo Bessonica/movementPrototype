@@ -109,6 +109,14 @@ public class Interactor : MonoBehaviour
                // Input.GetKeyDown(KeyCode.E))
             if(Input.GetKey(KeyCode.E))
             {
+
+                if(interactable.isLetter)
+                {
+                    
+                    interactable.onInteract.Invoke();
+                }
+
+
                 // if its pc enter immediatly
                 if(interactable.isPC)
                 {
