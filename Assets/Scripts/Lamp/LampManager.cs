@@ -26,6 +26,12 @@ public class LampManager : MonoBehaviour
         }
     }
 
+
+    void Start()
+    {
+        playerLight.SetActive(true);
+    }
+
 // change color red/white
 // stop all light
     public void StartAllLamps()
@@ -40,6 +46,9 @@ public class LampManager : MonoBehaviour
            
            lightToStart.enabled = true;
            lampComponent.powerOff = false;
+
+           //emisive material
+           lampComponent.lightMaterial.EnableKeyword("_EMISSION");
 
         }
         
@@ -64,6 +73,8 @@ public class LampManager : MonoBehaviour
            lampComponent.isFlickering = false;
         
            lightToStart.enabled = false;
+
+           lampComponent.lightMaterial.DisableKeyword("_EMISSION");
 
         }
 
@@ -99,6 +110,8 @@ public class LampManager : MonoBehaviour
            // change color
            lightToStart.color = Color.red;
 
+           lampComponent.lightMaterial.SetColor("_EmissionColor", Color.red * 2.0f);
+
         }
 
     }
@@ -121,16 +134,12 @@ public class LampManager : MonoBehaviour
 
            // change color
            lightToStart.color = Color.white;
+           lampComponent.lightMaterial.SetColor("_EmissionColor", Color.white * 2.0f);
 
         }
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

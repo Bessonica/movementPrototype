@@ -9,6 +9,8 @@ public class Lamp : MonoBehaviour
     public float timeDelay;
     public bool powerOff;
 
+    public Material lightMaterial;
+
 
     public bool IsFinalLight;
 
@@ -23,6 +25,11 @@ public class Lamp : MonoBehaviour
     InputManager inputManager;
 
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        lightMaterial.DisableKeyword("_EMISSION");
+    }
     void Start()
     {
         lightToStart =  this.GetComponent<Light>();
@@ -74,6 +81,8 @@ public class Lamp : MonoBehaviour
             }
 
             this.gameObject.GetComponent<Light>().enabled = false;
+            this.lightMaterial.DisableKeyword("_EMISSION");
+
             // play short sound effect
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
@@ -86,6 +95,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = true;
+            this.lightMaterial.EnableKeyword("_EMISSION");
+
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
@@ -139,6 +150,8 @@ public class Lamp : MonoBehaviour
             }
 
             this.gameObject.GetComponent<Light>().enabled = false;
+            this.lightMaterial.DisableKeyword("_EMISSION");
+
             // play short sound effect
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
@@ -151,6 +164,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = true;
+            this.lightMaterial.EnableKeyword("_EMISSION");
+
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
@@ -162,6 +177,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = false;
+            this.lightMaterial.DisableKeyword("_EMISSION");
+
             // play short sound effect
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
@@ -174,6 +191,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = true;
+            this.lightMaterial.EnableKeyword("_EMISSION");
+
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
@@ -185,6 +204,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = false;
+            this.lightMaterial.DisableKeyword("_EMISSION");
+
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
@@ -197,6 +218,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = true;
+            this.lightMaterial.EnableKeyword("_EMISSION");
+
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
@@ -210,6 +233,9 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = false;
+            this.lightMaterial.DisableKeyword("_EMISSION");
+
+
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
@@ -221,6 +247,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = true;
+            this.lightMaterial.EnableKeyword("_EMISSION");
+
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
@@ -271,7 +299,10 @@ public class Lamp : MonoBehaviour
                 isFlickering = false;
             }
 
+
             this.gameObject.GetComponent<Light>().enabled = false;
+            this.lightMaterial.DisableKeyword("_EMISSION");
+
             // play short sound effect
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
@@ -284,6 +315,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = true;
+            this.lightMaterial.EnableKeyword("_EMISSION");
+
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
@@ -295,6 +328,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = false;
+            this.lightMaterial.DisableKeyword("_EMISSION");
+
             // play short sound effect
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
@@ -307,6 +342,8 @@ public class Lamp : MonoBehaviour
 
 
             this.gameObject.GetComponent<Light>().enabled = true;
+            this.lightMaterial.EnableKeyword("_EMISSION");
+
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 

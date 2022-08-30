@@ -258,7 +258,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "4";
+        phaseString = "game has not began yet";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
