@@ -54,6 +54,7 @@ public class Interactable : MonoBehaviour
 
     public void StartWave(GameObject gameMaster)
     {
+        // мужду 0 и 1 фазой рычаг должен быть выключен, но он работает
         if(isLeverOn)
         {
             waveSpawner = gameMaster.GetComponent<WaveSpawner>();

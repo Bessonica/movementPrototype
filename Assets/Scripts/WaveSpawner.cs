@@ -217,6 +217,8 @@ public class WaveSpawner : MonoBehaviour
     DeathCollide DeathCollideObject;
 
 
+
+
     Interactable pcInteractable, leverInteractable;
      
 
@@ -258,7 +260,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "game has not began yet";
+        phaseString = "1";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
@@ -331,6 +333,8 @@ public class WaveSpawner : MonoBehaviour
         TimeToSpawnStrongEnemies = true;
     }
 
+                // playerStats.ChangeLeverTime(3f);
+                // playerStats.ChangeTimerLimit(20f);
 
 // what we do when player pull the lever
     public void StartPhase()
@@ -343,8 +347,11 @@ public class WaveSpawner : MonoBehaviour
         door.keepBashing = false;
         
         // playerStats = this.GetComponent<PlayerStats>();
-
-        PlayerStats.Money = 0; 
+        if(phaseString != phaseStringZero)
+        {
+            PlayerStats.Money = 0; 
+        }
+        
         // Money is static variable, so you can access it from everywhere?
         // read about public static
 
@@ -355,6 +362,7 @@ public class WaveSpawner : MonoBehaviour
         // if its first time we pulled lever
             if(phaseString == phaseStringStart)
             {
+                playerStats.ChangeTimerLimit(20f);
 
         // start phaseZero
                 phaseString = phaseStringZero;   
@@ -388,6 +396,9 @@ public class WaveSpawner : MonoBehaviour
                 phaseString = phaseStringSecond;
                 phaseDeadLine = phaseTwoDuration;
                 UnityEngine.Debug.Log("STARTED SECOND PHASE ");
+
+                playerStats.ChangeTimerLimit(12f);
+                
 
                 AudioManager.instance.StartWaveDetectedSFX(2f);
                 AudioManager.instance.StartGeneratorSFX();
@@ -492,6 +503,7 @@ public class WaveSpawner : MonoBehaviour
 
         if(phaseString != phaseStringZero)
         {
+            // UnityEngine.Debug.Log("added more money ");
 
         phaseIsOn = false;
         playerStats.startTimer = false;
@@ -518,6 +530,12 @@ public class WaveSpawner : MonoBehaviour
 
         }
 
+    // when phase is stoped player can use lever to turn it on again
+        if(phaseString != phaseStringZero)
+        {
+            leverInteractable.isLeverOn = true;
+            
+        }
 
 
 //create object monsterSound behind door and activate it here
@@ -532,6 +550,8 @@ public class WaveSpawner : MonoBehaviour
         {
     //слышно шум задверью, но ее никто не трогает
             UnityEngine.Debug.Log("PHASE ONE ENDED ");
+
+            playerStats.ChangeLeverTime(3f);
 
         //   sound
             AudioManager.instance.StopGeneratorSFX();
@@ -601,14 +621,10 @@ public class WaveSpawner : MonoBehaviour
         
 
 
+
         
 
-    // when phase is stoped player can use lever to turn it on again
-        if(phaseString != phaseStringZero)
-        {
-            leverInteractable.isLeverOn = true;
-            
-        }
+
         
     }
 

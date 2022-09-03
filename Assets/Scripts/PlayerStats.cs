@@ -38,6 +38,9 @@ public class PlayerStats : MonoBehaviour
     public GameObject playerCanvas;
     public GameObject towerDefCanvas;
 
+    public GameObject playerCameraObject;
+    Interactor interactorObject;
+
 
     // Start is called before the first frame update
     void Start()
@@ -52,11 +55,27 @@ public class PlayerStats : MonoBehaviour
         // turn ui on/off so they wouldnt overlap
         playerCanvas.SetActive(true);
         towerDefCanvas.SetActive(false);
+
+        interactorObject = playerCameraObject.GetComponent<Interactor>();
+    }
+
+    public void ChangeLeverTime(float time)
+    {
+        interactorObject.HoldTimerDeadLine = time;
+
     }
 
 
     // make a timer that runs in background and adds 1 to Money
     //    when power is out turn it off, and when power is on turn it on
+    public void ChangeTimerLimit(float time)
+    {
+        timerSlider.maxValue = time;
+        timerLimit = time;
+
+    }
+
+
 
     void Update()
     {

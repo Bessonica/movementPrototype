@@ -125,7 +125,7 @@ public class Interactor : MonoBehaviour
                 else
                 {
 
-                    if(holdTimer <= 0)
+                    if(holdTimer <= 0 && interactable.isLeverOn)
                     {
 
                         // SOUND start sound
@@ -136,10 +136,15 @@ public class Interactor : MonoBehaviour
 
                     // if its lever then start timer
 
-                holdTimer +=Time.deltaTime;
+                    if(interactable.isLeverOn)
+                    {
+                        holdTimer +=Time.deltaTime;
+                    }
+
+                
                 // UnityEngine.Debug.Log(" HoldTimer = " + holdTimer);
 
-                if(holdTimer > HoldTimerDeadLine)
+                if(holdTimer > HoldTimerDeadLine && interactable.isLeverOn)
                 {
                    interactable.onInteract.Invoke();
                    AudioManager.instance.LeverStopSFX();
