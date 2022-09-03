@@ -13,12 +13,19 @@ public class AudioManager : MonoBehaviour
     public AudioSource doorSourceHard;
     public AudioSource DoorTearSource;
 
-    [Header("Behind the door sounds")]
+    [Header("Behind the door sounds (OLD)")]
     public AudioSource behindTheDoorSource;
     public AudioSource behindTheDoorSourceStronger;
     
     [Header("Turret sounds")]
     public AudioSource TurretSource;
+
+    [Header("Behind the door sounds")]
+    public AudioSource BehindDoorSource;
+    public AudioSource BehindDoorAggressiveSource;
+    public AudioSource GiantMonsterSource;
+    public AudioSource GiantMonsterAggressiveSource;
+    public AudioSource AfterFinalRoarSource;
 
     [Header("generatorOff sounds")]
     public AudioSource generatorOffSource;
@@ -57,6 +64,86 @@ public class AudioManager : MonoBehaviour
         playerSource.Play();
     }
 
+
+
+    public void StartAfterFinalRoarSFX()
+    {
+        AfterFinalRoarSource.Play();
+
+    }
+
+    public void StopAfterFinalRoarSFX()
+    {
+        AfterFinalRoarSource.Stop();
+
+    }
+
+    
+//behind door sounds
+    public void StartBehindDoorSFX()
+    {
+        BehindDoorSource.Play();
+
+    }
+
+    public void StopBehindDoorSFX()
+    {
+        BehindDoorSource.Stop();
+
+    }
+
+    public void StartBehindDoorAggressiveSFX()
+    {
+        BehindDoorAggressiveSource.Play();
+
+    }
+
+    public void StopBehindDoorAggressiveSFX()
+    {
+        BehindDoorAggressiveSource.Stop();
+
+    }
+// giant monster sounds
+
+
+    public void StartGiantMonsterSFX()
+    {
+        GiantMonsterSource.Play();
+
+    }
+
+    public void StopGiantMonsterSFX()
+    {
+        GiantMonsterSource.Stop();
+
+    }
+
+
+    public void StartGiantMonsterAggressiveSFX()
+    {
+        GiantMonsterAggressiveSource.Play();
+
+    }
+
+    public void StopGiantMonsterAggressiveSFX()
+    {
+        GiantMonsterAggressiveSource.Stop();
+
+    }
+
+
+    public void StartSoundFinalRoarSFX()
+    {
+        FinalRoarSource.Play();
+
+    }
+
+
+    public void StopSoundFinalRoarSFX()
+    {
+        FinalRoarSource.Stop();
+
+    }
 
 //turret sounds
 
@@ -221,14 +308,6 @@ public class AudioManager : MonoBehaviour
     public void GeneratorOffSFX()
     {
         generatorOffSource.Play();
-    }
-
-
-
-    public void SoundFinalRoarSFX()
-    {
-        FinalRoarSource.Play();
-
     }
 
 

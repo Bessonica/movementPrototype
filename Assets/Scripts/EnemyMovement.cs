@@ -270,7 +270,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 stopNow = true;
 
-                StartCoroutine(RoarAndSpawnStrongEnemies(5f, 5f));
+                StartCoroutine(RoarAndSpawnStrongEnemies(5f, 19f));
 
 
         // ITS IMPORTANT 
@@ -298,7 +298,9 @@ public class EnemyMovement : MonoBehaviour
     // play roar sound effect
         // AudioManager.instance.SoundFinalRoarSFX();
 
-        yield return new WaitForSeconds(1.5f);
+        AudioManager.instance.StartSoundFinalRoarSFX();
+
+        yield return new WaitForSeconds(1f);
 
     // stop all npc on screen
         waveSpawnerObject.StopAllEnemies();
@@ -317,6 +319,9 @@ public class EnemyMovement : MonoBehaviour
 
     // start spawning strongFinalEnemies
         waveSpawnerObject.StartSpawnStrongEnemies();
+
+        yield return new WaitForSeconds(1f);
+        AudioManager.instance.StartAfterFinalRoarSFX();
 
     // change DoorBash and change sound behind door, and maybe add/change ost
 

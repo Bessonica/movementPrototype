@@ -302,6 +302,7 @@ public class Lamp : MonoBehaviour
 
             this.gameObject.GetComponent<Light>().enabled = false;
             this.lightMaterial.DisableKeyword("_EMISSION");
+            
 
             // play short sound effect
             timeDelay = Random.Range(0.01f, 0.2f);

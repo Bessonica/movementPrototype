@@ -404,6 +404,8 @@ public class WaveSpawner : MonoBehaviour
                 phaseDeadLine = phaseThreeDuration;
                 UnityEngine.Debug.Log("STARTED THIRD PHASE ");
 
+                AudioManager.instance.StartGeneratorSFX();
+
                 
 
                 // StartCoroutine(door.BashOnDoor(DoorObject));
@@ -440,6 +442,8 @@ public class WaveSpawner : MonoBehaviour
                 phaseString = phaseStringFinal;
                 phaseDeadLine = phaseFinalDuration;
                 UnityEngine.Debug.Log("STARTED FINAL PHASE ");
+
+                AudioManager.instance.StartGeneratorSFX();
 
         //   sound
 
@@ -531,7 +535,9 @@ public class WaveSpawner : MonoBehaviour
 
         //   sound
             AudioManager.instance.StopGeneratorSFX();
-            AudioManager.instance.StartBehindTheDoorSFX();
+
+            AudioManager.instance.StartBehindDoorSFX();
+            AudioManager.instance.StartGiantMonsterSFX();
             // AudioManager.instance.GeneratorOffSFX();
             
 
@@ -539,13 +545,14 @@ public class WaveSpawner : MonoBehaviour
         {           
     //шум за дверью громче и агрессивнее
             UnityEngine.Debug.Log("PHASE TWO ENDED ");
-            // AudioManager.instance.StartBehindTheDoorStrongerSFX();
-
-            
-            
-           
-            
+    
             AudioManager.instance.StopGeneratorSFX();
+            AudioManager.instance.StopBehindDoorSFX();
+            // AudioManager.instance.StopGiantMonsterSFX();
+
+            // make sound behind door louder
+            AudioManager.instance.StartBehindDoorAggressiveSFX();
+            // AudioManager.instance.StartGiantMonsterAggressiveSFX();
 
 
         }else if(phaseString == phaseStringThird)
@@ -553,6 +560,7 @@ public class WaveSpawner : MonoBehaviour
 
             UnityEngine.Debug.Log("PHASE THREE ENDED ");
             AudioManager.instance.StopGeneratorSFX();
+            AudioManager.instance.StopGiantMonsterSFX();
 
             StopCoroutine(boxCollideObject.doorBashroutine);
             bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
@@ -573,6 +581,8 @@ public class WaveSpawner : MonoBehaviour
 
             // turn off light 
             // play sound of tiring metal
+            LampManager.instance.StopAllLamps();
+            AudioManager.instance.StopBehindDoorAggressiveSFX();
             AudioManager.instance.DoorTearSFX();
 
             // turn off all light
