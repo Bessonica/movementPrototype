@@ -86,6 +86,64 @@ public class DoorBehaiviour : MonoBehaviour
 
     }
 
+
+    //BashOnDoorHardHardestSFX
+
+
+    public IEnumerator BashOnDoorHardest(GameObject doorToShake)
+    {
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+      UnityEngine.Debug.Log("DOOR BASH HARDEST");
+            
+      
+
+      while(true)
+      {
+
+        randomTime = UnityEngine.Random.Range(1f, 3f);
+
+              
+
+      //   animation of door 
+        countdownDoorNow = countdownDoor;
+        startingPos = doorToShake.transform.position;
+        while(countdownDoorNow >= 0)
+        {
+          countdownDoorNow -= Time.deltaTime;
+
+          newX = doorToShake.transform.position.x + UnityEngine.Random.Range(-0.9f, 0.9f) * powerOfShake;
+          newZ = doorToShake.transform.position.z + UnityEngine.Random.Range(-0.9f, 0.9f) * powerOfShake;
+
+          doorToShake.transform.position = new Vector3(newX, startingPos.y, newZ);
+          yield return null; 
+          doorToShake.transform.position = startingPos;
+        }
+        
+        // doorSound.Play();
+        AudioManager.instance.BashOnDoorHardHardestSFX();
+        yield return new WaitForSeconds(randomTime);
+        
+
+
+        
+      }
+
+    }
+
+
+
     public IEnumerator BashOnDoor(GameObject doorToShake)
     {
 

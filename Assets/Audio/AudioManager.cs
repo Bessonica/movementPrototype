@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource doorSource;
     public AudioSource doorSourceHard;
     public AudioSource DoorTearSource;
+    public AudioSource doorSourceHardest;
 
     [Header("Behind the door sounds (OLD)")]
     public AudioSource behindTheDoorSource;
@@ -43,6 +46,10 @@ public class AudioManager : MonoBehaviour
     public AudioSource GeneratorSource;
     public AudioSource LeverSource;
 
+    [Header("Mixer")]
+    public AudioMixer Mixer;
+    const string doorBashString = "DoorVolume";
+
     void Awake()
     {
         if(instance == null)
@@ -64,7 +71,11 @@ public class AudioManager : MonoBehaviour
         playerSource.Play();
     }
 
+    public void SetDoorBashVolume(float volume)
+    {
+        Mixer.SetFloat(doorBashString, volume);
 
+    }
 
     public void StartAfterFinalRoarSFX()
     {
@@ -100,6 +111,7 @@ public class AudioManager : MonoBehaviour
 
     public void StopBehindDoorAggressiveSFX()
     {
+        
         BehindDoorAggressiveSource.Stop();
 
     }
@@ -187,6 +199,18 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    public void BashOnDoorHardHardestSFX()
+    {
+        doorSourceHardest.Play();
+
+    }
+
+
+    public void StopBashOnDoorHardestSFX()
+    {
+        doorSourceHardest.Stop();
+
+    }
 
 
     public void FinalLampPopSFX()

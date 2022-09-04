@@ -176,8 +176,10 @@ public class WaveSpawner : MonoBehaviour
     [Header("time between waves(is not used)")]
     public float timeBetweenWaves = 10f;
 
-
-    Coroutine bashOnDoorHard;
+    [Header("DO NOT TOUCH (courutine that i stop in another code (EnemyMovement.cs))")]
+    public Coroutine bashOnDoorHard;
+    // [Header("Final Enemy (need to)")]
+    // public GameObject finalEnemyObject;
 
 // this strings are responsible for choosing what phase is right now
     // in (interactable.cs) we reassign phaseString and it changes here
@@ -335,6 +337,7 @@ public class WaveSpawner : MonoBehaviour
 
                 // playerStats.ChangeLeverTime(3f);
                 // playerStats.ChangeTimerLimit(20f);
+                // AudioManager.instance.SetDoorBashVolume(0.88f);
 
 // what we do when player pull the lever
     public void StartPhase()
@@ -458,6 +461,16 @@ public class WaveSpawner : MonoBehaviour
                 phaseDeadLine = phaseFinalDuration;
                 UnityEngine.Debug.Log("STARTED FINAL PHASE ");
                 playerStats.ChangeTimerLimit(7.5f);
+
+
+
+        //  THIS IS FOR TEST, in end phase we also have stop Courutine
+            // StopCoroutine(boxCollideObject.doorBashroutine);
+            bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
+    
+
+
+               
 
                 AudioManager.instance.StartGeneratorSFX();
 
@@ -584,8 +597,8 @@ public class WaveSpawner : MonoBehaviour
         {
 
             UnityEngine.Debug.Log("PHASE THREE ENDED ");
-            AudioManager.instance.StopGeneratorSFX();
-            AudioManager.instance.StopGiantMonsterSFX();
+            
+            
 
             StopCoroutine(boxCollideObject.doorBashroutine);
             bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
@@ -596,6 +609,7 @@ public class WaveSpawner : MonoBehaviour
         {
             UnityEngine.Debug.Log("PHASE FOUR ENDED ");
             AudioManager.instance.StopGeneratorSFX();
+            AudioManager.instance.StopGiantMonsterSFX();
 
 
 
@@ -607,8 +621,13 @@ public class WaveSpawner : MonoBehaviour
             // turn off light 
             // play sound of tiring metal
             LampManager.instance.StopAllLamps();
+            AudioManager.instance.StopGeneratorSFX();
             AudioManager.instance.StopBehindDoorAggressiveSFX();
+            AudioManager.instance.StopAfterFinalRoarSFX();
             AudioManager.instance.DoorTearSFX();
+
+
+            // StopCoroutine(bashOnDoorHard);
 
             // turn off all light
             // "destroy" door

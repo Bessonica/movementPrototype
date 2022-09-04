@@ -54,17 +54,24 @@ public class EnemyMovement : MonoBehaviour
     public bool NeedToStop;
     public bool stopNow;
 
+    [Header("Door")]
+    public GameObject DoorObject;
+    DoorBehaiviour door;
 
     float amountToStopFor = 5f;
 
     public GameObject gameMaster; 
     WaveSpawner waveSpawnerObject;
+
+    public Coroutine bashOnDoorHardest;
+    
  
 
  
     void Start()
     {
         waveSpawnerObject = gameMaster.GetComponent<WaveSpawner>();
+        door = DoorObject.GetComponent<DoorBehaiviour>();
 
 
         stopNow = false;
@@ -322,6 +329,20 @@ public class EnemyMovement : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         AudioManager.instance.StartAfterFinalRoarSFX();
+
+    // after some time make door bash louder
+    // can put new fucntion for door, where it bashes much faster
+        yield return new WaitForSeconds(17f);
+        UnityEngine.Debug.Log("MADE DOOR LOUDER");
+        StopCoroutine(waveSpawnerObject.bashOnDoorHard);
+
+        bashOnDoorHardest = StartCoroutine(door.BashOnDoorHardest(DoorObject));
+        AudioManager.instance.SetDoorBashVolume(1.2f);
+
+    // count till final and stop courutine
+        yield return new WaitForSeconds(6f);
+        StopCoroutine(bashOnDoorHardest);
+        
 
     // change DoorBash and change sound behind door, and maybe add/change ost
 
