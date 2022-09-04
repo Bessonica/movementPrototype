@@ -260,7 +260,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "1";
+        phaseString = "4";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
@@ -415,6 +415,8 @@ public class WaveSpawner : MonoBehaviour
                 phaseDeadLine = phaseThreeDuration;
                 UnityEngine.Debug.Log("STARTED THIRD PHASE ");
 
+                playerStats.ChangeTimerLimit(11f);
+
                 AudioManager.instance.StartGeneratorSFX();
 
                 
@@ -438,6 +440,8 @@ public class WaveSpawner : MonoBehaviour
                 phaseString = phaseStringFourth;
                 phaseDeadLine = phaseFourDuration;
                 UnityEngine.Debug.Log("STARTED FOURTH PHASE ");
+
+                playerStats.ChangeTimerLimit(9f);
                 // phaseString = phaseStringFinal;
                 // phaseDeadLine = phaseFinalDuration;
                 // UnityEngine.Debug.Log("STARTED FINAL PHASE ");
@@ -453,6 +457,7 @@ public class WaveSpawner : MonoBehaviour
                 phaseString = phaseStringFinal;
                 phaseDeadLine = phaseFinalDuration;
                 UnityEngine.Debug.Log("STARTED FINAL PHASE ");
+                playerStats.ChangeTimerLimit(7.5f);
 
                 AudioManager.instance.StartGeneratorSFX();
 
@@ -816,7 +821,7 @@ public class WaveSpawner : MonoBehaviour
 
                 if(countdownFinalStrongTwo <= 0f && waveOverFinalStrongTwo > 0)
                 {
-                    StartCoroutine(SpawnWave(enemyPrefabFinalStrongTwo,waveAmountFinalStrongTwo, 8));
+                    StartCoroutine(SpawnWave(enemyPrefabFinalStrongTwo,waveAmountFinalStrongTwo, 9));
                     countdownFinalStrongTwo = timeBetweenFinalStrongTwo;
                 }
 
