@@ -55,7 +55,7 @@ public class LampManager : MonoBehaviour
 
     }
 
-    public void StopAllLamps()
+    public void StopAllLamps(string final = "notAFinal")
     {
 
 
@@ -79,7 +79,17 @@ public class LampManager : MonoBehaviour
         }
 
         // playerLight.SetActive(true);
-        StartCoroutine(startPlayerLight(5f));
+        if(final == "final")
+        {
+            // this is when lampPop happens
+            StartCoroutine(startPlayerLight(0f));
+        }
+        else
+        {
+            // this is when doorTear
+            StartCoroutine(startPlayerLight(5f));
+        }
+        
 
     }
 
