@@ -112,11 +112,11 @@ public class Lamp : MonoBehaviour
         }
 
         // turn off lamp 
-        LampManager.instance.StopAllLamps();
+        LampManager.instance.StopAllLamps("final");
         AudioManager.instance.FinalLampPopSFX();
         AudioManager.instance.StopGeneratorSFX();
         
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
     // play sound of monsters running at player
 
     // take away player movement
@@ -125,6 +125,7 @@ public class Lamp : MonoBehaviour
         inputManager.enabled = false;
 
     // play sound of player getting eaten 
+        FinalMonsterStepAtPlayer.instance.RunAtPlayer();
     
 
 

@@ -80,7 +80,7 @@ public class PauseMenu : MonoBehaviour
 
 
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        // Time.timeScale = 0f;
         isPaused = true;
     }
 
@@ -88,7 +88,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
+        // Time.timeScale = 1f;
         isPaused = false;
 
         // give controls back
@@ -98,7 +98,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        Time.timeScale = 1f;
+        // Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 

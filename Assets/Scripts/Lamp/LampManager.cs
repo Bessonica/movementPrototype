@@ -82,7 +82,7 @@ public class LampManager : MonoBehaviour
         if(final == "final")
         {
             // this is when lampPop happens
-            StartCoroutine(startPlayerLight(0f));
+            StartCoroutine(startPlayerLight(200f));
         }
         else
         {

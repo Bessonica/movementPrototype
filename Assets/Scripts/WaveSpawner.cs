@@ -382,7 +382,7 @@ public class WaveSpawner : MonoBehaviour
         //    dont forget about sound that pc beeps when wave is spawned
                 AudioManager.instance.StartGeneratorSFX();
                 AudioManager.instance.StartWaveDetectedSFX(5f);
-                
+                AudioManager.instance.StartWaveDetectedSFX(8f);
 
 
                 // LampManager.instance.ChangeColorRedAllLamps();
@@ -434,7 +434,8 @@ public class WaveSpawner : MonoBehaviour
                 boxCollideObject.StartChecking = true;
 
         //   sound
-                AudioManager.instance.StartWaveDetectedSFX(1f);
+                AudioManager.instance.StartWaveDetectedSFX(7.5f);
+                AudioManager.instance.StartWaveDetectedSFX(10f);
                 AudioManager.instance.StartGeneratorSFX();
 
             }else if(phaseString == phaseStringThird)

@@ -46,6 +46,13 @@ public class AudioManager : MonoBehaviour
     public AudioSource GeneratorSource;
     public AudioSource LeverSource;
 
+
+    [Header("Monsters running at player")]
+    public AudioSource MonsterRunSourceOne;
+    public AudioSource MonsterRunSourceTwo;
+    public AudioSource MonsterRunSourceThree;
+    public AudioSource MonsterRunSourceFour;
+
     [Header("Mixer")]
     public AudioMixer Mixer;
     const string doorBashString = "DoorVolume";
@@ -67,6 +74,26 @@ public class AudioManager : MonoBehaviour
 // here we can create functions to change volume in mixer
 // and then activate when we need it
 
+
+    public void MonstersRunAtPlayerSFX()
+    {
+        MonsterRunSourceOne.Play();
+        MonsterRunSourceTwo.Play();
+        MonsterRunSourceThree.Play();
+        MonsterRunSourceFour.Play();
+    }
+
+
+    public void StopMonstersRunAtPlayerSFX()
+    {
+        MonsterRunSourceOne.Stop();
+        MonsterRunSourceTwo.Stop();
+        MonsterRunSourceThree.Stop();
+        MonsterRunSourceFour.Stop();
+    }
+
+
+
     public void StepOnFloorSFX()
     {
         playerSource.Play();
@@ -80,11 +107,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    public void SetDoorBashVolume(float volume)
-    {
-        Mixer.SetFloat(doorBashString, volume);
 
-    }
 
     public void StartAfterFinalRoarSFX()
     {
@@ -181,6 +204,14 @@ public class AudioManager : MonoBehaviour
     }
 
 // door sounds
+
+
+    public void SetDoorBashVolume(float volume)
+    {
+        Mixer.SetFloat(doorBashString, volume);
+
+    }
+
 
     public void DoorTearSFX()
     {

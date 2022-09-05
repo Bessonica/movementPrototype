@@ -5,6 +5,8 @@ using UnityEngine;
 public class FinalMonsterStepAtPlayer : MonoBehaviour
 {
 
+    public static FinalMonsterStepAtPlayer instance;
+
     [Header("Sound Sources Around Player")]
     public Transform SoundSource1;
     public Transform SoundSource2;
@@ -15,21 +17,41 @@ public class FinalMonsterStepAtPlayer : MonoBehaviour
 
     public Transform PlayerObject;
 
-    public int Speed;
+    public float Speed;
 
     Vector3 dir1, dir2, dir3, dir4;
 
+    float distance;
 
+ 
+
+    void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject); 
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        dir1 = new Vector3(20, 20, 20);
         StartRunning = false;
     }
 
 
-    public void RunAtPlayer(GameObject Player)
+    public void RunAtPlayer()
     {
+        StartRunning = true;
+        // StartCoroutine(RunAtPlayerCourutine(200f));
+
+        AudioManager.instance.MonstersRunAtPlayerSFX();
 
     }
 
@@ -37,17 +59,57 @@ public class FinalMonsterStepAtPlayer : MonoBehaviour
     void Update()
     {
 
-        if(StartRunning)
-        {
+        distance = Vector3.Distance(PlayerObject.position, SoundSource1.position);
+        
 
+        if(StartRunning && distance >2.45f)
+        {
+//Dir1 = (-1.2, 0.0, 2.1)
+//Vector3.Distance(PlayerObject.position, dir1)
             dir1 = PlayerObject.position - SoundSource1.position;
+            UnityEngine.Debug.Log("Dir1 = " + Vector3.Distance(PlayerObject.position, SoundSource1.position));
             dir2 = PlayerObject.position - SoundSource2.position;
             dir3 = PlayerObject.position - SoundSource3.position;
             dir4 = PlayerObject.position - SoundSource4.position;
 
             SoundSource1.Translate(dir1.normalized * Speed * Time.deltaTime, Space.World);
+            SoundSource2.Translate(dir2.normalized * Speed * Time.deltaTime, Space.World);
+            SoundSource3.Translate(dir3.normalized * Speed * Time.deltaTime, Space.World);
+            SoundSource4.Translate(dir4.normalized * Speed * Time.deltaTime, Space.World);
 
         }
-        
+
+        //StopMonstersRunAtPlayerSFX
+        if(distance < 2.5f)
+        {
+            AudioManager.instance.StopMonstersRunAtPlayerSFX();
+        }
+
+
     }
+
+    //  public IEnumerator RunAtPlayerCourutine(float time)
+    //  {
+        
+
+    //     while(StartRunning)
+    //     {
+
+    //         dir1 = PlayerObject.position - SoundSource1.position;
+    //         dir2 = PlayerObject.position - SoundSource2.position;
+    //         dir3 = PlayerObject.position - SoundSource3.position;
+    //         dir4 = PlayerObject.position - SoundSource4.position;
+
+    //         SoundSource1.Translate(dir1.normalized * Speed * Time.deltaTime, Space.World);
+    //         SoundSource2.Translate(dir2.normalized * Speed * Time.deltaTime, Space.World);
+    //         SoundSource3.Translate(dir3.normalized * Speed * Time.deltaTime, Space.World);
+    //         SoundSource4.Translate(dir4.normalized * Speed * Time.deltaTime, Space.World);
+
+    //     }
+       
+
+    //  }
+
+
+
 }
