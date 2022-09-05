@@ -29,13 +29,35 @@ public class DeathCollide : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider other) 
+    {
         if(StartChecking)
         {
-            StartCoroutine(lampComponent.PopFinalLight());            
+            UnityEngine.Debug.Log(gameObject.name); 
+            StartCoroutine(lampComponent.PopFinalLight());
+            StopAllColliders(); 
+                      
         }
 
 
 
     }
+
+
+    public void StopAllColliders()
+    {
+
+
+        foreach(GameObject colliderObject in GameObject.FindGameObjectsWithTag("deathCollide"))
+        {
+        //    UnityEngine.Debug.Log("yo" + colliderObject.name);
+           DeathCollide collider =  colliderObject.GetComponent<DeathCollide>();
+           collider.StartChecking = false;
+
+        }
+
+    }
+
+
+
 }

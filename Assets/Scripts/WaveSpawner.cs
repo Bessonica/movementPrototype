@@ -219,7 +219,8 @@ public class WaveSpawner : MonoBehaviour
     DeathCollide DeathCollideObject;
     public GameObject DeathColliderSecond;
     DeathCollide DeathCollideObjectSecond;
-
+    public GameObject DeathColliderThird;
+    DeathCollide DeathCollideObjectThird;
 
 
     Interactable pcInteractable, leverInteractable;
@@ -263,7 +264,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "4";
+        phaseString = "final";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
@@ -291,7 +292,7 @@ public class WaveSpawner : MonoBehaviour
         DeathCollideObject = DeathCollider.GetComponent<DeathCollide>();
 
         DeathCollideObjectSecond = DeathColliderSecond.GetComponent<DeathCollide>();
-
+        DeathCollideObjectThird = DeathColliderThird.GetComponent<DeathCollide>();
         TimeToSpawnStrongEnemies = false;
 
 
@@ -486,6 +487,7 @@ public class WaveSpawner : MonoBehaviour
                 // this is where we turn off light and "kill player"
                 DeathCollideObject.StartChecking = true;
                 DeathCollideObjectSecond.StartChecking = true;
+                DeathCollideObjectThird.StartChecking = true;
 
                 phaseString = phaseStringFinalEnd;
 
