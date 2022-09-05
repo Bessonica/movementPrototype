@@ -45,7 +45,9 @@ public class Shop : MonoBehaviour
     public void ChangeCameraToFirstPerson(GameObject gameMaster)
     {
         playerStats = gameMaster.GetComponent<PlayerStats>();
+        
 
+        AudioManager.instance.SetStepVolume(-5.72f);
         //give movement back to player
         playerObjectInteract = playerStats.playerObject;
         mouseLook = playerObjectInteract.GetComponent<MouseLook>();

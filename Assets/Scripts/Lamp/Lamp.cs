@@ -113,11 +113,13 @@ public class Lamp : MonoBehaviour
 
         // turn off lamp 
         LampManager.instance.StopAllLamps();
+        AudioManager.instance.StopGeneratorSFX();
         // AudioManager.instance.FinalLampPopSFX();
         yield return new WaitForSeconds(5f);
     // play sound of monsters running at player
 
     // take away player movement
+        AudioManager.instance.SetStepVolume(-80f);
         mouseLook.enabled = false;
         inputManager.enabled = false;
 

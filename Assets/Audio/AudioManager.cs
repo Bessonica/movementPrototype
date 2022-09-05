@@ -49,6 +49,7 @@ public class AudioManager : MonoBehaviour
     [Header("Mixer")]
     public AudioMixer Mixer;
     const string doorBashString = "DoorVolume";
+    const string stepString = "FootstepsVolume";
 
     void Awake()
     {
@@ -70,6 +71,14 @@ public class AudioManager : MonoBehaviour
     {
         playerSource.Play();
     }
+
+
+    public void SetStepVolume(float volume)
+    {
+        Mixer.SetFloat(stepString, volume);
+
+    }
+
 
     public void SetDoorBashVolume(float volume)
     {

@@ -217,7 +217,8 @@ public class WaveSpawner : MonoBehaviour
     FlickerCollide FlickerCollideObject;
     public GameObject DeathCollider;
     DeathCollide DeathCollideObject;
-
+    public GameObject DeathColliderSecond;
+    DeathCollide DeathCollideObjectSecond;
 
 
 
@@ -288,6 +289,8 @@ public class WaveSpawner : MonoBehaviour
 
         FlickerCollideObject = FlickerCollider.GetComponent<FlickerCollide>();
         DeathCollideObject = DeathCollider.GetComponent<DeathCollide>();
+
+        DeathCollideObjectSecond = DeathColliderSecond.GetComponent<DeathCollide>();
 
         TimeToSpawnStrongEnemies = false;
 
@@ -482,6 +485,7 @@ public class WaveSpawner : MonoBehaviour
                 FlickerCollideObject.StartChecking = true;
                 // this is where we turn off light and "kill player"
                 DeathCollideObject.StartChecking = true;
+                DeathCollideObjectSecond.StartChecking = true;
 
                 phaseString = phaseStringFinalEnd;
 

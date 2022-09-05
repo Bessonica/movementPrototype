@@ -332,7 +332,7 @@ public class EnemyMovement : MonoBehaviour
 
     // after some time make door bash louder
     // can put new fucntion for door, where it bashes much faster
-        yield return new WaitForSeconds(17f);
+        yield return new WaitForSeconds(35f);      //22f
         UnityEngine.Debug.Log("MADE DOOR LOUDER");
         StopCoroutine(waveSpawnerObject.bashOnDoorHard);
 
@@ -340,7 +340,7 @@ public class EnemyMovement : MonoBehaviour
         AudioManager.instance.SetDoorBashVolume(1.2f);
 
     // count till final and stop courutine
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(9f);       //16f
         StopCoroutine(bashOnDoorHardest);
         
 

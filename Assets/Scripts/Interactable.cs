@@ -69,6 +69,8 @@ public class Interactable : MonoBehaviour
         LetterCanvasObject.SetActive(true);
         UnityEngine.Debug.Log(" isLetter = ");
 
+
+        AudioManager.instance.SetStepVolume(-80f);
         //take movement away from player
         playerStats = gameMaster.GetComponent<PlayerStats>();
         playerObjectInteract = playerStats.playerObject;
@@ -84,6 +86,8 @@ public class Interactable : MonoBehaviour
         LetterCanvasObject.SetActive(false);
         UnityEngine.Debug.Log(" isLetter = ");
 
+
+        AudioManager.instance.SetStepVolume(-5.72f);
         //give movement to player
         playerStats = gameMaster.GetComponent<PlayerStats>();
         playerObjectInteract = playerStats.playerObject;
@@ -103,6 +107,7 @@ public class Interactable : MonoBehaviour
 
             playerStats = gameMaster.GetComponent<PlayerStats>();
             
+            AudioManager.instance.SetStepVolume(-80f);
             //take movement away from player
             playerObjectInteract = playerStats.playerObject;
             mouseLook = playerObjectInteract.GetComponent<MouseLook>();
@@ -142,6 +147,7 @@ public class Interactable : MonoBehaviour
             playerStats.playerCamera.enabled = true;
             playerStats.playerCanvas.SetActive(true);
 
+            AudioManager.instance.SetStepVolume(-5.72f);
             //give movement to player
             mouseLook.enabled = true;
             inputManager.enabled = true;

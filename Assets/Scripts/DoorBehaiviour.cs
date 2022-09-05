@@ -92,27 +92,11 @@ public class DoorBehaiviour : MonoBehaviour
 
     public IEnumerator BashOnDoorHardest(GameObject doorToShake)
     {
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-      UnityEngine.Debug.Log("DOOR BASH HARDEST");
-            
-      
 
       while(true)
       {
 
-        randomTime = UnityEngine.Random.Range(1f, 3f);
+        randomTime = UnityEngine.Random.Range(1f, 2f);
 
               
 
