@@ -19,6 +19,8 @@ public class Lamp : MonoBehaviour
     [Header("gameMaster")]
     public GameObject gameMaster;
 
+    public GameObject PlayerIcon;
+
     PlayerStats playerStats;
     GameObject playerObjectInteract;
     MouseLook mouseLook;
@@ -112,6 +114,7 @@ public class Lamp : MonoBehaviour
         }
 
         // turn off lamp 
+        PlayerIcon.SetActive(false);
         LampManager.instance.StopAllLamps("final");
         AudioManager.instance.FinalLampPopSFX();
         AudioManager.instance.StopGeneratorSFX();

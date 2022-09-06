@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
 
 public class FinalMonsterStepAtPlayer : MonoBehaviour
 {
@@ -18,6 +21,10 @@ public class FinalMonsterStepAtPlayer : MonoBehaviour
     public Transform PlayerObject;
 
     public float Speed;
+
+    public bool killPlayer;
+
+   
 
     Vector3 dir1, dir2, dir3, dir4;
 
@@ -43,6 +50,7 @@ public class FinalMonsterStepAtPlayer : MonoBehaviour
     {
         dir1 = new Vector3(20, 20, 20);
         StartRunning = false;
+        killPlayer = false;
     }
 
 
@@ -56,6 +64,24 @@ public class FinalMonsterStepAtPlayer : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    IEnumerator EndGame(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void StartPlayerKilledSound()
+    {
+        if(killPlayer)
+        { 
+            return;
+        }
+        
+        AudioManager.instance.StartPlayerIsKilledSFX();
+        killPlayer = true;
+        StartCoroutine(EndGame(29f));
+    }
     void Update()
     {
 
@@ -67,7 +93,7 @@ public class FinalMonsterStepAtPlayer : MonoBehaviour
 //Dir1 = (-1.2, 0.0, 2.1)
 //Vector3.Distance(PlayerObject.position, dir1)
             dir1 = PlayerObject.position - SoundSource1.position;
-            UnityEngine.Debug.Log("Dir1 = " + Vector3.Distance(PlayerObject.position, SoundSource1.position));
+            // UnityEngine.Debug.Log("Dir1 = " + Vector3.Distance(PlayerObject.position, SoundSource1.position));
             dir2 = PlayerObject.position - SoundSource2.position;
             dir3 = PlayerObject.position - SoundSource3.position;
             dir4 = PlayerObject.position - SoundSource4.position;
@@ -83,7 +109,17 @@ public class FinalMonsterStepAtPlayer : MonoBehaviour
         if(distance < 2.5f)
         {
             AudioManager.instance.StopMonstersRunAtPlayerSFX();
+            StartPlayerKilledSound();
+            
+
+            
         }
+
+        // if(killPlayer)
+        // {
+        //     AudioManager.instance.StartPlayerIsKilledSFX();
+        //     killPlayer = false;
+        // }
 
 
     }

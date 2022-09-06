@@ -53,6 +53,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource MonsterRunSourceThree;
     public AudioSource MonsterRunSourceFour;
 
+
     [Header("Mixer")]
     public AudioMixer Mixer;
     const string doorBashString = "DoorVolume";
@@ -107,7 +108,13 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    public void StartPlayerIsKilledSFX()
+    {
+        
+        PlayerIsKilledSource.Play();
 
+
+    }
 
     public void StartAfterFinalRoarSFX()
     {

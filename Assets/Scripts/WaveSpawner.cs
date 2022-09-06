@@ -222,6 +222,11 @@ public class WaveSpawner : MonoBehaviour
     public GameObject DeathColliderThird;
     DeathCollide DeathCollideObjectThird;
 
+    [Header("Box Coliders for final phase if player exists early")]
+    public GameObject DeathColliderSecondEARLY;
+    EarlyDeathCollide DeathCollideObjectSecondEARLY;
+    public GameObject DeathColliderThirdEARLY;
+    EarlyDeathCollide DeathCollideObjectThirdEARLY;
 
     Interactable pcInteractable, leverInteractable;
      
@@ -264,7 +269,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "final";
+        phaseString = "4";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
@@ -293,6 +298,11 @@ public class WaveSpawner : MonoBehaviour
 
         DeathCollideObjectSecond = DeathColliderSecond.GetComponent<DeathCollide>();
         DeathCollideObjectThird = DeathColliderThird.GetComponent<DeathCollide>();
+
+        DeathCollideObjectSecondEARLY = DeathColliderSecondEARLY.GetComponent<EarlyDeathCollide>();
+        DeathCollideObjectThirdEARLY = DeathColliderThirdEARLY.GetComponent<EarlyDeathCollide>();
+
+
         TimeToSpawnStrongEnemies = false;
 
 
@@ -471,7 +481,7 @@ public class WaveSpawner : MonoBehaviour
 
         //  THIS IS FOR TEST, in end phase we also have stop Courutine
             // StopCoroutine(boxCollideObject.doorBashroutine);
-            bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
+            // bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
     
 
 
@@ -483,12 +493,23 @@ public class WaveSpawner : MonoBehaviour
 
             }else if(phaseString == phaseStringFinal)
             {
+
+                // turn off earlyDeath colliders
+                DeathCollideObjectSecondEARLY.StartChecking = false;
+                DeathCollideObjectThirdEARLY.StartChecking = false;
+
+
+
                 // for flickering lamp and lamp pop
                 FlickerCollideObject.StartChecking = true;
                 // this is where we turn off light and "kill player"
                 DeathCollideObject.StartChecking = true;
                 DeathCollideObjectSecond.StartChecking = true;
                 DeathCollideObjectThird.StartChecking = true;
+
+                // when player started generator turn off early death
+                DeathCollideObjectSecondEARLY.StartChecking = false;
+                DeathCollideObjectThirdEARLY.StartChecking = false;
 
                 phaseString = phaseStringFinalEnd;
 
@@ -632,6 +653,11 @@ public class WaveSpawner : MonoBehaviour
             AudioManager.instance.StopBehindDoorAggressiveSFX();
             AudioManager.instance.StopAfterFinalRoarSFX();
             AudioManager.instance.DoorTearSFX();
+
+
+            // when phase ended player can die if he exits the door
+            DeathCollideObjectSecondEARLY.StartChecking = true;
+            DeathCollideObjectThirdEARLY.StartChecking = true;
 
 
             // StopCoroutine(bashOnDoorHard);

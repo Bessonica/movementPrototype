@@ -334,7 +334,12 @@ public class EnemyMovement : MonoBehaviour
     // can put new fucntion for door, where it bashes much faster
         yield return new WaitForSeconds(35f);      //22f
         UnityEngine.Debug.Log("MADE DOOR LOUDER");
-        StopCoroutine(waveSpawnerObject.bashOnDoorHard);
+
+        if(waveSpawnerObject.bashOnDoorHard != null)
+        {
+            StopCoroutine(waveSpawnerObject.bashOnDoorHard);
+        }
+        
 
         bashOnDoorHardest = StartCoroutine(door.BashOnDoorHardest(DoorObject));
         AudioManager.instance.SetDoorBashVolume(1.2f);

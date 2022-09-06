@@ -57,6 +57,7 @@ public class LampManager : MonoBehaviour
 
     public void StopAllLamps(string final = "notAFinal")
     {
+        // UnityEngine.Debug.Log(final);
 
 
         foreach(GameObject lampToStart in GameObject.FindGameObjectsWithTag("lamp"))
@@ -82,15 +83,22 @@ public class LampManager : MonoBehaviour
         if(final == "final")
         {
             // this is when lampPop happens
-            StartCoroutine(startPlayerLight(200f));
+            UnityEngine.Debug.Log("light off");
+            // StartCoroutine(startPlayerLight(200f));
+            stopPlayerLight();
         }
         else
         {
             // this is when doorTear
-            StartCoroutine(startPlayerLight(5f));
+            StartCoroutine(startPlayerLight(7.5f));
         }
         
 
+    }
+
+    public void stopPlayerLight()
+    {
+        playerLight.SetActive(false);
     }
 
     public IEnumerator startPlayerLight(float time)
