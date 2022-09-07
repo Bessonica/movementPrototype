@@ -53,11 +53,16 @@ public class AudioManager : MonoBehaviour
     public AudioSource MonsterRunSourceThree;
     public AudioSource MonsterRunSourceFour;
 
+    [Header("letter sounds")]
+    public AudioSource letterOpenedSource;
 
     [Header("Mixer")]
     public AudioMixer Mixer;
     const string doorBashString = "DoorVolume";
     const string stepString = "FootstepsVolume";
+
+
+    public bool isLetterOpened;
 
     void Awake()
     {
@@ -70,11 +75,29 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject); 
         }
+
+        isLetterOpened = false;
     }
 
 // here we can create functions to change volume in mixer
 // and then activate when we need it
 
+//letterOpenedSource
+
+    public void OpenLetterOneTimeSFX()
+    {
+        if(!isLetterOpened)
+        {
+            letterOpenedSource.Play();
+            
+        }
+        isLetterOpened = true;
+    }
+
+    public void StopOpenLetterSFX()
+    {
+        letterOpenedSource.Stop();
+    }
 
     public void MonstersRunAtPlayerSFX()
     {

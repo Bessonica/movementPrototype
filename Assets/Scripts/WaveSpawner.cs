@@ -239,6 +239,7 @@ public class WaveSpawner : MonoBehaviour
     void Start()
     {
         // UnityEngine.Debug.Log("started " + Time.time);
+        // playerStats.ChangeLeverTime(6.35f);
 
         x = Random.Range(-0.4f, 0.4f);
         y = 0;
@@ -269,7 +270,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "4";
+        phaseString = "game has not began yet";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
@@ -597,7 +598,7 @@ public class WaveSpawner : MonoBehaviour
     //слышно шум задверью, но ее никто не трогает
             UnityEngine.Debug.Log("PHASE ONE ENDED ");
 
-            playerStats.ChangeLeverTime(3f);
+            playerStats.ChangeLeverTime(4.5f);
 
         //   sound
             AudioManager.instance.StopGeneratorSFX();
@@ -611,6 +612,7 @@ public class WaveSpawner : MonoBehaviour
         {           
     //шум за дверью громче и агрессивнее
             UnityEngine.Debug.Log("PHASE TWO ENDED ");
+            playerStats.ChangeLeverTime(7f);
     
             AudioManager.instance.StopGeneratorSFX();
             AudioManager.instance.StopBehindDoorSFX();
@@ -625,6 +627,7 @@ public class WaveSpawner : MonoBehaviour
         {
 
             UnityEngine.Debug.Log("PHASE THREE ENDED ");
+            playerStats.ChangeLeverTime(10f);
             
             
 
@@ -635,6 +638,7 @@ public class WaveSpawner : MonoBehaviour
 
         }else if(phaseString == phaseStringFourth)
         {
+            playerStats.ChangeLeverTime(6.5f);
             UnityEngine.Debug.Log("PHASE FOUR ENDED ");
             AudioManager.instance.StopGeneratorSFX();
             AudioManager.instance.StopGiantMonsterSFX();
@@ -645,6 +649,10 @@ public class WaveSpawner : MonoBehaviour
         {
             
             UnityEngine.Debug.Log("PHASE FINAL ENDED ");
+            playerStats.ChangeLeverTime(8.8f);
+
+        // make step volume a little louder
+            // AudioManager.instance.SetStepVolume();
 
             // turn off light 
             // play sound of tiring metal

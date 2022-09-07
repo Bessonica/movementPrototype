@@ -8,6 +8,7 @@ TagManager:
   - lamp
   - lampFlickering
   - deathCollide
+  - earlyDeath
   layers:
   - Default
   - TransparentFX
