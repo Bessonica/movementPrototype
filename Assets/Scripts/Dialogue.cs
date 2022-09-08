@@ -87,8 +87,8 @@ public class Dialogue : MonoBehaviour
             else
             {
                 // skip text animation(disable it in final version)
-                StopAllCoroutines();
-                textComponent.text = lines[index];
+                // StopAllCoroutines();
+                // textComponent.text = lines[index];
             }
         }
     }

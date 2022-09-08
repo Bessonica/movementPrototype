@@ -66,6 +66,7 @@ public class Interactable : MonoBehaviour
     
     public void ShowLetter()
     {
+        Cursor.visible = true; 
         LetterCanvasObject.SetActive(true);
         // UnityEngine.Debug.Log(" isLetter = ");
         AudioManager.instance.OpenLetterOneTimeSFX();
@@ -84,6 +85,7 @@ public class Interactable : MonoBehaviour
 
     public void HideLetter()
     {
+        Cursor.visible = false; 
         LetterCanvasObject.SetActive(false);
         UnityEngine.Debug.Log(" isLetter = ");
 

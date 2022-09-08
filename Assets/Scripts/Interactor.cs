@@ -14,6 +14,7 @@ public class Interactor : MonoBehaviour
     [Header("default size for interact icons")]
     public Vector2 defaultIconSize;
     public Vector2 defaultInteractIconSize;
+    public Vector2 defaultInteractIconBlobSize;
 
 
     Interactable interactable;
@@ -181,7 +182,7 @@ public class Interactor : MonoBehaviour
             test1.gameObject.SetActive(false);
 
             interactImage.sprite = defaultIcon;
-            interactImage.rectTransform.sizeDelta = defaultInteractIconSize;
+            interactImage.rectTransform.sizeDelta = defaultInteractIconBlobSize;
         }
     }
 
