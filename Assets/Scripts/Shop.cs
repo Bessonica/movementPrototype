@@ -55,6 +55,8 @@ public class Shop : MonoBehaviour
         mouseLook.enabled = true;
         inputManager.enabled = true;
 
+        Cursor.visible = false; 
+
 
         //changing camera and ui
         playerStats.playerCamera.enabled = true;

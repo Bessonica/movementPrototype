@@ -118,6 +118,8 @@ public class Interactable : MonoBehaviour
             mouseLook.enabled = false;
             inputManager.enabled = false;
 
+            Cursor.visible = true; 
+
 
             //changing camera and ui
             playerStats.playerCamera.enabled = false;
@@ -149,6 +151,8 @@ public class Interactable : MonoBehaviour
 
             playerStats.playerCamera.enabled = true;
             playerStats.playerCanvas.SetActive(true);
+            
+            Cursor.visible = false; 
 
             AudioManager.instance.SetStepVolume(-5.72f);
             //give movement to player
