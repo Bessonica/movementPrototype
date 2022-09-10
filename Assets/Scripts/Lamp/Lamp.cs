@@ -34,6 +34,7 @@ public class Lamp : MonoBehaviour
     }
     void Start()
     {
+        // lightMaterial.DisableKeyword("_EMISSION");
         lightToStart =  this.GetComponent<Light>();
         powerOff = false;
 

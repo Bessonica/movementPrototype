@@ -68,7 +68,9 @@ public class FinalMonsterStepAtPlayer : MonoBehaviour
     IEnumerator EndGame(float time)
     {
         yield return new WaitForSeconds(time);
-        SceneManager.LoadScene("MainMenu");
+        // SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Cursor.visible = true;
     }
 
     public void StartPlayerKilledSound()
