@@ -64,9 +64,11 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+
         // take away controls
         mouseLook.enabled = false;
         inputManager.enabled = false;
+        
 
         // if player is in pc, change camera to first person
         playerStats = gameMaster.GetComponent<PlayerStats>();
@@ -82,6 +84,10 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         // Time.timeScale = 0f;
         isPaused = true;
+
+        
+        Cursor.visible = true;
+        UnityEngine.Debug.Log("paused   cursor = " + Cursor.visible);
     }
 
 
@@ -90,10 +96,14 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         // Time.timeScale = 1f;
         isPaused = false;
+        
 
         // give controls back
         mouseLook.enabled = true;
         inputManager.enabled = true;
+
+        Cursor.visible = false;
+        UnityEngine.Debug.Log("resuemed   cursor = " + Cursor.visible);
     }
 
     public void GoToMainMenu()

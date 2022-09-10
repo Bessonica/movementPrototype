@@ -209,6 +209,7 @@ public class WaveSpawner : MonoBehaviour
     public GameObject DoorObject;
     MeshRenderer DoorObjectRenderer;
     DoorBehaiviour door;
+    public GameObject realDoor;
     public GameObject boxCollider;
     BoxCollide boxCollideObject;
 
@@ -270,7 +271,7 @@ public class WaveSpawner : MonoBehaviour
     
     // variables for phases
         phaseStringStart = "game has not began yet";
-        phaseString = "game has not began yet";
+        phaseString = "4";
 
         phaseStringZero = "0";
         phaseStringFirst = "1";
@@ -674,6 +675,7 @@ public class WaveSpawner : MonoBehaviour
             // "destroy" door
             DoorObjectRenderer = DoorObject.GetComponent<MeshRenderer>();
             DoorObjectRenderer.enabled = false;
+            realDoor.SetActive(false);
 
             // start and stop sounds 
 

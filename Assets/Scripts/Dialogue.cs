@@ -33,6 +33,7 @@ public class Dialogue : MonoBehaviour
     void Start()
     {
         CanvasPlayer.SetActive(false);
+        Cursor.visible = false; 
 
         // this.transform.parent.gameObject.GetComponent<Image>().sprite = images[0];
         // set image
