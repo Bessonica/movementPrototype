@@ -49,10 +49,12 @@ public class PauseMenu : MonoBehaviour
     {
         // if(IntroCutsceneOver)
 
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if(isPaused)
             {
+                // Cursor.visible = false;
                 ResumeGame();
             }
             else
