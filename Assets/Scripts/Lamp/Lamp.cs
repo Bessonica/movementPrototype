@@ -6,7 +6,7 @@ public class Lamp : MonoBehaviour
 {
 
     public bool isFlickering = false;
-    public float timeDelay;
+    float timeDelay;
     public bool powerOff;
 
     public Material lightMaterial;
@@ -35,23 +35,23 @@ public class Lamp : MonoBehaviour
     void Start()
     {
         // lightMaterial.DisableKeyword("_EMISSION");
-        lightToStart =  this.GetComponent<Light>();
+        lightToStart = this.GetComponent<Light>();
         powerOff = false;
 
 
         playerStats = gameMaster.GetComponent<PlayerStats>();
         playerObjectInteract = playerStats.playerObject;
-        
+
         mouseLook = playerObjectInteract.GetComponent<MouseLook>();
         inputManager = playerObjectInteract.GetComponent<InputManager>();
 
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isFlickering == true && lightToStart.enabled == true)
+        if (isFlickering == true && lightToStart.enabled == true)
         {
             // UnityEngine.Debug.Log("Started flickering");
             // UnityEngine.Debug.Log("isFlickering = " + isFlickering);
@@ -59,10 +59,10 @@ public class Lamp : MonoBehaviour
 
             StartCoroutine(FlickerLight());
         }
-        
+
     }
 
-
+    // void switchLamp(enabled, isPowered, isEmission, )
 
     public IEnumerator PopFinalLight()
     {
@@ -70,15 +70,15 @@ public class Lamp : MonoBehaviour
         // make sound of breaking glass
 
 
-        if(lightToStart.enabled == true)
+        if (lightToStart.enabled == true)
         {
             isFlickering = false;
 
-            
+
 
             // should we isFlickering = false; put BEFORE yield break???
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -90,8 +90,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -103,8 +103,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -119,18 +119,18 @@ public class Lamp : MonoBehaviour
         LampManager.instance.StopAllLamps("final");
         AudioManager.instance.FinalLampPopSFX();
         AudioManager.instance.StopGeneratorSFX();
-        
-        yield return new WaitForSeconds(8f);
-    // play sound of monsters running at player
 
-    // take away player movement
+        yield return new WaitForSeconds(8f);
+        // play sound of monsters running at player
+
+        // take away player movement
         AudioManager.instance.SetStepVolume(-80f);
         mouseLook.enabled = false;
         inputManager.enabled = false;
 
-    // play sound of player getting eaten 
+        // play sound of player getting eaten 
         FinalMonsterStepAtPlayer.instance.RunAtPlayer();
-    
+
 
 
 
@@ -143,16 +143,16 @@ public class Lamp : MonoBehaviour
         // {
         //     // do flicker stuff
         // }
-        
 
 
-        if(lightToStart.enabled == true)
+
+        if (lightToStart.enabled == true)
         {
             isFlickering = false;
 
             // should we isFlickering = false; put BEFORE yield break???
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -164,8 +164,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -177,8 +177,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -191,8 +191,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -204,8 +204,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -217,8 +217,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -231,8 +231,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -247,8 +247,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -260,8 +260,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.1f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -280,9 +280,9 @@ public class Lamp : MonoBehaviour
     }
 
 
-// when light is disable sound should disapear
+    // when light is disable sound should disapear
 
-   public IEnumerator FlickerLight()
+    public IEnumerator FlickerLight()
     {
         // while(!powerOff)
         // {}
@@ -290,7 +290,7 @@ public class Lamp : MonoBehaviour
         // UnityEngine.Debug.Log("powerOff = " + powerOff);
 
 
-        if(lightToStart.enabled == true)
+        if (lightToStart.enabled == true)
         {
             isFlickering = false;
 
@@ -298,11 +298,11 @@ public class Lamp : MonoBehaviour
 
             timeDelay = Random.Range(5f, 10f);
             yield return new WaitForSeconds(timeDelay);
-            
+
 
             // should we isFlickering = false; put BEFORE yield break???
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -310,14 +310,14 @@ public class Lamp : MonoBehaviour
 
             this.gameObject.GetComponent<Light>().enabled = false;
             this.lightMaterial.DisableKeyword("_EMISSION");
-            
+
 
             // play short sound effect
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -329,8 +329,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -343,8 +343,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }
@@ -356,8 +356,8 @@ public class Lamp : MonoBehaviour
             timeDelay = Random.Range(0.01f, 0.2f);
             yield return new WaitForSeconds(timeDelay);
 
-            if(powerOff)
-            { 
+            if (powerOff)
+            {
                 yield break;
                 isFlickering = false;
             }

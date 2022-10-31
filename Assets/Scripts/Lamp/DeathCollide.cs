@@ -5,20 +5,20 @@ using UnityEngine;
 public class DeathCollide : MonoBehaviour
 {
     [Header("final lamp")]
-    public GameObject LampObject;
+    public GameObject lampGameObject;
 
     Lamp lampComponent;
     Light lightToStart;
 
-    public bool StartChecking = false;
+    public bool startChecking = false;
     
 
     // Start is called before the first frame update
     void Start()
     {
         
-        lightToStart =  LampObject.GetComponent<Light>();
-        lampComponent = LampObject.GetComponent<Lamp>();
+        lightToStart =  lampGameObject.GetComponent<Light>();
+        lampComponent = lampGameObject.GetComponent<Lamp>();
 
 
     }
@@ -31,7 +31,7 @@ public class DeathCollide : MonoBehaviour
 
     void OnTriggerEnter(Collider other) 
     {
-        if(StartChecking)
+        if(startChecking)
         {
             UnityEngine.Debug.Log(gameObject.name); 
             StartCoroutine(lampComponent.PopFinalLight());
@@ -52,7 +52,7 @@ public class DeathCollide : MonoBehaviour
         {
         //    UnityEngine.Debug.Log("yo" + colliderObject.name);
            DeathCollide collider =  colliderObject.GetComponent<DeathCollide>();
-           collider.StartChecking = false;
+           collider.startChecking = false;
 
         }
 

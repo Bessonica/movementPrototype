@@ -79,7 +79,7 @@ public class EarlyDeathCollide : MonoBehaviour
         {
         //    UnityEngine.Debug.Log("yo" + colliderObject.name);
            DeathCollide collider =  colliderObject.GetComponent<DeathCollide>();
-           collider.StartChecking = false;
+           collider.startChecking = false;
 
         }
 
