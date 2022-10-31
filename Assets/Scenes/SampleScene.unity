@@ -35,10 +35,10 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0
+  m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16997,7 +16997,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFlickering: 1
-  timeDelay: 0
   powerOff: 0
   lightMaterial: {fileID: 2100000, guid: 4fbb8c3e888b3d54a87e696e24ccbe6d, type: 2}
   IsFinalLight: 0
@@ -22441,7 +22440,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFlickering: 1
-  timeDelay: 0
   powerOff: 0
   lightMaterial: {fileID: 2100000, guid: 4fbb8c3e888b3d54a87e696e24ccbe6d, type: 2}
   IsFinalLight: 0
@@ -23258,6 +23256,7 @@ MonoBehaviour:
   phaseFourDuration: 130
   phaseFinalDuration: 155
   enemyPrefabZero: {fileID: 2046431570}
+  spawnPointZero: {fileID: 1749351916}
   waveAmountZero: 1
   waveSpawnTimesZero: 1
   timeBetweenZero: 5
@@ -23324,15 +23323,6 @@ MonoBehaviour:
   timeBetweenFinal: 1
   countdownFinal: 70
   currStage: 0
-  phaseStringTmp: 
-  phaseStringStart: 
-  phaseStringZero: 
-  phaseStringFirst: 
-  phaseStringSecond: 
-  phaseStringThird: 
-  phaseStringFourth: 
-  phaseStringFinal: 
-  phaseStringFinalEnd: 
   phaseIsOn: 0
   PC: {fileID: 1697749786}
   Lever: {fileID: 1354050473}
@@ -40153,7 +40143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFlickering: 1
-  timeDelay: 0
   powerOff: 0
   lightMaterial: {fileID: 2100000, guid: 4fbb8c3e888b3d54a87e696e24ccbe6d, type: 2}
   IsFinalLight: 0

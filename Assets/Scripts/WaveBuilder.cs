@@ -18,13 +18,13 @@ public class WaveBuilder
     public int over;
 
     public WaveBuilder(
-        int amount,
-        Transform enemyPrefab,
-        Transform spawnPoint,
-        int respawnTimes,
-        float timeBetween,
-        float countdown,
-        int over
+        int amount = 0,
+        Transform enemyPrefab = null,
+        Transform spawnPoint = null,
+        int respawnTimes = 0,
+        float timeBetween = 0,
+        float countdown = 0,
+        int over = 0
     )
     {
         this.amount = amount;

@@ -82,6 +82,12 @@ public class WaveSpawner : MonoBehaviour
 
 
 
+    static bool phaseOnePartOneAlreadyStarted = false;
+    static bool phaseOnePartTwoAlreadyStarted = false;
+    static bool phaseTwoAlreadyStarted = false;
+
+
+
 
 
     // WaveConstructor waveZero = new WaveConstructor(enemyPrefabZero, waveAmountZero, waveSpawnTimesZero, timeBetweenZero, countdownZero, waveOverZero);
@@ -280,7 +286,11 @@ public class WaveSpawner : MonoBehaviour
 
     float phaseStartTime;
 
-    // WaveBuilder waveZero = new WaveBuilder();
+    //WaveBuilder  = new WaveBuilder();
+    WaveBuilder waveZero = new WaveBuilder();
+    WaveBuilder waveOne = new WaveBuilder();
+    WaveBuilder waveOnePhase2 = new WaveBuilder();
+    WaveBuilder waveTwoPhase2 = new WaveBuilder();
 
     void Start()
     {
@@ -288,28 +298,62 @@ public class WaveSpawner : MonoBehaviour
         // playerStats.ChangeLeverTime(6.35f);
 
         //Waves initiaiton
-        WaveBuilder waveZero = new WaveBuilder(
-            enemyPrefab: enemyPrefabZero,
-            amount: waveAmountZero,
-            spawnPoint: spawnPointZero,
-            respawnTimes: waveSpawnTimesZero,
-            timeBetween: timeBetweenZero,
-            countdown: countdownZero,
-            over: waveOverZero
-        );
+        // WaveBuilder waveZero = new WaveBuilder(
+        //     enemyPrefab: enemyPrefabZero,
+        //     amount: waveAmountZero,
+        //     spawnPoint: spawnPointZero,
+        //     respawnTimes: waveSpawnTimesZero,
+        //     timeBetween: timeBetweenZero,
+        //     countdown: countdownZero,
+        //     over: waveOverZero
+        // );
 
-        // waveZero.amount = 5;
+        waveZero.enemyPrefab = enemyPrefabZero;
+        waveZero.amount = waveAmountZero;
+        waveZero.spawnPoint = spawnPointZero;
+        waveZero.respawnTimes = waveSpawnTimesZero;
+        waveZero.timeBetween = timeBetweenZero;
+        waveZero.countdown = countdownZero;
+        waveZero.over = waveSpawnTimesZero;
+
+        // WaveBuilder waveOne = new WaveBuilder(
+        //     enemyPrefab: enemyPrefabOne,
+        //     amount: waveAmountOne,
+        //     spawnPoint: spawnPointOne,
+        //     respawnTimes: waveSpawnTimesOne,
+        //     timeBetween: timeBetweenOne,
+        //     countdown: countdownOne,
+        //     over: waveOverOne
+        // );
 
 
-        WaveBuilder waveOne = new WaveBuilder(
-            enemyPrefab: enemyPrefabOne,
-            amount: waveAmountOne,
-            spawnPoint: spawnPointOne,
-            respawnTimes: waveSpawnTimesOne,
-            timeBetween: timeBetweenOne,
-            countdown: countdownOne,
-            over: waveOverOne
-        );
+        waveOne.enemyPrefab = enemyPrefabOne;
+        waveOne.amount = waveAmountOne;
+        waveOne.spawnPoint = spawnPointOne;
+        waveOne.respawnTimes = waveSpawnTimesOne;
+        waveOne.timeBetween = timeBetweenOne;
+        waveOne.countdown = countdownOne;
+        waveOne.over = waveSpawnTimesOne;
+
+        waveOnePhase2.enemyPrefab = enemyPrefabSecondOne;
+        waveOnePhase2.amount = waveAmountSecondOne;
+        waveOnePhase2.spawnPoint = spawnPointOne;
+        waveOnePhase2.respawnTimes = waveSpawnTimesSecondOne;
+        waveOnePhase2.timeBetween = timeBetweenSecondOne;
+        waveOnePhase2.countdown = countdownSecondOne;
+        waveOnePhase2.over = waveSpawnTimesSecondOne;
+
+
+        waveTwoPhase2.enemyPrefab = enemyPrefabSecondTwo;
+        waveTwoPhase2.amount = waveAmountSecondTwo;
+        waveTwoPhase2.spawnPoint = spawnPointOne;
+        waveTwoPhase2.respawnTimes = waveSpawnTimesSecondTwo;
+        waveTwoPhase2.timeBetween = timeBetweenSecondTwo;
+        waveTwoPhase2.countdown = countdownSecondTwo;
+        waveTwoPhase2.over = waveSpawnTimesSecondTwo;
+
+
+
 
         x = Random.Range(-0.4f, 0.4f);
         y = 0;
@@ -709,7 +753,50 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
+    IEnumerator StartSpawningWaves(WaveBuilder waveObject)
+    {
 
+        UnityEngine.Debug.Log("started spawning waves" + waveObject.GetType().Name);
+
+        float countdown = waveObject.countdown;
+        int amount = waveObject.amount;
+        Transform enemyPrefab = waveObject.enemyPrefab;
+        Transform spawnPoint = waveObject.spawnPoint;
+        int respawnTimes = waveObject.respawnTimes;
+        float timeBetween = waveObject.timeBetween;
+        int over = waveObject.over;
+
+        UnityEngine.Debug.Log("Beginning countdown " + countdown);
+        UnityEngine.Debug.Log("Beginning over  " + over);
+
+        yield return new WaitForSeconds(countdown);
+
+        while (over > 0)
+        {
+            UnityEngine.Debug.Log(" spawned wave.  over = " + over);
+            UnityEngine.Debug.Log(" spawned wave.  amount = " + amount);
+            StartCoroutine(SpawnWave(enemyPrefab, amount, 1));
+            over -= 1;
+            yield return new WaitForSeconds(timeBetween);
+        }
+
+        yield break;
+
+        // if (countdown <= 0f && over > 0)
+        // {
+        //     UnityEngine.Debug.Log(" spawned wave");
+        //     StartCoroutine(SpawnWave(enemyPrefab, amount, 1));
+        //     countdown = timeBetween;
+        // }
+        // else
+        // {
+        //     UnityEngine.Debug.Log("  new countdown = " + countdown);
+        //     countdown -= UnityEngine.Time.deltaTime;
+
+        // }
+
+
+    }
 
     // Update is called once per frame
     private void Update()
@@ -735,54 +822,25 @@ public class WaveSpawner : MonoBehaviour
 
 
 
-        if (currStage == PhaseStage.FirstPartOne)
+        if (currStage == PhaseStage.FirstPartOne && !phaseOnePartOneAlreadyStarted)
         {
-            // UnityEngine.Debug.Log("countdown = " + waveZero);
+            phaseOnePartOneAlreadyStarted = true;
 
-            if (countdownZero <= 0f && waveOverZero > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabZero, waveAmountZero, 1));
-                countdownZero = timeBetweenOne;
-            }
-
-            countdownZero -= UnityEngine.Time.deltaTime;
-            // UnityEngine.Debug.Log("countdown = " + countdown);
-
-
-
+            StartCoroutine(StartSpawningWaves(waveZero));
         }
-        else if (currStage == PhaseStage.FirstPartTwo)
+        else if (currStage == PhaseStage.FirstPartTwo && !phaseOnePartTwoAlreadyStarted)
         {
-            // wave1
-            if (countdownOne <= 0f && waveOverOne > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabOne, waveAmountOne, 1));
-                countdownOne = timeBetweenOne;
-            }
+            phaseOnePartTwoAlreadyStarted = true;
 
-            countdownOne -= UnityEngine.Time.deltaTime;
-            // UnityEngine.Debug.Log("countdown = " + countdown);
-
+            StartCoroutine(StartSpawningWaves(waveOne)); //waveOnePartTwoAlreadyStarted
         }
-        else if (currStage == PhaseStage.Second)
+        else if (currStage == PhaseStage.Second && !phaseTwoAlreadyStarted)
         {
+            phaseTwoAlreadyStarted = true;
 
-            if (countdownSecondOne <= 0f && waveOverSecondOne > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabSecondOne, waveAmountSecondOne, 10));
-                countdownSecondOne = timeBetweenSecondOne;
-            }
+            StartCoroutine(StartSpawningWaves(waveOnePhase2));
+            StartCoroutine(StartSpawningWaves(waveTwoPhase2));
 
-            countdownSecondOne -= UnityEngine.Time.deltaTime;
-
-
-            if (countdownSecondTwo <= 0f && waveOverSecondTwo > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabSecondTwo, waveAmountSecondTwo, 11));
-                countdownSecondTwo = timeBetweenSecondTwo;
-            }
-
-            countdownSecondTwo -= UnityEngine.Time.deltaTime;
         }
         else if (currStage == PhaseStage.Third)
         {
