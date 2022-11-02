@@ -326,6 +326,10 @@ public class EnemyMovement : MonoBehaviour
         waveSpawnerObject.StartAllEnemies();
 
         // start spawning strongFinalEnemies
+        UnityEngine.Debug.Log("<color=green>SPAWNING STRONG ENEMIES </color>");
+        UnityEngine.Debug.Log("<color=green>SPAWNING STRONG ENEMIES </color>");
+        UnityEngine.Debug.Log("<color=green>SPAWNING STRONG ENEMIES </color>");
+
         waveSpawnerObject.StartSpawnStrongEnemies();
 
         yield return new WaitForSeconds(1f);

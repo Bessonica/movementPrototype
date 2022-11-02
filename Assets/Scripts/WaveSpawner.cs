@@ -2,16 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO maybe delete
-// phaseStringStart = "game..." PhaseStage.BeforeStart
-
-// phaseStringZero = "0";       PhaseStage.FirstPartOne
-// phaseStringFirst = "1";      PhaseStage.FirstPartTwo
-// phaseStringSecond = "2";     PhaseStage.Second
-// phaseStringThird = "3";      PhaseStage.Third
-// phaseStringFourth = "4";     PhaseStage.Fourth
-// phaseStringFinal = "final";  PhaseStage.Final
-
 
 // inputs
 //    prefabs of enemy for each wave(ways, speed etc)
@@ -46,7 +36,6 @@ public class WaveSpawner : MonoBehaviour
     // we need it to know when to stop all npc and sounds and start ripping out door
     // turn of light etc
     public float phaseFinalDuration;
-    // public float phaseEndDuration; // TODO delete
 
     float getDuration(PhaseStage stage)
     {
@@ -85,9 +74,9 @@ public class WaveSpawner : MonoBehaviour
     static bool phaseOnePartOneAlreadyStarted = false;
     static bool phaseOnePartTwoAlreadyStarted = false;
     static bool phaseTwoAlreadyStarted = false;
-
-
-
+    static bool phaseThreeAlreadyStarted = false;
+    static bool phaseFourAlreadyStarted = false;
+    static bool phaseFinalAlreadyStarted = false;
 
 
     // WaveConstructor waveZero = new WaveConstructor(enemyPrefabZero, waveAmountZero, waveSpawnTimesZero, timeBetweenZero, countdownZero, waveOverZero);
@@ -289,24 +278,27 @@ public class WaveSpawner : MonoBehaviour
     //WaveBuilder  = new WaveBuilder();
     WaveBuilder waveZero = new WaveBuilder();
     WaveBuilder waveOne = new WaveBuilder();
+
     WaveBuilder waveOnePhase2 = new WaveBuilder();
     WaveBuilder waveTwoPhase2 = new WaveBuilder();
+
+    WaveBuilder waveOnePhase3 = new WaveBuilder();
+    WaveBuilder waveTwoPhase3 = new WaveBuilder();
+
+    WaveBuilder waveOnePhase4 = new WaveBuilder();
+    WaveBuilder waveTwoPhase4 = new WaveBuilder();
+
+    WaveBuilder waveOnePhaseFinalSimple = new WaveBuilder();
+    WaveBuilder waveTwoPhaseFinalSimple = new WaveBuilder();
+    WaveBuilder waveOnePhaseFinalStrong = new WaveBuilder();
+    WaveBuilder waveTwoPhaseFinalStrong = new WaveBuilder();
+    WaveBuilder finalEnemyPhaseFinal = new WaveBuilder();
+
 
     void Start()
     {
         // UnityEngine.Debug.Log("started " + Time.time);
         // playerStats.ChangeLeverTime(6.35f);
-
-        //Waves initiaiton
-        // WaveBuilder waveZero = new WaveBuilder(
-        //     enemyPrefab: enemyPrefabZero,
-        //     amount: waveAmountZero,
-        //     spawnPoint: spawnPointZero,
-        //     respawnTimes: waveSpawnTimesZero,
-        //     timeBetween: timeBetweenZero,
-        //     countdown: countdownZero,
-        //     over: waveOverZero
-        // );
 
         waveZero.enemyPrefab = enemyPrefabZero;
         waveZero.amount = waveAmountZero;
@@ -315,17 +307,6 @@ public class WaveSpawner : MonoBehaviour
         waveZero.timeBetween = timeBetweenZero;
         waveZero.countdown = countdownZero;
         waveZero.over = waveSpawnTimesZero;
-
-        // WaveBuilder waveOne = new WaveBuilder(
-        //     enemyPrefab: enemyPrefabOne,
-        //     amount: waveAmountOne,
-        //     spawnPoint: spawnPointOne,
-        //     respawnTimes: waveSpawnTimesOne,
-        //     timeBetween: timeBetweenOne,
-        //     countdown: countdownOne,
-        //     over: waveOverOne
-        // );
-
 
         waveOne.enemyPrefab = enemyPrefabOne;
         waveOne.amount = waveAmountOne;
@@ -353,6 +334,85 @@ public class WaveSpawner : MonoBehaviour
         waveTwoPhase2.over = waveSpawnTimesSecondTwo;
 
 
+        waveOnePhase3.enemyPrefab = enemyPrefabThirdOne;
+        waveOnePhase3.amount = waveAmountThirdOne;
+        waveOnePhase3.spawnPoint = spawnPointOne;
+        waveOnePhase3.respawnTimes = waveSpawnTimesThirdOne;
+        waveOnePhase3.timeBetween = timeBetweenThirdOne;
+        waveOnePhase3.countdown = countdownThirdOne;
+        waveOnePhase3.over = waveSpawnTimesThirdOne;
+
+
+        waveTwoPhase3.enemyPrefab = enemyPrefabThirdTwo;
+        waveTwoPhase3.amount = waveAmountThirdTwo;
+        waveTwoPhase3.spawnPoint = spawnPointOne;
+        waveTwoPhase3.respawnTimes = waveSpawnTimesThirdTwo;
+        waveTwoPhase3.timeBetween = timeBetweenThirdTwo;
+        waveTwoPhase3.countdown = countdownThirdTwo;
+        waveTwoPhase3.over = waveSpawnTimesThirdTwo;
+
+
+        waveOnePhase4.enemyPrefab = enemyPrefabFourthOne;
+        waveOnePhase4.amount = waveAmountFourthOne;
+        waveOnePhase4.spawnPoint = spawnPointOne;
+        waveOnePhase4.respawnTimes = waveSpawnTimesFourthOne;
+        waveOnePhase4.timeBetween = timeBetweenFourthOne;
+        waveOnePhase4.countdown = countdownFourthOne;
+        waveOnePhase4.over = waveSpawnTimesFourthOne;
+
+        waveTwoPhase4.enemyPrefab = enemyPrefabFourthTwo;
+        waveTwoPhase4.amount = waveAmountFourthTwo;
+        waveTwoPhase4.spawnPoint = spawnPointOne;
+        waveTwoPhase4.respawnTimes = waveSpawnTimesFourthTwo;
+        waveTwoPhase4.timeBetween = timeBetweenFourthTwo;
+        waveTwoPhase4.countdown = countdownFourthTwo;
+        waveTwoPhase4.over = waveSpawnTimesFourthTwo;
+
+        //waveOnePhaseFinalSimple
+        waveOnePhaseFinalSimple.enemyPrefab = enemyPrefabFinalSimpleOne;
+        waveOnePhaseFinalSimple.amount = waveAmountFinalSimpleOne;
+        waveOnePhaseFinalSimple.spawnPoint = spawnPointOne;
+        waveOnePhaseFinalSimple.respawnTimes = waveSpawnTimesFinalSimpleOne;
+        waveOnePhaseFinalSimple.timeBetween = timeBetweenFinalSimpleOne;
+        waveOnePhaseFinalSimple.countdown = countdownFinalSimpleOne;
+        waveOnePhaseFinalSimple.over = waveSpawnTimesFinalSimpleOne;
+
+        //waveTwoPhaseFinalSimple
+        waveTwoPhaseFinalSimple.enemyPrefab = enemyPrefabFinalSimpleTwo;
+        waveTwoPhaseFinalSimple.amount = waveAmountFinalSimpleTwo;
+        waveTwoPhaseFinalSimple.spawnPoint = spawnPointOne;
+        waveTwoPhaseFinalSimple.respawnTimes = waveSpawnTimesFinalSimpleTwo;
+        waveTwoPhaseFinalSimple.timeBetween = timeBetweenFinalSimpleTwo;
+        waveTwoPhaseFinalSimple.countdown = countdownFinalSimpleTwo;
+        waveTwoPhaseFinalSimple.over = waveSpawnTimesFinalSimpleTwo;
+
+        //waveOnePhaseFinalStrong
+        waveOnePhaseFinalStrong.enemyPrefab = enemyPrefabFinalStrongOne;
+        waveOnePhaseFinalStrong.amount = waveAmountFinalStrongOne;
+        waveOnePhaseFinalStrong.spawnPoint = spawnPointOne;
+        waveOnePhaseFinalStrong.respawnTimes = waveSpawnTimesFinalStrongOne;
+        waveOnePhaseFinalStrong.timeBetween = timeBetweenFinalStrongOne;
+        waveOnePhaseFinalStrong.countdown = countdownFinalStrongOne;
+        waveOnePhaseFinalStrong.over = waveSpawnTimesFinalStrongOne;
+
+        //waveTwoPhaseFinalStrong
+        waveTwoPhaseFinalStrong.enemyPrefab = enemyPrefabFinalStrongTwo;
+        waveTwoPhaseFinalStrong.amount = waveAmountFinalStrongTwo;
+        waveTwoPhaseFinalStrong.spawnPoint = spawnPointOne;
+        waveTwoPhaseFinalStrong.respawnTimes = waveSpawnTimesFinalStrongTwo;
+        waveTwoPhaseFinalStrong.timeBetween = timeBetweenFinalStrongTwo;
+        waveTwoPhaseFinalStrong.countdown = countdownFinalStrongTwo;
+        waveTwoPhaseFinalStrong.over = waveSpawnTimesFinalStrongTwo;
+
+        //finalEnemyPhaseFinal
+        finalEnemyPhaseFinal.enemyPrefab = enemyPrefabFinal;
+        finalEnemyPhaseFinal.amount = waveAmountFinal;
+        finalEnemyPhaseFinal.spawnPoint = spawnPointOne;
+        finalEnemyPhaseFinal.respawnTimes = waveSpawnTimesFinal;
+        finalEnemyPhaseFinal.timeBetween = timeBetweenFinal;
+        finalEnemyPhaseFinal.countdown = countdownFinal;
+        finalEnemyPhaseFinal.over = waveSpawnTimesFinal;
+
 
 
         x = Random.Range(-0.4f, 0.4f);
@@ -362,24 +422,24 @@ public class WaveSpawner : MonoBehaviour
 
         // check how many times to spawn wave
 
-        waveOverZero = waveSpawnTimesZero;
-        waveOverOne = waveSpawnTimesOne;
+        // waveOverZero = waveSpawnTimesZero;
+        // waveOverOne = waveSpawnTimesOne;
 
-        waveOverSecondOne = waveSpawnTimesSecondOne;
-        waveOverSecondTwo = waveSpawnTimesSecondTwo;
+        // waveOverSecondOne = waveSpawnTimesSecondOne;
+        // waveOverSecondTwo = waveSpawnTimesSecondTwo;
 
-        waveOverThirdOne = waveSpawnTimesThirdOne;
-        waveOverThirdTwo = waveSpawnTimesThirdTwo;
+        // waveOverThirdOne = waveSpawnTimesThirdOne;
+        // waveOverThirdTwo = waveSpawnTimesThirdTwo;
 
-        waveOverFourthOne = waveSpawnTimesFourthOne;
-        waveOverFourthTwo = waveSpawnTimesFourthTwo;
+        // waveOverFourthOne = waveSpawnTimesFourthOne;
+        // waveOverFourthTwo = waveSpawnTimesFourthTwo;
 
-        waveOverFinal = waveSpawnTimesFinal;
-        waveOverFinalSimpleOne = waveSpawnTimesFinalSimpleOne;
-        waveOverFinalSimpleTwo = waveSpawnTimesFinalSimpleTwo;
+        // waveOverFinal = waveSpawnTimesFinal;
+        // waveOverFinalSimpleOne = waveSpawnTimesFinalSimpleOne;
+        // waveOverFinalSimpleTwo = waveSpawnTimesFinalSimpleTwo;
 
-        waveOverFinalStrongOne = waveSpawnTimesFinalStrongOne;
-        waveOverFinalStrongTwo = waveSpawnTimesFinalStrongTwo;
+        // waveOverFinalStrongOne = waveSpawnTimesFinalStrongOne;
+        // waveOverFinalStrongTwo = waveSpawnTimesFinalStrongTwo;
 
         // by MrILL
         // isPhaseEnd = false; // may be removed, 'cause declared false as default
@@ -424,13 +484,6 @@ public class WaveSpawner : MonoBehaviour
             elementToStop.stopNow = true;
 
         }
-        // UnityEngine.Debug.Log("Enemies numbers = ");
-
-
-        // take all enemies, change their stopNow to true
-        // you can find them by their tag "Enemy"
-        // wait some time
-        // and then continue (stopNow = false)
     }
 
     public void StartAllEnemies()
@@ -442,9 +495,7 @@ public class WaveSpawner : MonoBehaviour
         {
             EnemyMovement elementToStop = enemyToStop.GetComponent<EnemyMovement>();
             elementToStop.stopNow = false;
-
         }
-
     }
 
     public void StartSpawnStrongEnemies()
@@ -452,11 +503,6 @@ public class WaveSpawner : MonoBehaviour
         TimeToSpawnStrongEnemies = true;
     }
 
-    // playerStats.ChangeLeverTime(3f);
-    // playerStats.ChangeTimerLimit(20f);
-    // AudioManager.instance.SetDoorBashVolume(0.88f);
-
-    // what we do when player pull the lever
     public void StartPhase()
     {
         // StopCourutine(door.BashOnDoor());
@@ -466,20 +512,13 @@ public class WaveSpawner : MonoBehaviour
 
         door.keepBashing = false;
 
-        // playerStats = this.GetComponent<PlayerStats>();
         if (currStage != PhaseStage.BeforeStart)
         {
             PlayerStats.Money = 0;
         }
 
-        // Money is static variable, so you can access it from everywhere?
-        // read about public static
-
-
-
         AudioManager.instance.StartPCWorkingSFX();
 
-        // if its first time we pulled lever
         switch (currStage)
         {
             case PhaseStage.BeforeStart:
@@ -508,8 +547,6 @@ public class WaveSpawner : MonoBehaviour
                 // start phase
                 UnityEngine.Debug.Log("STARTED FIRST PHASE PART TWO");
 
-                // no sound changed
-
                 currStage = PhaseStage.FirstPartTwo;
                 break;
             case PhaseStage.FirstPartTwo:
@@ -520,11 +557,8 @@ public class WaveSpawner : MonoBehaviour
 
                 playerStats.ChangeTimerLimit(12f);
 
-
                 AudioManager.instance.StartWaveDetectedSFX(2f);
                 AudioManager.instance.StartGeneratorSFX();
-
-                // no sound changed
 
                 currStage = PhaseStage.Second;
                 break;
@@ -536,13 +570,10 @@ public class WaveSpawner : MonoBehaviour
 
                 AudioManager.instance.StartGeneratorSFX();
 
-                // StartCoroutine(door.BashOnDoor(DoorObject));
-
                 // start checking  to start bashOnDoor when player near
                 boxCollideObject.StartChecking = true;
 
                 // sound
-
                 AudioManager.instance.StartWaveDetectedSFX(7.5f);
                 AudioManager.instance.StartWaveDetectedSFX(10f);
                 AudioManager.instance.StartGeneratorSFX();
@@ -550,18 +581,10 @@ public class WaveSpawner : MonoBehaviour
                 currStage = PhaseStage.Third;
                 break;
             case PhaseStage.Third:
-                //во время фазы/волны к двери слышно вссе больше и больше ударов
-                // то есть запускаем корутину и в завивисмости от длинны волны(phaseThreeDuration)
-                // и через определенное время меняем звуковой еффект на новый
-
                 // start phase
                 UnityEngine.Debug.Log("STARTED FOURTH PHASE ");
 
                 playerStats.ChangeTimerLimit(9f);
-                // phaseString = phaseStringFinal;
-                // phaseDeadLine = phaseFinalDuration;
-                // UnityEngine.Debug.Log("STARTED FINAL PHASE ");
-
 
                 // sound
                 AudioManager.instance.StartWaveDetectedSFX(1f);
@@ -574,12 +597,7 @@ public class WaveSpawner : MonoBehaviour
                 UnityEngine.Debug.Log("STARTED FINAL PHASE ");
                 playerStats.ChangeTimerLimit(7.5f);
 
-                //  THIS IS FOR TEST, in end phase we also have stop Courutine
-                // StopCoroutine(boxCollideObject.doorBashroutine);
-                // bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
-
                 // sound
-
                 AudioManager.instance.StartGeneratorSFX();
 
                 currStage = PhaseStage.Final;
@@ -588,8 +606,6 @@ public class WaveSpawner : MonoBehaviour
                 // turn off earlyDeath colliders
                 DeathCollideObjectSecondEARLY.StartChecking = false;
                 DeathCollideObjectThirdEARLY.StartChecking = false;
-
-
 
                 // for flickering lamp and lamp pop
                 FlickerCollideObject.StartChecking = true;
@@ -601,7 +617,6 @@ public class WaveSpawner : MonoBehaviour
                 // when player started generator turn off early death
                 DeathCollideObjectSecondEARLY.StartChecking = false;
                 DeathCollideObjectThirdEARLY.StartChecking = false;
-
 
                 // play some beeping sounds, with delay?
                 AudioManager.instance.StartWaveDetectedSFX(4f);
@@ -628,7 +643,6 @@ public class WaveSpawner : MonoBehaviour
         if (currStage != PhaseStage.FirstPartOne)
         {
             // UnityEngine.Debug.Log("added more money ");
-
             phaseIsOn = false;
             playerStats.startTimer = false;
             PlayerStats.Money = 0;
@@ -639,6 +653,7 @@ public class WaveSpawner : MonoBehaviour
             pcInteractable.turnOffPC();
             buildManager.DestroyAllTurrets();
 
+            leverInteractable.isLeverOn = true;
 
             if (currStage != PhaseStage.Final)
             {
@@ -651,106 +666,98 @@ public class WaveSpawner : MonoBehaviour
         }
 
         // when phase is stoped player can use lever to turn it on again
-        if (currStage != PhaseStage.FirstPartOne) //TODO move into upper if
-        {
-            leverInteractable.isLeverOn = true;
-        }
+        // if (currStage != PhaseStage.FirstPartOne) //TODO move into upper if
+        // {
+        //     leverInteractable.isLeverOn = true;
+        // }
 
 
         //create object monsterSound behind door and activate it here
         // решаем какие звуки ставить, когда выключается свет
-        if (currStage == PhaseStage.FirstPartOne) //TODO rewrite to switch
-        {
-            UnityEngine.Debug.Log("PHASE FIRST PART ONE ENDED ");
-            StartPhase();
 
-
-        }
-        else if (currStage == PhaseStage.FirstPartTwo)
-        {
-            //слышно шум задверью, но ее никто не трогает
-            UnityEngine.Debug.Log("PHASE FIRST PART TWO ENDED ");
-
-            playerStats.ChangeLeverTime(4.5f);
-
-            //   sound
-            AudioManager.instance.StopGeneratorSFX();
-
-            AudioManager.instance.StartBehindDoorSFX();
-            AudioManager.instance.StartGiantMonsterSFX();
-            // AudioManager.instance.GeneratorOffSFX();
-
-
-        }
-        else if (currStage == PhaseStage.Second)
-        {
-            //шум за дверью громче и агрессивнее
-            UnityEngine.Debug.Log("PHASE TWO ENDED ");
-            playerStats.ChangeLeverTime(7f);
-
-            AudioManager.instance.StopGeneratorSFX();
-            AudioManager.instance.StopBehindDoorSFX();
-            // AudioManager.instance.StopGiantMonsterSFX();
-
-            // make sound behind door louder
-            AudioManager.instance.StartBehindDoorAggressiveSFX();
-            // AudioManager.instance.StartGiantMonsterAggressiveSFX();
-
-
-        }
-        else if (currStage == PhaseStage.Third)
+        switch (currStage)
         {
 
-            UnityEngine.Debug.Log("PHASE THREE ENDED ");
-            playerStats.ChangeLeverTime(13f);
-            AudioManager.instance.StopGeneratorSFX();
+            case PhaseStage.BeforeStart:
+                break;
 
-            StopCoroutine(boxCollideObject.doorBashroutine);
-            bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
+
+            case PhaseStage.FirstPartOne:
+
+                UnityEngine.Debug.Log("PHASE FIRST PART ONE ENDED ");
+                StartPhase();
+                break;
+
+            case PhaseStage.FirstPartTwo:
+                UnityEngine.Debug.Log("PHASE FIRST PART TWO ENDED ");
+
+                playerStats.ChangeLeverTime(4.5f);
+
+                //   sound
+                AudioManager.instance.StopGeneratorSFX();
+
+                AudioManager.instance.StartBehindDoorSFX();
+                AudioManager.instance.StartGiantMonsterSFX();
+                // AudioManager.instance.GeneratorOffSFX();
+                break;
+            case PhaseStage.Second:
+                //шум за дверью громче и агрессивнее
+                UnityEngine.Debug.Log("PHASE TWO ENDED ");
+                playerStats.ChangeLeverTime(7f);
+
+                AudioManager.instance.StopGeneratorSFX();
+                AudioManager.instance.StopBehindDoorSFX();
+                // AudioManager.instance.StopGiantMonsterSFX();
+
+                // make sound behind door louder
+                AudioManager.instance.StartBehindDoorAggressiveSFX();
+                // AudioManager.instance.StartGiantMonsterAggressiveSFX();
+                break;
+
+            case PhaseStage.Third:
+                UnityEngine.Debug.Log("PHASE THREE ENDED ");
+                playerStats.ChangeLeverTime(13f);
+                AudioManager.instance.StopGeneratorSFX();
+
+                StopCoroutine(boxCollideObject.doorBashroutine);
+                bashOnDoorHard = StartCoroutine(door.BashOnDoorHard(DoorObject));
+                break;
+
+            case PhaseStage.Fourth:
+                playerStats.ChangeLeverTime(6.5f);
+                UnityEngine.Debug.Log("PHASE FOUR ENDED ");
+                AudioManager.instance.StopGeneratorSFX();
+                AudioManager.instance.StopGiantMonsterSFX();
+                break;
+
+            case PhaseStage.Final:
+                UnityEngine.Debug.Log("PHASE FINAL ENDED ");
+                playerStats.ChangeLeverTime(8.8f);
+
+                // turn off light 
+                LampManager.instance.StopAllLamps();
+
+                // "destroy" door
+                DoorObjectRenderer = DoorObject.GetComponent<MeshRenderer>();
+                DoorObjectRenderer.enabled = false;
+                realDoor.SetActive(false);
+
+                AudioManager.instance.StopGeneratorSFX();
+                AudioManager.instance.StopBehindDoorAggressiveSFX();
+                AudioManager.instance.StopAfterFinalRoarSFX();
+                AudioManager.instance.DoorTearSFX();
+
+                // when phase ended player can die if he exits the door
+                DeathCollideObjectSecondEARLY.StartChecking = true;
+                DeathCollideObjectThirdEARLY.StartChecking = true;
+
+                break;
+
+            default:
+                break;
+
         }
-        else if (currStage == PhaseStage.Fourth)
-        {
-            playerStats.ChangeLeverTime(6.5f);
-            UnityEngine.Debug.Log("PHASE FOUR ENDED ");
-            AudioManager.instance.StopGeneratorSFX();
-            AudioManager.instance.StopGiantMonsterSFX();
-        }
-        // else if (phaseStringTmp == phaseStringFinal) // TODO remove
-        else if (currStage == PhaseStage.Final)
-        {
 
-            UnityEngine.Debug.Log("PHASE FINAL ENDED ");
-            playerStats.ChangeLeverTime(8.8f);
-
-            // make step volume a little louder
-            // AudioManager.instance.SetStepVolume();
-
-            // turn off light 
-            // play sound of tiring metal
-            LampManager.instance.StopAllLamps();
-            AudioManager.instance.StopGeneratorSFX();
-            AudioManager.instance.StopBehindDoorAggressiveSFX();
-            AudioManager.instance.StopAfterFinalRoarSFX();
-            AudioManager.instance.DoorTearSFX();
-
-
-            // when phase ended player can die if he exits the door
-            DeathCollideObjectSecondEARLY.StartChecking = true;
-            DeathCollideObjectThirdEARLY.StartChecking = true;
-
-
-            // StopCoroutine(bashOnDoorHard);
-
-            // turn off all light
-            // "destroy" door
-            DoorObjectRenderer = DoorObject.GetComponent<MeshRenderer>();
-            DoorObjectRenderer.enabled = false;
-            realDoor.SetActive(false);
-
-            // start and stop sounds 
-
-            // there is also code in StartPhase in final part
-        }
     }
 
     IEnumerator StartSpawningWaves(WaveBuilder waveObject)
@@ -782,32 +789,16 @@ public class WaveSpawner : MonoBehaviour
 
         yield break;
 
-        // if (countdown <= 0f && over > 0)
-        // {
-        //     UnityEngine.Debug.Log(" spawned wave");
-        //     StartCoroutine(SpawnWave(enemyPrefab, amount, 1));
-        //     countdown = timeBetween;
-        // }
-        // else
-        // {
-        //     UnityEngine.Debug.Log("  new countdown = " + countdown);
-        //     countdown -= UnityEngine.Time.deltaTime;
-
-        // }
-
-
     }
 
     // Update is called once per frame
     private void Update()
     {
 
-
         if (!phaseIsOn)
         {
             return;
         }
-
 
         //  check if phase time has ended
         float phaseDuration = Time.time - phaseStartTime;
@@ -815,8 +806,6 @@ public class WaveSpawner : MonoBehaviour
         // if (phaseDuration >= getDuration(currStage) && phaseStringTmp != phaseStringFinalEnd)
         if (phaseDuration >= getDuration(currStage) && !isPhaseEnd)
         {
-            // UnityEngine.Debug.Log("phaseTime - phaseStartTime = " + (phaseTime - phaseStartTime ));
-            // UnityEngine.Debug.Log("phase has ended phasezeroDuration = " + phaseDeadLine );
             StopPhase();
         }
 
@@ -842,114 +831,39 @@ public class WaveSpawner : MonoBehaviour
             StartCoroutine(StartSpawningWaves(waveTwoPhase2));
 
         }
-        else if (currStage == PhaseStage.Third)
+        else if (currStage == PhaseStage.Third && !phaseThreeAlreadyStarted)
         {
-            if (countdownThirdOne <= 0f && waveOverThirdOne > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabThirdOne, waveAmountThirdOne, 12));
-                countdownThirdOne = timeBetweenThirdOne;
-            }
+            phaseThreeAlreadyStarted = true;
 
-            countdownThirdOne -= UnityEngine.Time.deltaTime;
+            StartCoroutine(StartSpawningWaves(waveOnePhase3));
+            StartCoroutine(StartSpawningWaves(waveTwoPhase3));
 
-
-            if (countdownThirdTwo <= 0f && waveOverThirdTwo > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabThirdTwo, waveAmountThirdTwo, 13));
-                countdownThirdTwo = timeBetweenThirdTwo;
-            }
-
-            countdownThirdTwo -= UnityEngine.Time.deltaTime;
         }
-        else if (currStage == PhaseStage.Fourth)
+        else if (currStage == PhaseStage.Fourth && !phaseFourAlreadyStarted)
         {
-            // !!! I MISTAKEN FOURTH WITH FINAL FUCK, need to test it out
+            phaseFourAlreadyStarted = true;
 
-            // in fourth wave we spawn the last final enemy, that stands in one place
-            // we have bool isFinal for that in enemy
-            // after some strong waves he appears, and after a little time it spawns massive wave
+            StartCoroutine(StartSpawningWaves(waveOnePhase4));
+            StartCoroutine(StartSpawningWaves(waveTwoPhase4));
 
-            if (countdownFourthOne <= 0f && waveOverFourthOne > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabFourthOne, waveAmountFourthOne, 14));
-                countdownFourthOne = timeBetweenFourthOne;
-            }
-
-            countdownFourthOne -= UnityEngine.Time.deltaTime;
-
-            if (countdownFourthTwo <= 0f && waveOverFourthTwo > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabFourthTwo, waveAmountFourthTwo, 15));
-                countdownFourthTwo = timeBetweenFourthTwo;
-            }
-
-            countdownFourthTwo -= UnityEngine.Time.deltaTime;
         }
-        else if (currStage == PhaseStage.Final)
+        else if (currStage == PhaseStage.Final && !phaseFinalAlreadyStarted)
         {
-            //countdownFinal
+            phaseFinalAlreadyStarted = true;
 
-            // scenario:
-            // spawn enemy same as last wave
-            // after some time spawn final enemy, wait a little
-            // play his sound, make all enemy on level stop, after small pause
-            // make all of them faster and spawn even more enemies
+            StartCoroutine(StartSpawningWaves(waveOnePhaseFinalSimple));
+            StartCoroutine(StartSpawningWaves(waveTwoPhaseFinalSimple));
 
+            StartCoroutine(StartSpawningWaves(finalEnemyPhaseFinal));
 
-            // spawne simple enemies
-            if (countdownFinalSimpleOne <= 0f && waveOverFinalSimpleOne > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabFinalSimpleOne, waveAmountFinalSimpleOne, 6));
-                countdownFinalSimpleOne = timeBetweenFinalSimpleOne;
-            }
+        }
+        else if (currStage == PhaseStage.Final && TimeToSpawnStrongEnemies)
+        {
+            TimeToSpawnStrongEnemies = false;
 
-            countdownFinalSimpleOne -= UnityEngine.Time.deltaTime;
+            StartCoroutine(StartSpawningWaves(waveOnePhaseFinalStrong));
+            StartCoroutine(StartSpawningWaves(waveTwoPhaseFinalStrong));
 
-
-            if (countdownFinalSimpleTwo <= 0f && waveOverFinalSimpleTwo > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabFinalSimpleTwo, waveAmountFinalSimpleTwo, 7));
-                countdownFinalSimpleTwo = timeBetweenFinalSimpleTwo;
-            }
-
-            countdownFinalSimpleTwo -= UnityEngine.Time.deltaTime;
-
-            // spawn final enemy
-            // start timer, when it reaches the end. spawn final enemy
-            // after they reach end and wait for some time + sound spawn strong enemies
-
-            if (countdownFinal <= 0f && waveOverFinal > 0)
-            {
-                StartCoroutine(SpawnWave(enemyPrefabFinal, waveAmountFinal, 5));
-                countdownFinal = timeBetweenFinal;
-                // RoarAndSpawnStrongEnemies function in EnemyMovement.cs
-            }
-
-            countdownFinal -= UnityEngine.Time.deltaTime;
-
-
-
-            //spawn final one/two enemy (strong ones)
-            //TimeToSpawnStrongEnemies
-            if (TimeToSpawnStrongEnemies)
-            {
-                if (countdownFinalStrongOne <= 0f && waveOverFinalStrongOne > 0)
-                {
-                    StartCoroutine(SpawnWave(enemyPrefabFinalStrongOne, waveAmountFinalStrongOne, 8));
-                    countdownFinalStrongOne = timeBetweenFinalStrongOne;
-                }
-
-                countdownFinalStrongOne -= UnityEngine.Time.deltaTime;
-
-
-                if (countdownFinalStrongTwo <= 0f && waveOverFinalStrongTwo > 0)
-                {
-                    StartCoroutine(SpawnWave(enemyPrefabFinalStrongTwo, waveAmountFinalStrongTwo, 9));
-                    countdownFinalStrongTwo = timeBetweenFinalStrongTwo;
-                }
-
-                countdownFinalStrongTwo -= UnityEngine.Time.deltaTime;
-            }
         }
     }
 
@@ -979,76 +893,66 @@ public class WaveSpawner : MonoBehaviour
         //  check how many times we spawned wave
         // it works only when you have one wave to spawn
         //TODO move to switch-case
-        if (currStage == PhaseStage.FirstPartOne)
-        {
-            waveOverZero--;
+        // if (currStage == PhaseStage.FirstPartOne)
+        // {
+        //     waveOverZero--;
 
-        }
-        else if (currStage == PhaseStage.FirstPartTwo)
-        {
-            waveOverOne--;
+        // }
+        // else if (currStage == PhaseStage.FirstPartTwo)
+        // {
+        //     waveOverOne--;
 
-        }
-        else if (currStage == PhaseStage.Second && waveNumber == 10)
-        {
-            waveOverSecondOne--;
+        // }
+        // else if (currStage == PhaseStage.Second && waveNumber == 10)
+        // {
+        //     waveOverSecondOne--;
 
-        }
-        else if (currStage == PhaseStage.Second && waveNumber == 11)
-        {
-            waveOverSecondTwo--;
+        // }
+        // else if (currStage == PhaseStage.Second && waveNumber == 11)
+        // {
+        //     waveOverSecondTwo--;
 
-        }
-        else if (currStage == PhaseStage.Third && waveNumber == 12)
-        {
-            waveOverThirdOne--;
+        // }
+        // else if (currStage == PhaseStage.Third && waveNumber == 12)
+        // {
+        //     waveOverThirdOne--;
 
-        }
-        else if (currStage == PhaseStage.Third && waveNumber == 13)
-        {
-            waveOverThirdTwo--;
+        // }
+        // else if (currStage == PhaseStage.Third && waveNumber == 13)
+        // {
+        //     waveOverThirdTwo--;
 
-        }
-        else if (currStage == PhaseStage.Fourth && waveNumber == 14)
-        {
-            waveOverFourthOne--;
+        // }
+        // else if (currStage == PhaseStage.Fourth && waveNumber == 14)
+        // {
+        //     waveOverFourthOne--;
 
-        }
-        else if (currStage == PhaseStage.Fourth && waveNumber == 15)
-        {
-            waveOverFourthTwo--;
+        // }
+        // else if (currStage == PhaseStage.Fourth && waveNumber == 15)
+        // {
+        //     waveOverFourthTwo--;
 
-        }
-        else if (currStage == PhaseStage.Final && waveNumber == 5)
-        {
-            waveOverFinal--;
-        }
-        else if (currStage == PhaseStage.Final && waveNumber == 6)
-        {
-            waveOverFinalSimpleOne--;
-        }
-        else if (currStage == PhaseStage.Final && waveNumber == 7)
-        {
-            waveOverFinalSimpleTwo--;
-        }
-        else if (currStage == PhaseStage.Final && waveNumber == 8)
-        {
-            waveOverFinalStrongOne--;
-        }
-        else if (currStage == PhaseStage.Final && waveNumber == 9)
-        {
-            waveOverFinalStrongTwo--;
-        }
-
-
-
-        //      when npc spawn in groups
-        // SpawnEnemy();
-        // UnityEngine.Debug.Log("spawned enemy waveIndex = " + waveNumber);
-
-
-        // yield return new WaitForSeconds(0.5f);
-        // UnityEngine.Debug.Log("Hellow");
+        // }
+        // else if (currStage == PhaseStage.Final && waveNumber == 5)
+        // {
+        //     waveOverFinal--;
+        // }
+        // else if (currStage == PhaseStage.Final && waveNumber == 6)
+        // {
+        //     waveOverFinalSimpleOne--;
+        // }
+        // else if (currStage == PhaseStage.Final && waveNumber == 7)
+        // {
+        //     waveOverFinalSimpleTwo--;
+        // }
+        // else if (currStage == PhaseStage.Final && waveNumber == 8)
+        // {
+        //     waveOverFinalStrongOne--;
+        // }
+        // else if (currStage == PhaseStage.Final && waveNumber == 9)
+        // {
+        //     waveOverFinalStrongTwo--;
+        // }
 
     }
 
@@ -1084,48 +988,6 @@ public class WaveSpawner : MonoBehaviour
             // UnityEngine.Debug.Log("spawned an enemy. time = " + Time.time + "   randomVec =  " + randomVec);
             Instantiate(enemy, spawnPointOne.position + randomVec, spawnPointOne.rotation);
         }
-
-
-        // if(waveNumber == 0)
-        // {
-        //         x = Random.Range(-0.4f, 0.4f);
-        //         y = 0;
-        //         z = Random.Range(-0.4f, 0.4f);
-        //         randomVec = new Vector3(x, y, z);
-        //         // UnityEngine.Debug.Log("spawned an enemy. time = " + Time.time + "   randomVec =  " + randomVec);
-        //         Instantiate(enemy, spawnPointOne.position + randomVec, spawnPointOne.rotation);
-        // }
-
-        // if(waveNumber == 1)
-        // {
-
-        //     if(enemyPrefabOne!=null)
-        //     {
-
-        //         x = Random.Range(-0.4f, 0.4f);
-        //         y = 0;
-        //         z = Random.Range(-0.4f, 0.4f);
-        //         randomVec = new Vector3(x, y, z);
-        //         // UnityEngine.Debug.Log("spawned an enemy. time = " + Time.time + "   randomVec =  " + randomVec);
-        //         Instantiate(enemy, spawnPointOne.position + randomVec, spawnPointOne.rotation);
-        //     }
-
-        // }
-        // else if(waveNumber == 2)
-        // {
-
-        //     //enemyPrefabTwo
-        //     if(enemyPrefabTwo!=null)
-        //     {
-        //         x = Random.Range(-0.4f, 0.4f);
-        //         y = 0;
-        //         z = Random.Range(-0.4f, 0.4f);
-        //         randomVec = new Vector3(x, y, z);
-        //     Instantiate(enemyPrefabTwo, spawnPointOne.position + randomVec, spawnPointOne.rotation);
-
-        //     }
-
-        // }
 
     }
 }

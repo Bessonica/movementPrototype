@@ -2976,7 +2976,7 @@ MonoBehaviour:
   defaultInteractIconSize: {x: 30, y: 30}
   defaultInteractIconBlobSize: {x: 10, y: 10}
   gameMaster: {fileID: 1164116999}
-  HoldTimerDeadLine: 6.35
+  HoldTimerDeadLine: 1
 --- !u!1 &137682615
 GameObject:
   m_ObjectHideFlags: 0
@@ -7771,7 +7771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcd3db96b3af264d8d37265327ebe82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LampObject: {fileID: 0}
+  LampObject: {fileID: 836836872}
   PlayerIcon: {fileID: 1363052786}
   StartChecking: 0
   gameMaster: {fileID: 1164116999}
@@ -8691,7 +8691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381be7863a5cf524185c9a614bc674a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lampGameObject: {fileID: 0}
+  lampGameObject: {fileID: 836836872}
   startChecking: 0
 --- !u!1001 &396319754
 PrefabInstance:
@@ -15085,7 +15085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381be7863a5cf524185c9a614bc674a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lampGameObject: {fileID: 0}
+  lampGameObject: {fileID: 836836872}
   startChecking: 0
 --- !u!65 &716759083
 BoxCollider:
@@ -17931,7 +17931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381be7863a5cf524185c9a614bc674a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lampGameObject: {fileID: 0}
+  lampGameObject: {fileID: 836836872}
   startChecking: 0
 --- !u!65 &870140068
 BoxCollider:
@@ -38664,7 +38664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcd3db96b3af264d8d37265327ebe82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LampObject: {fileID: 0}
+  LampObject: {fileID: 836836872}
   PlayerIcon: {fileID: 1363052786}
   StartChecking: 0
   gameMaster: {fileID: 1164116999}
