@@ -26,7 +26,7 @@ public class WaveSpawner : MonoBehaviour
 
     public bool isPhaseEnd = false;
 
-
+    //TODO remove
     [Header("Duration of phases")]
     public float phaseZeroDuration;
     public float phaseOneDuration;
@@ -37,6 +37,7 @@ public class WaveSpawner : MonoBehaviour
     // turn of light etc
     public float phaseFinalDuration;
 
+    //Move to wave builder
     float getDuration(PhaseStage stage)
     {
         switch (stage)
@@ -82,6 +83,7 @@ public class WaveSpawner : MonoBehaviour
     // WaveConstructor waveZero = new WaveConstructor(enemyPrefabZero, waveAmountZero, waveSpawnTimesZero, timeBetweenZero, countdownZero, waveOverZero);
 
 
+    #region WaveOne
     [Header("Enemy wave one")]
     public Transform enemyPrefabOne;
     public Transform spawnPointOne;
@@ -90,11 +92,13 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenOne;
     public float countdownOne;
     int waveOverOne;
+    #endregion
 
     // [Header("Enemy wave two")]
     // public Transform enemyPrefabTwo;
     // public Transform spawnPointTwo;
 
+    #region WaveTwoP1
     [Header("Enemy wave one (phase2)")]
     public Transform enemyPrefabSecondOne;
     // public Transform spawnPointSecondOne;
@@ -103,8 +107,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenSecondOne;
     public float countdownSecondOne;
     int waveOverSecondOne;
+    #endregion
 
-
+    #region WaveTwoP2
     [Header("Enemy wave two (phase2)")]
     public Transform enemyPrefabSecondTwo;
     // public Transform spawnPointSecondTwo;
@@ -113,8 +118,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenSecondTwo;
     public float countdownSecondTwo;
     int waveOverSecondTwo;
+    #endregion
 
-
+    #region WaveThreeP1
     [Header("Enemy wave one (phase3)")]
     public Transform enemyPrefabThirdOne;
     // public Transform spawnPointThirdOne;
@@ -123,7 +129,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenThirdOne;
     public float countdownThirdOne;
     int waveOverThirdOne;
+    #endregion
 
+    #region WaveThreeP2
     [Header("Enemy wave two (phase3)")]
     public Transform enemyPrefabThirdTwo;
     // public Transform spawnPointThirdTwo;
@@ -132,8 +140,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenThirdTwo;
     public float countdownThirdTwo;
     int waveOverThirdTwo;
+    #endregion
 
-
+    #region WaveFourP1
     [Header("Enemy wave one (phase4)")]
     public Transform enemyPrefabFourthOne;
     // public Transform spawnPointFourthOne;
@@ -142,9 +151,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenFourthOne;
     public float countdownFourthOne;
     int waveOverFourthOne;
+    #endregion
 
-
-
+    #region WaveFourP2
     [Header("Enemy wave two (phase4)")]
     public Transform enemyPrefabFourthTwo;
     // public Transform spawnPointFourthTwo;
@@ -153,7 +162,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenFourthTwo;
     public float countdownFourthTwo;
     int waveOverFourthTwo;
+    #endregion
 
+    #region WaveFinalP1
     // final simple - first enemies that are spawned before final enemy is spawned
     // final enemy - enemy that trigers spawn of strong and fast final one/two enemies
     // final one/two - strong enemies that are spawned after final enemy screams
@@ -165,7 +176,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenFinalSimpleOne;
     public float countdownFinalSimpleOne;  // how long wait before starting spawning waves
     int waveOverFinalSimpleOne;
+    #endregion
 
+    #region WaveFinalP2
     [Header("final Simple enemy Two")]
     public Transform enemyPrefabFinalSimpleTwo;
     // public Transform spawnPointFinalSimpleTwo;
@@ -174,8 +187,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenFinalSimpleTwo;
     public float countdownFinalSimpleTwo;  // how long wait before starting spawning waves
     int waveOverFinalSimpleTwo;
+    #endregion
 
-
+    #region WaveFinalP3
     [Header("final STRONG enemy One")]
     public Transform enemyPrefabFinalStrongOne;
     // public Transform spawnPointFinalStrongOne;
@@ -184,8 +198,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenFinalStrongOne;
     public float countdownFinalStrongOne;  // how long wait before starting spawning waves
     int waveOverFinalStrongOne;
+    #endregion
 
-
+    #region WaveFinalP4
     [Header("final STRONG enemy Two")]
     public Transform enemyPrefabFinalStrongTwo;
     // public Transform spawnPointFinalStrongTwo;
@@ -194,8 +209,9 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenFinalStrongTwo;
     public float countdownFinalStrongTwo;  // how long wait before starting spawning waves
     int waveOverFinalStrongTwo;
+    #endregion
 
-
+    #region WaveFinalP5
     [Header("final enemy")]
     public Transform enemyPrefabFinal;
     // public Transform spawnPointFinal;
@@ -205,31 +221,26 @@ public class WaveSpawner : MonoBehaviour
     public float countdownFinal;  // how long wait before starting spawning waves
     // public float countdownFinalToSpawn = 10f; // when to spawn final enemy
     int waveOverFinal;
+    #endregion
 
     bool TimeToSpawnStrongEnemies;
 
+    // //TODO figure out what Ill whanteed to explain
+    // public WaveBuilderBasic[] waves = [
+    //     new Wave
+    // ]
 
     // for enemy you need (dont forget)
     // set waveOver in start
     // in spawn wave -- waveOver
 
 
-
+    [HideInInspector]
     [Header("DO NOT TOUCH (courutine that i stop in another code (EnemyMovement.cs))")]
     public Coroutine bashOnDoorHard;
-    // [Header("Final Enemy (need to)")]
-    // public GameObject finalEnemyObject;
 
-    // this strings are responsible for choosing what phase is right now
-    // in (interactable.cs) we reassign phaseString and it changes here
     [Header("phase strings")]
     public PhaseStage currStage;
-
-
-    // private float countdown = 2f; // wait time before first wave
-    // private float countdownOne = 2f;
-
-
 
     Vector3 randomVec;
     float x, y, z;
@@ -292,14 +303,26 @@ public class WaveSpawner : MonoBehaviour
     WaveBuilder waveTwoPhaseFinalSimple = new WaveBuilder();
     WaveBuilder waveOnePhaseFinalStrong = new WaveBuilder();
     WaveBuilder waveTwoPhaseFinalStrong = new WaveBuilder();
-    WaveBuilder finalEnemyPhaseFinal = new WaveBuilder();
+    [Header("Waves")]
+    public WaveBuilder finalEnemyPhaseFinal = new WaveBuilder();
 
+    // [SerializeField]
+    public int checkInt;
+    public WaveBuilderBasic[] waves = {
+        new WaveOneBuilder(),
+        new WaveTwoBuilder(),
+    };
+
+    public int[] checkIntArr;
+
+    WaveBuilderBasic currWave;
 
     void Start()
     {
         // UnityEngine.Debug.Log("started " + Time.time);
         // playerStats.ChangeLeverTime(6.35f);
-
+        // this.waves = waves; //TODO
+        #region toRemove
         waveZero.enemyPrefab = enemyPrefabZero;
         waveZero.amount = waveAmountZero;
         waveZero.spawnPoint = spawnPointZero;
@@ -412,34 +435,13 @@ public class WaveSpawner : MonoBehaviour
         finalEnemyPhaseFinal.timeBetween = timeBetweenFinal;
         finalEnemyPhaseFinal.countdown = countdownFinal;
         finalEnemyPhaseFinal.over = waveSpawnTimesFinal;
-
+        #endregion
 
 
         x = Random.Range(-0.4f, 0.4f);
         y = 0;
         z = Random.Range(-0.4f, 0.4f);
         randomVec = new Vector3(x, y, z);
-
-        // check how many times to spawn wave
-
-        // waveOverZero = waveSpawnTimesZero;
-        // waveOverOne = waveSpawnTimesOne;
-
-        // waveOverSecondOne = waveSpawnTimesSecondOne;
-        // waveOverSecondTwo = waveSpawnTimesSecondTwo;
-
-        // waveOverThirdOne = waveSpawnTimesThirdOne;
-        // waveOverThirdTwo = waveSpawnTimesThirdTwo;
-
-        // waveOverFourthOne = waveSpawnTimesFourthOne;
-        // waveOverFourthTwo = waveSpawnTimesFourthTwo;
-
-        // waveOverFinal = waveSpawnTimesFinal;
-        // waveOverFinalSimpleOne = waveSpawnTimesFinalSimpleOne;
-        // waveOverFinalSimpleTwo = waveSpawnTimesFinalSimpleTwo;
-
-        // waveOverFinalStrongOne = waveSpawnTimesFinalStrongOne;
-        // waveOverFinalStrongTwo = waveSpawnTimesFinalStrongTwo;
 
         // by MrILL
         // isPhaseEnd = false; // may be removed, 'cause declared false as default
@@ -510,6 +512,19 @@ public class WaveSpawner : MonoBehaviour
         playerStats.startTimer = true;
         phaseIsOn = true;
 
+        // In future
+        // if (!currWave) {
+        //     //TODO start first wave
+        // } else {
+        //     currWave = nextWave()
+
+        //     //TODO
+        //     // WaveBuilderBasic nextWave() {
+        //     //     waveI++;
+        //     //     return waves[waveI];
+        //     // }
+        // }
+
         door.keepBashing = false;
 
         if (currStage != PhaseStage.BeforeStart)
@@ -519,6 +534,7 @@ public class WaveSpawner : MonoBehaviour
 
         AudioManager.instance.StartPCWorkingSFX();
 
+        currWave.onStartPhase();
         switch (currStage)
         {
             case PhaseStage.BeforeStart:
@@ -771,19 +787,19 @@ public class WaveSpawner : MonoBehaviour
         Transform spawnPoint = waveObject.spawnPoint;
         int respawnTimes = waveObject.respawnTimes;
         float timeBetween = waveObject.timeBetween;
-        int over = waveObject.over;
+        int timesToSpawn = waveObject.over;
 
         UnityEngine.Debug.Log("Beginning countdown " + countdown);
-        UnityEngine.Debug.Log("Beginning over  " + over);
+        UnityEngine.Debug.Log("Beginning over  " + timesToSpawn);
 
         yield return new WaitForSeconds(countdown);
 
-        while (over > 0)
+        while (timesToSpawn > 0)
         {
-            UnityEngine.Debug.Log(" spawned wave.  over = " + over);
+            UnityEngine.Debug.Log(" spawned wave.  over = " + timesToSpawn);
             UnityEngine.Debug.Log(" spawned wave.  amount = " + amount);
             StartCoroutine(SpawnWave(enemyPrefab, amount, 1));
-            over -= 1;
+            timesToSpawn -= 1;
             yield return new WaitForSeconds(timeBetween);
         }
 
@@ -794,6 +810,8 @@ public class WaveSpawner : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //TODO
+        currWave.onUpdate();
 
         if (!phaseIsOn)
         {
@@ -804,6 +822,7 @@ public class WaveSpawner : MonoBehaviour
         float phaseDuration = Time.time - phaseStartTime;
         // && phaseString != phaseStringFinal
         // if (phaseDuration >= getDuration(currStage) && phaseStringTmp != phaseStringFinalEnd)
+        // TODO currStage.duration
         if (phaseDuration >= getDuration(currStage) && !isPhaseEnd)
         {
             StopPhase();
@@ -872,13 +891,14 @@ public class WaveSpawner : MonoBehaviour
     // waveNumber - choose what wave to spawn
     IEnumerator SpawnWave(Transform enemyPrefabToSpawn, int waveAmountToSpawn, int waveNumber)
     {
+        //TODO
+        // curWave.onSpawnWave() 
 
         // this section is for stoping all processes, when we need
         if (!phaseIsOn)
         {
             yield return null;
         }
-
 
         for (int i = 0; i < waveAmountToSpawn; i++)
         {
@@ -890,75 +910,13 @@ public class WaveSpawner : MonoBehaviour
 
         }
 
-        //  check how many times we spawned wave
-        // it works only when you have one wave to spawn
-        //TODO move to switch-case
-        // if (currStage == PhaseStage.FirstPartOne)
-        // {
-        //     waveOverZero--;
-
-        // }
-        // else if (currStage == PhaseStage.FirstPartTwo)
-        // {
-        //     waveOverOne--;
-
-        // }
-        // else if (currStage == PhaseStage.Second && waveNumber == 10)
-        // {
-        //     waveOverSecondOne--;
-
-        // }
-        // else if (currStage == PhaseStage.Second && waveNumber == 11)
-        // {
-        //     waveOverSecondTwo--;
-
-        // }
-        // else if (currStage == PhaseStage.Third && waveNumber == 12)
-        // {
-        //     waveOverThirdOne--;
-
-        // }
-        // else if (currStage == PhaseStage.Third && waveNumber == 13)
-        // {
-        //     waveOverThirdTwo--;
-
-        // }
-        // else if (currStage == PhaseStage.Fourth && waveNumber == 14)
-        // {
-        //     waveOverFourthOne--;
-
-        // }
-        // else if (currStage == PhaseStage.Fourth && waveNumber == 15)
-        // {
-        //     waveOverFourthTwo--;
-
-        // }
-        // else if (currStage == PhaseStage.Final && waveNumber == 5)
-        // {
-        //     waveOverFinal--;
-        // }
-        // else if (currStage == PhaseStage.Final && waveNumber == 6)
-        // {
-        //     waveOverFinalSimpleOne--;
-        // }
-        // else if (currStage == PhaseStage.Final && waveNumber == 7)
-        // {
-        //     waveOverFinalSimpleTwo--;
-        // }
-        // else if (currStage == PhaseStage.Final && waveNumber == 8)
-        // {
-        //     waveOverFinalStrongOne--;
-        // }
-        // else if (currStage == PhaseStage.Final && waveNumber == 9)
-        // {
-        //     waveOverFinalStrongTwo--;
-        // }
-
     }
 
     //  а зачем waveNmber?????
     void SpawnEnemy(Transform enemy, int waveNumber)
     {
+        //TODO
+        // currWave.onEnemySpawn()
 
         // this section is for stoping all processes, when we need
         if (!phaseIsOn)
@@ -968,16 +926,12 @@ public class WaveSpawner : MonoBehaviour
         // if it is final enemy spawn him in exact position
         if (waveNumber == 5)
         {
-
-
             x = 0;
             y = 0;
             z = 0;
             randomVec = new Vector3(x, y, z);
             // UnityEngine.Debug.Log("spawned an enemy. time = " + Time.time + "   randomVec =  " + randomVec);
             Instantiate(enemy, spawnPointOne.position + randomVec, spawnPointOne.rotation);
-
-
         }
         else
         {

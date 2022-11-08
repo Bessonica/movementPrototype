@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 
 
 
-
+[System.Serializable]
 public class WaveBuilder
 {
     public int amount;
@@ -36,6 +37,69 @@ public class WaveBuilder
         this.over = over;
     }
 
+}
+
+[System.Serializable]
+public abstract class WaveBuilderBasic : MonoBehaviour
+{
+    public int amount;
+    public Transform enemyPrefab;
+    public Transform spawnPoint;
+    public int respawnTimes;
+    public float timeBetween;
+
+    public float countdown;
+    public int over;
+
+    public virtual void onStartPhase() { }
+    public virtual void onStopPhase() { }
+    public virtual void onUpdate() { }
+    public virtual void onEnemySpawn() { }
+    public virtual void onWaveEnd() { }
+}
+
+public class WaveOneBuilder : WaveBuilderBasic
+{
+    public override void onStartPhase()
+    {
+
+        //TODO custom logic on wave 1
+    }
+    public override void onStopPhase()
+    {
+        //TODO custom logic on wave 1
+    }
+    public override void onUpdate()
+    {
+        //TODO custom logic on wave 1
+    }
+    public override void onEnemySpawn()
+    {
+        //TODO custom logic on wave 1
+    }
+    // public override void onWaveEnd(Contex ctx) {
+    //     ctx.currStage = Stage::Two;
+    // }
+}
+
+public class WaveTwoBuilder : WaveBuilderBasic
+{
+    public override void onStartPhase()
+    {
+        //TODO custom logic on wave 2
+    }
+    public override void onStopPhase()
+    {
+        //TODO custom logic on wave 2
+    }
+    public override void onUpdate()
+    {
+        //TODO custom logic on wave 2
+    }
+    public override void onEnemySpawn()
+    {
+        //TODO custom logic on wave 2
+    }
 }
 
 
