@@ -5,10 +5,11 @@ using UnityEngine;
 
 
 
-
-[System.Serializable]
-public class WaveBuilder
+// added MonoBehaviour
+[Serializable]
+public class WaveBuilder : MonoBehaviour
 {
+    [Header("wave object data")]
     public int amount;
     public Transform enemyPrefab;
     public Transform spawnPoint;
@@ -37,10 +38,32 @@ public class WaveBuilder
         this.over = over;
     }
 
+    //TODO
+    // void AssignValues(
+    //     int amount,
+    //     Transform enemyPrefab,
+    //     Transform spawnPoint,
+    //     int respawnTimes,
+    //     float timeBetween,
+    //     float countdown,
+    //     int over
+    // )
+    // {
+    //     this.amount = amount;
+    //     this.enemyPrefab = enemyPrefab;
+    //     this.spawnPoint = spawnPoint;
+    //     this.respawnTimes = respawnTimes;
+    //     this.timeBetween = timeBetween;
+    //     this.countdown = countdown;
+    //     this.over = over;
+    // }
+
 }
 
-[System.Serializable]
-public abstract class WaveBuilderBasic : MonoBehaviour
+[Serializable]
+[CreateAssetMenu(fileName = "new WaveBuilderBasic", menuName = "WaveBuilderBasic")]
+public abstract class WaveBuilderBasic : ScriptableObject
+// public abstract class WaveBuilderBasic : MonoBehaviour
 {
     public int amount;
     public Transform enemyPrefab;
@@ -53,15 +76,38 @@ public abstract class WaveBuilderBasic : MonoBehaviour
 
     public virtual void onStartPhase() { }
     public virtual void onStopPhase() { }
-    public virtual void onUpdate() { }
+    public virtual void onUpdate()
+    {
+        UnityEngine.Debug.Log(" Hey i m basic ");
+    }
     public virtual void onEnemySpawn() { }
     public virtual void onWaveEnd() { }
 }
 
+//WaveOneBuilder / .....
+[CreateAssetMenu(fileName = "new WaveOneBuilder", menuName = "WaveOneBuilder")]
 public class WaveOneBuilder : WaveBuilderBasic
 {
     public override void onStartPhase()
     {
+        // playerStats.ChangeTimerLimit(20f);
+
+        // // start phaseZero 
+        // UnityEngine.Debug.Log("STARTED FIRST PHASE PART ONE");
+
+        // //SignalSentObject
+        // SignalSentObject.SetActive(true);
+
+        // // StartCoroutine(door.BashOnDoor(DoorObject));
+
+        // //   sound
+        // //    dont forget about sound that pc beeps when wave is spawned
+        // AudioManager.instance.StartGeneratorSFX();
+        // AudioManager.instance.StartWaveDetectedSFX(5f);
+        // AudioManager.instance.StartWaveDetectedSFX(8f);
+
+
+        // LampManager.instance.ChangeColorRedAllLamps();
 
         //TODO custom logic on wave 1
     }
@@ -72,6 +118,7 @@ public class WaveOneBuilder : WaveBuilderBasic
     public override void onUpdate()
     {
         //TODO custom logic on wave 1
+        UnityEngine.Debug.Log(" Hey i wave One! ");
     }
     public override void onEnemySpawn()
     {
@@ -82,6 +129,7 @@ public class WaveOneBuilder : WaveBuilderBasic
     // }
 }
 
+[CreateAssetMenu(fileName = "new WaveTwoBuilder", menuName = "WaveTwoBuilder")]
 public class WaveTwoBuilder : WaveBuilderBasic
 {
     public override void onStartPhase()
@@ -101,6 +149,8 @@ public class WaveTwoBuilder : WaveBuilderBasic
         //TODO custom logic on wave 2
     }
 }
+
+
 
 
 

@@ -29,20 +29,20 @@ public class Interactable : MonoBehaviour
     public bool isLever;
     public bool isLeverOn = true;
 
-//  track is pc should be accessible
+    //  track is pc should be accessible
     [Header("isThisPC")]
-    public bool isPC; 
+    public bool isPC;
     public bool isPCon;
-    
+
     [Header("isThisLetter")]
-    public bool isLetter; 
+    public bool isLetter;
     public GameObject LetterCanvasObject;
-    
-    
+
+
     [Header("DO NOT TOUCH")]
     public float phaseStartTime;
 
-  
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,18 +55,18 @@ public class Interactable : MonoBehaviour
     public void StartWave(GameObject gameMaster)
     {
         // мужду 0 и 1 фазой рычаг должен быть выключен, но он работает
-        if(isLeverOn)
+        if (isLeverOn)
         {
             waveSpawner = gameMaster.GetComponent<WaveSpawner>();
             waveSpawner.StartPhase();
         }
 
     }
-    
-    
+
+
     public void ShowLetter()
     {
-        Cursor.visible = true; 
+        Cursor.visible = true;
         LetterCanvasObject.SetActive(true);
         // UnityEngine.Debug.Log(" isLetter = ");
         AudioManager.instance.OpenLetterOneTimeSFX();
@@ -85,7 +85,7 @@ public class Interactable : MonoBehaviour
 
     public void HideLetter()
     {
-        Cursor.visible = false; 
+        Cursor.visible = false;
         LetterCanvasObject.SetActive(false);
         UnityEngine.Debug.Log(" isLetter = ");
 
@@ -105,11 +105,11 @@ public class Interactable : MonoBehaviour
     public void ChangeCamera()
     {
 
-        if(isPCon)
+        if (isPCon)
         {
 
             playerStats = gameMaster.GetComponent<PlayerStats>();
-            
+
             AudioManager.instance.SetStepVolume(-80f);
             //take movement away from player
             playerObjectInteract = playerStats.playerObject;
@@ -118,30 +118,30 @@ public class Interactable : MonoBehaviour
             mouseLook.enabled = false;
             inputManager.enabled = false;
 
-            Cursor.visible = true; 
+            Cursor.visible = true;
 
 
             //changing camera and ui
             playerStats.playerCamera.enabled = false;
             playerStats.playerCanvas.SetActive(false);
-            
-            
+
+
             playerStats.towerDefCanvas.SetActive(true);
             playerStats.tdCamera.enabled = true;
 
         }
 
-        
+
 
     }
 
     public void ChangeCameraToFirstPerson()
     {
-        if(isPCon)
+        if (isPCon)
         {
             playerStats = gameMaster.GetComponent<PlayerStats>();
             playerObjectInteract = playerStats.playerObject;
-            
+
             mouseLook = playerObjectInteract.GetComponent<MouseLook>();
             inputManager = playerObjectInteract.GetComponent<InputManager>();
 
@@ -151,15 +151,15 @@ public class Interactable : MonoBehaviour
 
             playerStats.playerCamera.enabled = true;
             playerStats.playerCanvas.SetActive(true);
-            
-            Cursor.visible = false; 
+
+            Cursor.visible = false;
 
             AudioManager.instance.SetStepVolume(-5.72f);
             //give movement to player
             mouseLook.enabled = true;
             inputManager.enabled = true;
 
-            
+
         }
 
     }
@@ -179,7 +179,7 @@ public class Interactable : MonoBehaviour
         interactablePC = this.GetComponent<Interactable>();
         // UnityEngine.Debug.Log("tdCamera.enabled = " + playerStats.tdCamera.enabled);
 
-        if(playerStats.tdCamera.enabled)
+        if (playerStats.tdCamera.enabled)
         {
             interactablePC.ChangeCameraToFirstPerson();
         }
@@ -191,6 +191,8 @@ public class Interactable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
+
+

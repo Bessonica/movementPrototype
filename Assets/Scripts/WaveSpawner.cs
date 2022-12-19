@@ -26,6 +26,9 @@ public class WaveSpawner : MonoBehaviour
 
     public bool isPhaseEnd = false;
 
+    //TODO scriptableObjects
+
+
     //TODO remove
     [Header("Duration of phases")]
     public float phaseZeroDuration;
@@ -288,7 +291,9 @@ public class WaveSpawner : MonoBehaviour
 
     //WaveBuilder  = new WaveBuilder();
     WaveBuilder waveZero = new WaveBuilder();
+    // WaveOneBuilder waveZero = new WaveOneBuilder();
     WaveBuilder waveOne = new WaveBuilder();
+    // WaveTwoBuilder waveOne = new WaveTwoBuilder();
 
     WaveBuilder waveOnePhase2 = new WaveBuilder();
     WaveBuilder waveTwoPhase2 = new WaveBuilder();
@@ -304,21 +309,70 @@ public class WaveSpawner : MonoBehaviour
     WaveBuilder waveOnePhaseFinalStrong = new WaveBuilder();
     WaveBuilder waveTwoPhaseFinalStrong = new WaveBuilder();
     [Header("Waves")]
-    public WaveBuilder finalEnemyPhaseFinal = new WaveBuilder();
+    WaveBuilder finalEnemyPhaseFinal = new WaveBuilder();
+
+    // finalEnemyPhaseFinal.enemyPrefab = enemyPrefabFinal;
+    // finalEnemyPhaseFinal.amount = waveAmountFinal;
+    // finalEnemyPhaseFinal.spawnPoint = spawnPointOne;
+    // finalEnemyPhaseFinal.respawnTimes = waveSpawnTimesFinal;
+    // finalEnemyPhaseFinal.timeBetween = timeBetweenFinal;
+    // finalEnemyPhaseFinal.countdown = countdownFinal;
+    // finalEnemyPhaseFinal.over = waveSpawnTimesFinal;
 
     // [SerializeField]
     public int checkInt;
+    // public WaveBuilderBasic[] waves = {
+    //     new WaveOneBuilder(),
+    //     new WaveTwoBuilder(),
+    // };
+
+    // TODO by mrill
     public WaveBuilderBasic[] waves = {
-        new WaveOneBuilder(),
-        new WaveTwoBuilder(),
+       // new WaveOneBuilder()
+        // new WaveTwoBuilder(),
+        // and so on
     };
+
+    ///
+    [Header("Waves test (new Test) ")]
+    public WaveBuilderTest[] wavesTest = {
+       // new WaveOneBuilder()
+        // new WaveTwoBuilder(),
+        // and so on
+    };
+    // public WaveOneBuilderTest[] wavesTestOne = {
+    //    // new WaveOneBuilder()
+    //     // new WaveTwoBuilder(),
+    //     // and so on
+    // };
+
+    ///
+
+    [Header("Waves object Builder (mine old)")]
+    public WaveObjectBuilder[] waveScriptObject = {
+
+    };
+
+    //WaveBuiler and WaveBuilderBasic are different classes //
+    public List<WaveBuilder> testWaves = new List<WaveBuilder>();
+
+    // new List<Room>();
 
     public int[] checkIntArr;
 
     WaveBuilderBasic currWave;
 
+    void Awake()
+    {
+        testWaves.Add(finalEnemyPhaseFinal);
+
+
+
+    }
+
     void Start()
     {
+
         // UnityEngine.Debug.Log("started " + Time.time);
         // playerStats.ChangeLeverTime(6.35f);
         // this.waves = waves; //TODO
@@ -437,6 +491,7 @@ public class WaveSpawner : MonoBehaviour
         finalEnemyPhaseFinal.over = waveSpawnTimesFinal;
         #endregion
 
+        waveScriptObject[0].onUpdate();
 
         x = Random.Range(-0.4f, 0.4f);
         y = 0;
@@ -534,7 +589,7 @@ public class WaveSpawner : MonoBehaviour
 
         AudioManager.instance.StartPCWorkingSFX();
 
-        currWave.onStartPhase();
+        // currWave.onStartPhase();
         switch (currStage)
         {
             case PhaseStage.BeforeStart:
@@ -811,7 +866,7 @@ public class WaveSpawner : MonoBehaviour
     private void Update()
     {
         //TODO
-        currWave.onUpdate();
+        // currWave.onUpdate();
 
         if (!phaseIsOn)
         {
@@ -916,7 +971,7 @@ public class WaveSpawner : MonoBehaviour
     void SpawnEnemy(Transform enemy, int waveNumber)
     {
         //TODO
-        // currWave.onEnemySpawn()
+        // 36.onEnemySpawn()
 
         // this section is for stoping all processes, when we need
         if (!phaseIsOn)
