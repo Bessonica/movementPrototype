@@ -2,6 +2,12 @@
 
 if you are interested in trying prototype, here is the link: https://yopizzahere.itch.io/horror-prototype
 
+```
+Created in collaboration with MrIll (code refactor)
+https://github.com/MrILL
+```
+###### just based guy
+
 <br />
 
 Player can:
