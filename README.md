@@ -46,7 +46,7 @@ file - EnemyMovement.cs
 ![alt text](https://github.com/Bessonica/movementPrototype/blob/master/Assets/Screenshots/gamePhoto08.png "Game intro screenshot")
 
 ### Level
-![alt text](https://github.com/Bessonica/movementPrototype/blob/master/Assets/Screenshots/photoGame02.png "level screenshot")
+![alt text](https://github.com/Bessonica/movementPrototype/blob/master/Assets/Screenshots/gamePhoto02.png "level screenshot")
 
 ### Waypoints
 ![alt text](https://github.com/Bessonica/movementPrototype/blob/master/Assets/Screenshots/gamePhoto05.png "WayPoints screenshot")
